@@ -7,7 +7,9 @@
 
 import Foundation
 
-public enum W3WTheme {
+
+/// the colour mode, for example: "light mode", and "dark mode"
+public enum W3WColorMode {
   case light
   case dark
 }

@@ -11,11 +11,11 @@ import UIKit
 public struct W3WColor {
   
   /// the collection of related colours
-  let colors: [W3WTheme: W3WCoreColor]  
+  let colors: [W3WColorMode: W3WCoreColor]  
   
   
   /// initialize with a dictionary of colour mode and related color
-  public init(colors: [W3WTheme: W3WCoreColor]) {
+  public init(colors: [W3WColorMode: W3WCoreColor]) {
     self.colors = colors
   }
   
@@ -80,7 +80,7 @@ public struct W3WColor {
   /// that then return for light mode, then dark mode
   /// then try anything available, then if nothing found
   /// yet, return black or white
-  public subscript(theme: W3WTheme) -> W3WCoreColor {
+  public subscript(theme: W3WColorMode) -> W3WCoreColor {
     if let colour = colors[theme] {
       return colour
     } else if let colour = colors[.light] {
@@ -100,15 +100,15 @@ public struct W3WColor {
   
   
   /// automatically detect the current colour mode
-  static var theme: W3WTheme {
+  static var theme: W3WColorMode {
 #if os(iOS)
     if #available(iOS 12, *) {
-      return UIScreen.main.traitCollection.userInterfaceStyle == .light ? W3WTheme.light : W3WTheme.dark
+      return UIScreen.main.traitCollection.userInterfaceStyle == .light ? W3WColorMode.light : W3WColorMode.dark
     } else {
-      return W3WTheme.light
+      return W3WColorMode.light
     }
 #elseif os(watchOS)
-    return  W3WTheme.dark
+    return  W3WColorMode.dark
 #else
     return W3WTheme.light
 #endif
