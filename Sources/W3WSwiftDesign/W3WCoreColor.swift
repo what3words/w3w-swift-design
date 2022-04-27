@@ -98,7 +98,7 @@ public struct W3WCoreColor {
 #endif
 
 #if canImport(SwiftUI)
-  @available(iOS 14.0, watchOS 6.0, *)
+  @available(iOS 14.0, watchOS 7.0, *)
 
   /// init from a SwiftUI Color
   public init(suColor: Color) {
