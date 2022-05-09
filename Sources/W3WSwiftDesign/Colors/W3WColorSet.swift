@@ -7,6 +7,13 @@
 
 import Foundation
 
+#if canImport(UIKit)
+import UIKit
+#endif
+
+#if canImport(AppKit)
+import AppKit
+#endif
 
 
 public struct W3WColorSet {
@@ -22,6 +29,23 @@ public struct W3WColorSet {
     self.secondary = secondary
   }
   
+#if canImport(AppKit)
+  public init(nsForeground: NSColor, nsBackground: NSColor, nsHighlight: NSColor, nsSecondary: NSColor) {
+    self.foreground = W3WColor(nsColor: nsForeground)
+    self.background = W3WColor(nsColor: nsBackground)
+    self.highlight  = W3WColor(nsColor: nsHighlight)
+    self.secondary  = W3WColor(nsColor: nsSecondary)
+  }
+#endif
+  
+#if canImport(UIKit)
+  public init(uiForeground: UIColor, uiBackground: UIColor, uiHighlight: UIColor, uiSecondary: UIColor) {
+    self.foreground = W3WColor(uiColor: uiForeground)
+    self.background = W3WColor(uiColor: uiBackground)
+    self.highlight  = W3WColor(uiColor: uiHighlight)
+    self.secondary  = W3WColor(uiColor: uiSecondary)
+  }
+#endif
   
   public func with(foreground: W3WColor) -> W3WColorSet {
     return W3WColorSet(foreground: foreground, background: background, highlight: highlight, secondary: secondary)

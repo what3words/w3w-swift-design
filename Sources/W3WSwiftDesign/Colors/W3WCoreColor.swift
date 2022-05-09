@@ -7,7 +7,7 @@
 //  This is core of the colour system of W3W Swift colours for the
 //  components libraries.  A programatic approach was chosen instead
 //  of using .xcassets color settings as most of the code is
-//  delivered as Swift Packages, and as of this writting there isn't
+//  delivered as Swift Packages, and as of this writing there isn't
 //  a way for a developer to change an .xcasset file in a downloaded
 //  and installed Swift Package. Further referencing .xcasset files
 //  in developers' code would require strict naming conventions, and
@@ -23,7 +23,9 @@ import SwiftUI
 
 #if !os(macOS)
 import UIKit
-#else
+#endif
+
+#if canImport(AppKit)
 import AppKit
 #endif
 
@@ -71,7 +73,7 @@ public struct W3WCoreColor {
     self.alpha = alpha
   }
   
-#if os(macOS)
+#if canImport(AppKit)
   /// init from an NSColor
   public init(nsColor: NSColor) {
     if let (red, green, blue, alpha) = W3WCoreColor.toRGB(cgColor: nsColor.cgColor) {
@@ -83,7 +85,9 @@ public struct W3WCoreColor {
       self = .black
     }
   }
-#else
+#endif
+
+#if canImport(UIKit)
   /// init from a UIColor
   public init(uiColor: UIColor) {
     if let (red, green, blue, alpha) = W3WCoreColor.toRGB(uiColor: uiColor) {
@@ -98,7 +102,7 @@ public struct W3WCoreColor {
 #endif
 
 #if canImport(SwiftUI)
-  @available(iOS 14.0, watchOS 7.0, *)
+  @available(iOS 14.0, watchOS 7.0, macOS 11, *)
 
   /// init from a SwiftUI Color
   public init(suColor: Color) {
@@ -132,10 +136,12 @@ public struct W3WCoreColor {
   }
   
 
+#if canImport(UIKit)
   /// get the colour components from a UIColor
   static func toRGB(uiColor: UIColor) -> (CGFloat, CGFloat, CGFloat, CGFloat)? {
     return toRGB(cgColor: uiColor.cgColor)
   }
+#endif
   
   
   /// get the colour components from a CGColor
@@ -179,7 +185,7 @@ public struct W3WCoreColor {
   
   
 #if canImport(SwiftUI)
-  @available(iOS 13.0, watchOS 6.0, *)
+  @available(iOS 13.0, watchOS 6.0, macOS 11, *)
   /// returns a SwiftUI Color color
   public var suColor: Color { get { return Color(red: red, green: green, blue: blue).opacity(alpha) } }
 #endif

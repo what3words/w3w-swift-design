@@ -7,7 +7,7 @@
 
 import Foundation
 
-#if canImport(SwiftUI)
+#if canImport(UIKit)
 import UIKit
 
 extension UIColor {

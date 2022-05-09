@@ -4,7 +4,13 @@
 //
 //  Created by Dave Duprey on 07/04/2022.
 //
+#if canImport(UIKit)
 import UIKit
+#endif
+
+#if canImport(AppKit)
+import AppKit
+#endif
 
 
 /// stores a color for each colour mode, such as "light mode" and "dark mode"
@@ -32,7 +38,7 @@ public struct W3WColor {
   }
 
   
-#if os(macOS)
+#if canImport(AppKit)
   /// init using an NSColor
   public init(nsColor: NSColor) {
     colors = [.light:W3WCoreColor(nsColor: nsColor), .dark: W3WCoreColor(nsColor: nsColor)]
@@ -43,7 +49,9 @@ public struct W3WColor {
   public init(nsColor: NSColor, dark: NSColor) {
     colors = [.light:W3WCoreColor(nsColor: nsColor), .dark: W3WCoreColor(nsColor: dark)]
   }
-#else
+#endif
+
+#if canImport(UIKit)
   /// init using a UIColor
   public init(uiColor: UIColor) {
     colors = [.light:W3WCoreColor(uiColor: uiColor), .dark: W3WCoreColor(uiColor: uiColor)]
@@ -119,7 +127,7 @@ public struct W3WColor {
 #elseif os(watchOS)
     return  W3WColorMode.dark
 #else
-    return W3WTheme.light
+    return W3WColorMode.light
 #endif
     }
   }
