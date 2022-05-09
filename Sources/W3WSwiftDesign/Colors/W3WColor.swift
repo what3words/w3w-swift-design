@@ -99,8 +99,17 @@ public struct W3WColor {
   }
   
   
+  static var colorModeOverride: W3WColorMode? = nil
+  
+  static public func set(mode: W3WColorMode?) {
+    colorModeOverride = mode
+  }
+  
   /// automatically detect the current colour mode
   static var theme: W3WColorMode {
+    if let colorOverride = colorModeOverride {
+      return colorOverride
+    } else {
 #if os(iOS)
     if #available(iOS 12, *) {
       return UIScreen.main.traitCollection.userInterfaceStyle == .light ? W3WColorMode.light : W3WColorMode.dark
@@ -112,11 +121,26 @@ public struct W3WColor {
 #else
     return W3WTheme.light
 #endif
+    }
   }
 
   
   // MARK: what3words colours
   
+  // basic
+  static public let text                      = W3WColor(light: .black, dark: .white)
+  static public let clear                     = W3WColor(all: .clear)
+  
+  // brand
+  static public let red                       = W3WColor(all: .red)
+  static public let white                     = W3WColor(all: .white)
+  
+  static public let offDarkGrey               = W3WColor(all: .offDarkGrey)
+  
+  // custom
+  
+  static public let secondaryGray             = W3WColor(all: .offLightGrey)
+
   // cta = Call To Action
   static public let ctaText                   = W3WColor(light: .white,      dark: .white)
   

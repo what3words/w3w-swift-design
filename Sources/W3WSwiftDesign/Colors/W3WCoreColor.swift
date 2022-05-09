@@ -234,6 +234,7 @@ public struct W3WCoreColor {
   
   // off greys
   static public let offGrey       = W3WCoreColor(hex: 0xF2F4F5)
+  static public let offLightGrey  = W3WCoreColor(hex: 0xB5B5B5)
   static public let offMidGrey    = W3WCoreColor(hex: 0x525E66)
   static public let offDarkGrey   = W3WCoreColor(hex: 0x31383D)
 
