@@ -21,7 +21,7 @@ import SwiftUI
 #endif
 
 
-#if !os(macOS)
+#if canImport(UIKit)
 import UIKit
 #endif
 
@@ -73,7 +73,7 @@ public struct W3WCoreColor {
     self.alpha = alpha
   }
   
-#if canImport(AppKit)
+#if os(macOS)
   /// init from an NSColor
   public init(nsColor: NSColor) {
     if let (red, green, blue, alpha) = W3WCoreColor.toRGB(cgColor: nsColor.cgColor) {
@@ -101,7 +101,7 @@ public struct W3WCoreColor {
   }
 #endif
 
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !os(iOS)
   @available(iOS 14.0, watchOS 7.0, macOS 11, *)
 
   /// init from a SwiftUI Color
@@ -184,7 +184,8 @@ public struct W3WCoreColor {
 #endif
   
   
-#if canImport(SwiftUI)
+//#if canImport(SwiftUI)
+#if os(watchOS)
   @available(iOS 13.0, watchOS 6.0, macOS 11, *)
   /// returns a SwiftUI Color color
   public var suColor: Color { get { return Color(red: red, green: green, blue: blue).opacity(alpha) } }

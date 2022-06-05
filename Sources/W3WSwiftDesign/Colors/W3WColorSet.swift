@@ -16,6 +16,14 @@ import AppKit
 #endif
 
 
+public enum W3WColorSetNames {
+  case foreground
+  case secondary
+  case background
+  case highlight
+}
+
+
 public struct W3WColorSet {
   public var foreground: W3WColor
   public var background: W3WColor
@@ -29,7 +37,22 @@ public struct W3WColorSet {
     self.secondary = secondary
   }
   
-#if canImport(AppKit)
+  
+  public subscript(index: W3WColorSetNames) -> W3WColor {
+    switch index {
+      case .foreground:
+        return foreground
+      case .secondary:
+        return secondary
+      case .background:
+        return background
+      case .highlight:
+        return highlight
+    }
+  }
+  
+  
+#if os(macOS)
   public init(nsForeground: NSColor, nsBackground: NSColor, nsHighlight: NSColor, nsSecondary: NSColor) {
     self.foreground = W3WColor(nsColor: nsForeground)
     self.background = W3WColor(nsColor: nsBackground)
@@ -64,7 +87,9 @@ public struct W3WColorSet {
   }
   
 
-  static public let whiteGrayRed = W3WColorSet(foreground: .white, background: .offDarkGrey, highlight: .red, secondary: .secondaryGray)
+  static public let whiteGrayRed  = W3WColorSet(foreground: .white, background: .offDarkGrey, highlight: .red,   secondary: .secondaryGray)
+  static public let blackGrayRed  = W3WColorSet(foreground: .black, background: .white,       highlight: .red,   secondary: .secondaryDarkGray)
+  static public let lightDarkMode = W3WColorSet(foreground: .text,  background: .background,  highlight: .red,   secondary: .secondaryDarkGray)
 
 }
 

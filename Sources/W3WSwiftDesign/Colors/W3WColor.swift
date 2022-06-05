@@ -38,7 +38,7 @@ public struct W3WColor {
   }
 
   
-#if canImport(AppKit)
+#if os(macOS)
   /// init using an NSColor
   public init(nsColor: NSColor) {
     colors = [.light:W3WCoreColor(nsColor: nsColor), .dark: W3WCoreColor(nsColor: nsColor)]
@@ -136,18 +136,28 @@ public struct W3WColor {
   // MARK: what3words colours
   
   // basic
-  static public let text                      = W3WColor(light: .black, dark: .white)
   static public let clear                     = W3WColor(all: .clear)
+  static public let white                     = W3WColor(all: .white)
+  static public let black                     = W3WColor(all: .black)
+
+  // semantic
+  static public let text                      = W3WColor(light: .black, dark: .white)
+  static public let background                = W3WColor(light: .white, dark: .black)
   
   // brand
   static public let red                       = W3WColor(all: .red)
-  static public let white                     = W3WColor(all: .white)
   
   static public let offDarkGrey               = W3WColor(all: .offDarkGrey)
   
   // custom
   
   static public let secondaryGray             = W3WColor(all: .offLightGrey)
+  static public let secondaryDarkGray         = W3WColor(all: .grey32)
+  
+  // iOS System Colours, taken from https://sarunw.com/posts/dark-color-cheat-sheet/
+  
+  static public let iosSecondaryLabel         = W3WColor(light: W3WCoreColor(hex: 0x3C3C43, alpha: 0x99 / 0x100), dark: W3WCoreColor(hex: 0xEBEBF5, alpha: 0x99 / 0x100))
+  static public let iosTertiaryLabel          = W3WColor(light: W3WCoreColor(hex: 0x3C3C43, alpha: 0x4D / 0x100), dark: W3WCoreColor(hex: 0xEBEBF5, alpha: 0x99 / 0x100))
 
   // cta = Call To Action
   static public let ctaText                   = W3WColor(light: .white,      dark: .white)
@@ -189,5 +199,8 @@ public struct W3WColor {
   public static let overlayPressed            = W3WColor(light: .royalBlue.with(alpha: 0.16), dark: .black.with(alpha: 0.16))
   public static let overlayDisabled           = W3WColor(light: .grey50.with(alpha: 7),       dark: .grey50.with(alpha: 0.6))
 
+  // Label Colours
+  public static let labelColourLight          = W3WColor(all: W3WCoreColor(hex: 0x3C3C43, alpha: 0.6))
+  
 }
 

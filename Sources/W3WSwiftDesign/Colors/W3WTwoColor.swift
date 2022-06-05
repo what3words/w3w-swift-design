@@ -38,7 +38,7 @@ public struct W3WTwoColor {
   }
 #endif
 
-#if canImport(AppKit)
+#if os(macOS)
   public init(nsForeground: NSColor, nsBackground: NSColor) {
     self.foreground = W3WColor(nsColor: nsForeground)
     self.background = W3WColor(nsColor: nsBackground)
