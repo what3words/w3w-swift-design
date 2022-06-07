@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "w3w-swift-design",
+    platforms: [.iOS(.v9)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
       .library(name: "W3WSwiftDesign", targets: ["W3WSwiftDesign"]),

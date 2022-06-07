@@ -16,7 +16,7 @@
 
 import CoreGraphics
 
-#if canImport(SwiftUI) && !arch(arm)
+#if canImport(SwiftUI)
 import SwiftUI
 #endif
 
