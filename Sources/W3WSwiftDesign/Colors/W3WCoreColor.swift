@@ -16,7 +16,7 @@
 
 import CoreGraphics
 
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !arch(arm)
 import SwiftUI
 #endif
 
@@ -100,7 +100,7 @@ public struct W3WCoreColor {
   }
 #endif
 
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !arch(arm)
   @available(iOS 14.0, watchOS 7.0, macOS 11, tvOS 14, *)
 
   /// init from a SwiftUI Color
@@ -183,7 +183,7 @@ public struct W3WCoreColor {
 #endif
   
   
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && !arch(arm)
 //#if os(watchOS)
   @available(iOS 13.0, watchOS 6.0, macOS 11, tvOS 14, *)
   /// returns a SwiftUI Color color
