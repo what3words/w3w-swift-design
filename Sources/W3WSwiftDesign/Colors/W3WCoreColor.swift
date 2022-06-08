@@ -38,12 +38,14 @@ import AppKit
 /// There are constructors that take NScolor, UIColor, CGColor, and
 /// Color, and these objects can produce them as well with the cgColor,
 /// suColor, uiColor, and nsColor members.
+/// A bug in Xcode 13 meant the suColor: Color functions had to move
+/// to an extension in the w3w SwiftUI Interface Elements package
 public struct W3WCoreColor {
   
-  let red:   CGFloat
-  let green: CGFloat
-  let blue:  CGFloat
-  let alpha: CGFloat
+  public let red:   CGFloat
+  public let green: CGFloat
+  public let blue:  CGFloat
+  public let alpha: CGFloat
   
   
   /// init using red,green,blue, optionaly alpha
@@ -100,21 +102,33 @@ public struct W3WCoreColor {
   }
 #endif
 
-#if canImport(SwiftUI) && !arch(arm)
-  @available(iOS 14.0, watchOS 7.0, macOS 11, tvOS 14, *)
+  
+//#if canImport(SwiftUI) && canImport(Combine) && (arch(arm64) || arch(x86_64))
+//  @available(iOS 14.0, watchOS 6.0, macOS 11, tvOS 14, *)
+//
+//  /// init from a SwiftUI Color
+//  public init(suColor: Color) {
+//    if let cgColor = suColor.cgColor, let (red, green, blue, alpha) = W3WCoreColor.toRGB(cgColor: cgColor) {
+//      self.red   = red
+//      self.green = green
+//      self.blue  = blue
+//      self.alpha = alpha
+//    } else {
+//      self = .black
+//    }
+//  }
+//
+//  /// returns a SwiftUI Color color
+//  @available(iOS 13.0, watchOS 6.0, macOS 11, tvOS 14, *)
+//  public var suColor: Color { get { return Color(red: red, green: green, blue: blue).opacity(alpha) } }
+//
+//#endif
+  
+//#if canImport(SwiftUI) && canImport(Combine)
+//#endif
+  
+  
 
-  /// init from a SwiftUI Color
-  public init(suColor: Color) {
-    if let cgColor = suColor.cgColor, let (red, green, blue, alpha) = W3WCoreColor.toRGB(cgColor: cgColor) {
-      self.red   = red
-      self.green = green
-      self.blue  = blue
-      self.alpha = alpha
-    } else {
-      self = .black
-    }
-  }
-#endif
 
   /// init from a CGColor
   public init(cgColor: CGColor) {
@@ -144,7 +158,7 @@ public struct W3WCoreColor {
   
   
   /// get the colour components from a CGColor
-  static func toRGB(cgColor: CGColor) -> (CGFloat, CGFloat, CGFloat, CGFloat)? {
+  static public func toRGB(cgColor: CGColor) -> (CGFloat, CGFloat, CGFloat, CGFloat)? {
     guard let model = cgColor.colorSpace?.model else {
       return nil
     }
@@ -182,14 +196,6 @@ public struct W3WCoreColor {
   public var color:   NSColor { get { return nsColor } }
 #endif
   
-  
-#if canImport(SwiftUI) && !arch(arm)
-//#if os(watchOS)
-  @available(iOS 13.0, watchOS 6.0, macOS 11, tvOS 14, *)
-  /// returns a SwiftUI Color color
-  public var suColor: Color { get { return Color(red: red, green: green, blue: blue).opacity(alpha) } }
-#endif
-
   
   // MARK: what3words colours
   
