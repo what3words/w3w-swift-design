@@ -15,16 +15,21 @@ import CoreGraphics
 import AppKit
 #endif
 
+
+/// Holds a foreground and a background
 public struct W3WTwoColor {
   public var foreground: W3WColor
   public var background: W3WColor
   
+  
+  /// initialise with a foreground and background color
   public init(foreground: W3WColor, background: W3WColor) {
     self.foreground = foreground
     self.background = background
   }
   
 
+  /// initialise with a foreground and background CGColor
   public init(cgForeground: CGColor, cgBackground: CGColor) {
     self.foreground = W3WColor(cgColor: cgForeground)
     self.background = W3WColor(cgColor: cgBackground)

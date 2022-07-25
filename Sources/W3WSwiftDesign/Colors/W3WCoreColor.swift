@@ -38,17 +38,24 @@ import AppKit
 /// There are constructors that take NScolor, UIColor, CGColor, and
 /// Color, and these objects can produce them as well with the cgColor,
 /// suColor, uiColor, and nsColor members.
-/// A bug in Xcode 13 meant the suColor: Color functions had to move
+/// A bug in Xcode 13 meant the `suColor: Color` functions had to move
 /// to an extension in the w3w SwiftUI Interface Elements package
 public struct W3WCoreColor {
   
+  /// red component of the colour
   public let red:   CGFloat
+  
+  /// green component of the colour
   public let green: CGFloat
+  
+  /// blue component of the colour
   public let blue:  CGFloat
+  
+  /// alpha of the colour
   public let alpha: CGFloat
   
   
-  /// init using red,green,blue, optionaly alpha
+  /// init using red,green,blue, and optionaly alpha (values: zero -> one)
   public init(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1.0) {
     self.red = red
     self.green = green
@@ -74,6 +81,7 @@ public struct W3WCoreColor {
     self.alpha = alpha
   }
   
+  
 #if os(macOS)
   /// init from an NSColor
   public init(nsColor: NSColor) {
@@ -88,6 +96,7 @@ public struct W3WCoreColor {
   }
 #endif
 
+  
 #if canImport(UIKit)
   /// init from a UIColor
   public init(uiColor: UIColor) {
@@ -101,33 +110,6 @@ public struct W3WCoreColor {
     }
   }
 #endif
-
-  
-//#if canImport(SwiftUI) && canImport(Combine) && (arch(arm64) || arch(x86_64))
-//  @available(iOS 14.0, watchOS 6.0, macOS 11, tvOS 14, *)
-//
-//  /// init from a SwiftUI Color
-//  public init(suColor: Color) {
-//    if let cgColor = suColor.cgColor, let (red, green, blue, alpha) = W3WCoreColor.toRGB(cgColor: cgColor) {
-//      self.red   = red
-//      self.green = green
-//      self.blue  = blue
-//      self.alpha = alpha
-//    } else {
-//      self = .black
-//    }
-//  }
-//
-//  /// returns a SwiftUI Color color
-//  @available(iOS 13.0, watchOS 6.0, macOS 11, tvOS 14, *)
-//  public var suColor: Color { get { return Color(red: red, green: green, blue: blue).opacity(alpha) } }
-//
-//#endif
-  
-//#if canImport(SwiftUI) && canImport(Combine)
-//#endif
-  
-  
 
 
   /// init from a CGColor
@@ -250,5 +232,68 @@ public struct W3WCoreColor {
   static public let offMidGrey    = W3WCoreColor(hex: 0x525E66)
   static public let offDarkGrey   = W3WCoreColor(hex: 0x31383D)
 
+  // iOS System Colours, taken from https://sarunw.com/posts/dark-color-cheat-sheet/
+  static public let systemBackgroundLight         = W3WCoreColor(hex: 0xFFFFFF)
+  static public let systemBackgroundDark           = W3WCoreColor(hex: 0x000000)
+  static public let secondarySystemBackgroundLight  = W3WCoreColor(hex: 0xF2F2F7)
+  static public let secondarySystemBackgroundDark    = W3WCoreColor(hex: 0x1C1C1E)
+  static public let tertiarySystemBackgroundLight     = W3WCoreColor(hex: 0xFFFFFF)
+  static public let tertiarySystemBackgroundDark       = W3WCoreColor(hex: 0x2C2C2E)
+  static public let systemGroupedBackgroundLight        = W3WCoreColor(hex: 0xF2F2F7)
+  static public let systemGroupedBackgroundDark          = W3WCoreColor(hex: 0x000000)
+  static public let secondarySystemGroupedBackgroundLight = W3WCoreColor(hex: 0xFFFFFF)
+  static public let secondarySystemGroupedBackgroundDark  = W3WCoreColor(hex: 0x1C1C1E)
+  static public let tertiarySystemGroupedBackgroundLight  = W3WCoreColor(hex: 0xF2F2F7)
+  static public let tertiarySystemGroupedBackgroundDark  = W3WCoreColor(hex: 0x2C2C2E)
+  
+  static public let labelLight           = W3WCoreColor(hex: 0x000000)
+  static public let labelDark            = W3WCoreColor(hex: 0xFFFFFF)
+  static public let secondaryLabelLight  = W3WCoreColor(hex: 0x3C3C43, alpha: 0.6)
+  static public let secondaryLabelDark   = W3WCoreColor(hex: 0xEBEBF5, alpha: 0.6)
+  static public let tertiaryLabelLight   = W3WCoreColor(hex: 0x3C3C43, alpha: 0.3)
+  static public let tertiaryLabelDark    = W3WCoreColor(hex: 0xEBEBF5, alpha: 0.3)
+  static public let quaternaryLabelLight = W3WCoreColor(hex: 0x3C3C43, alpha: 0.2)
+  static public let quaternaryLabelDark  = W3WCoreColor(hex: 0xEBEBF5, alpha: 0.2)
+
+  static public let placeholderTextLight = W3WCoreColor(hex: 0x3C3C43, alpha: 0.3)
+  static public let placeholderTextDark  = W3WCoreColor(hex: 0xEBEBF5, alpha: 0.3)
+
+  static public let separatorLight       = W3WCoreColor(hex: 0x3C3C43, alpha: 0.3)
+  static public let separatorDark        = W3WCoreColor(hex: 0x545458, alpha: 0.6)
+  static public let opaqueSeparatorLight = W3WCoreColor(hex: 0xC6C6C8)
+  static public let opaqueSeparatorDark  = W3WCoreColor(hex: 0x38383A)
+
+  static public let systemBlueLight      = W3WCoreColor(hex: 0x007AFF)
+  static public let systemBlueDark      = W3WCoreColor(hex: 0x0A84FF)
+  static public let systemGreenLight   = W3WCoreColor(hex: 0x34C759)
+  static public let systemGreenDark   = W3WCoreColor(hex: 0x30D158)
+  static public let systemIndigoLight = W3WCoreColor(hex: 0x5856D6)
+  static public let systemIndigoDark  = W3WCoreColor(hex: 0x5E5CE6)
+  static public let systemOrangeLight = W3WCoreColor(hex: 0xFF9500)
+  static public let systemOrangeDark  = W3WCoreColor(hex: 0xFF9F0A)
+  static public let systemPinkLight   = W3WCoreColor(hex: 0xFF2D55)
+  static public let systemPinkDark    = W3WCoreColor(hex: 0xFF375F)
+  static public let systemPurpleLight = W3WCoreColor(hex: 0xAF52DE)
+  static public let systemPurpleDark  = W3WCoreColor(hex: 0xBF5AF2)
+  static public let systemRedLight    = W3WCoreColor(hex: 0xFF3B30)
+  static public let systemRedDark     = W3WCoreColor(hex: 0xFF453A)
+  static public let systemTealLight   = W3WCoreColor(hex: 0x5AC8FA)
+  static public let systemTealDark    = W3WCoreColor(hex: 0x64D2FF)
+  static public let systemYellowLight = W3WCoreColor(hex: 0xFFCC00)
+  static public let systemYellowDark  = W3WCoreColor(hex: 0xFFD60A)
+
+  static public let systemGrayLight   = W3WCoreColor(hex: 0x8E8E93)
+  static public let systemGrayDark    = W3WCoreColor(hex: 0x8E8E93)
+  static public let systemGray2Light  = W3WCoreColor(hex: 0xAEAEB2)
+  static public let systemGray2Dark   = W3WCoreColor(hex: 0x636366)
+  static public let systemGray3Light  = W3WCoreColor(hex: 0xC7C7CC)
+  static public let systemGray3Dark   = W3WCoreColor(hex: 0x48484A)
+  static public let systemGray4Light  = W3WCoreColor(hex: 0xD1D1D6)
+  static public let systemGray4Dark   = W3WCoreColor(hex: 0x3A3A3C)
+  static public let systemGray5Light  = W3WCoreColor(hex: 0xE5E5EA)
+  static public let systemGray5Dark   = W3WCoreColor(hex: 0x2C2C2E)
+  static public let systemGray6Light  = W3WCoreColor(hex: 0xF2F2F7)
+  static public let systemGray6Dark   = W3WCoreColor(hex: 0x1C1C1E)
+  
 }
 

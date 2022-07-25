@@ -77,12 +77,24 @@ public struct W3WColor {
   }
 
   
+  /// sets an alpha value for a W3WCoreColor
+  public func with(alpha a: CGFloat) -> W3WColor {
+    var modes = [W3WColorMode: W3WCoreColor]()
+    for (mode, color) in colors {
+      modes[mode] = color.with(alpha: a)
+    }
+    return W3WColor(colors: modes)
+  }
+
+  
+  
   /// returns the color for the current color mode automatically
   public var current: W3WCoreColor {
     get {
       return self[W3WColor.theme]
     }
   }
+  
   
   /// return the colour for the requested mode, failing
   /// that then return for light mode, then dark mode
@@ -107,11 +119,15 @@ public struct W3WColor {
   }
   
   
+  /// stores the override for the system dark/light mode setting
   static var colorModeOverride: W3WColorMode? = nil
   
+  
+  /// override the system dark/light mode setting
   static public func set(mode: W3WColorMode?) {
     colorModeOverride = mode
   }
+  
   
   /// automatically detect the current colour mode
   static var theme: W3WColorMode {
@@ -146,19 +162,15 @@ public struct W3WColor {
   
   // brand
   static public let red                       = W3WColor(all: .red)
-  
+  static public let powderBlue                = W3WColor(all: .powderBlue)
   static public let offDarkGrey               = W3WColor(all: .offDarkGrey)
+  static public let green                     = W3WColor(all: .green)
   
   // custom
   
   static public let secondaryGray             = W3WColor(all: .offLightGrey)
   static public let secondaryDarkGray         = W3WColor(all: .grey32)
   
-  // iOS System Colours, taken from https://sarunw.com/posts/dark-color-cheat-sheet/
-  
-  static public let iosSecondaryLabel         = W3WColor(light: W3WCoreColor(hex: 0x3C3C43, alpha: 0x99 / 0x100), dark: W3WCoreColor(hex: 0xEBEBF5, alpha: 0x99 / 0x100))
-  static public let iosTertiaryLabel          = W3WColor(light: W3WCoreColor(hex: 0x3C3C43, alpha: 0x4D / 0x100), dark: W3WCoreColor(hex: 0xEBEBF5, alpha: 0x99 / 0x100))
-
   // cta = Call To Action
   static public let ctaText                   = W3WColor(light: .white,      dark: .white)
   
@@ -201,6 +213,38 @@ public struct W3WColor {
 
   // Label Colours
   public static let labelColourLight          = W3WColor(all: W3WCoreColor(hex: 0x3C3C43, alpha: 0.6))
+  
+  // iOS System Colours, taken from https://sarunw.com/posts/dark-color-cheat-sheet/
+  
+  static public let systemBackground           = W3WColor(light: .systemBackgroundLight,               dark: .systemBackgroundDark)
+  static public let secondarySystemBackground    = W3WColor(light: .secondarySystemBackgroundLight,      dark: .secondarySystemBackgroundDark)
+  static public let tertiarySystemBackground       = W3WColor(light: .tertiarySystemBackgroundLight,       dark: .tertiarySystemBackgroundDark)
+  static public let systemGroupedBackground         = W3WColor(light: .systemGroupedBackgroundLight,         dark: .systemGroupedBackgroundDark)
+  static public let secondarySystemGroupedBackground = W3WColor(light: .secondarySystemGroupedBackgroundLight, dark: .secondarySystemBackgroundDark)
+  static public let tertiarySystemGroupedBackground   = W3WColor(light: .tertiarySystemGroupedBackgroundLight,   dark: .tertiarySystemGroupedBackgroundDark)
+
+  static public let label           = W3WColor(light: .labelLight,           dark: .labelDark)
+  static public let secondaryLabel  = W3WColor(light: .secondaryLabelLight,  dark: .secondaryLabelDark)
+  static public let tertiaryLabel   = W3WColor(light: .tertiaryLabelLight,   dark: .tertiaryLabelDark)
+  static public let quaternaryLabel = W3WColor(light: .quaternaryLabelLight, dark: .quaternaryLabelDark)
+  static public let placeholderText = W3WColor(light: .placeholderTextLight, dark: .placeholderTextDark)
+  static public let separator       = W3WColor(light: .separatorLight,       dark: .separatorDark)
+  static public let opaqueSeparator = W3WColor(light: .opaqueSeparatorLight, dark: .opaqueSeparatorDark)
+  static public let systemBlue      = W3WColor(light: .systemBlueLight,     dark: .systemBlueDark)
+  static public let systemGreen     = W3WColor(light: .systemGreenLight,   dark: .systemGreenDark)
+  static public let systemIndigo    = W3WColor(light: .systemIndigoLight, dark: .systemIndigoDark)
+  static public let systemOrange    = W3WColor(light: .systemOrangeLight, dark: .systemOrangeDark)
+  static public let systemPink      = W3WColor(light: .systemPinkLight,   dark: .systemPinkDark)
+  static public let systemPurple    = W3WColor(light: .systemPurpleLight, dark: .systemPurpleDark)
+  static public let systemRed       = W3WColor(light: .systemRedLight,    dark: .systemRedDark)
+  static public let systemTeal      = W3WColor(light: .systemTealLight,   dark: .systemTealDark)
+  static public let systemYellow    = W3WColor(light: .systemYellowLight, dark: .systemYellowDark)
+  static public let systemGray      = W3WColor(light: .systemGrayLight,   dark: .systemGrayDark)
+  static public let systemGray2     = W3WColor(light: .systemGray2Light,  dark: .systemGray2Dark)
+  static public let systemGray3     = W3WColor(light: .systemGray3Light,  dark: .systemGray3Dark)
+  static public let systemGray4     = W3WColor(light: .systemGray4Light,  dark: .systemGray4Dark)
+  static public let systemGray5     = W3WColor(light: .systemGray5Light,  dark: .systemGray5Dark)
+  static public let systemGray6     = W3WColor(light: .systemGray6Light,  dark: .systemGray6Dark)
   
 }
 
