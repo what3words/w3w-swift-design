@@ -9,7 +9,7 @@ This is a primitive library for basic definitions of things like colour, margins
 
 ##### W3WCoreColor
 
-W3WCoreColor contains red, green, blue, and alpha components stored as CGFloat.  It can be instantiated from NSColor, CGColor, UIColor, and SwiftUI's Color.  It can return cgColor, suColor, uiColor, and nsColor types.
+W3WCoreColor contains red, green, blue, and alpha components stored as CGFloat.  It can be instantiated from NSColor, CGColor, UIColor, and SwiftUI's Color.  It can return CGColor, Color, UIColor, and NSColor types.
 
 ##### W3WColor
 

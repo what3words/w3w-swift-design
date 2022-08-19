@@ -105,12 +105,13 @@ public struct W3WColorSet {
   // MARK: Preset colour sets
   
 
-  static public let blackGrayRed     = W3WColorSet(foreground: .black, background: .white,          highlight: .red,     secondary: .secondaryDarkGray)
-  static public let lightDarkMode    = W3WColorSet(foreground: .text,  background: .background,       highlight: .red,     secondary: .secondaryDarkGray)
-  static public let blackWhitePowder = W3WColorSet(foreground: .black, background: .powderBlue,         highlight: .black,   secondary: .secondaryGray)
-  static public let whiteGrayRed     = W3WColorSet(foreground: .white, background: .offDarkGrey,          highlight: .red,     secondary: .secondaryGray)
-  static public let blackWhiteBlue   = W3WColorSet(foreground: .black, background: .secondarySystemBackground, highlight: .systemBlue, secondary: .secondaryGray)
-  static public let blackWhite       = W3WColorSet(foreground: .black, background: .white,                      highlight: .black,       secondary: .black)
+  static public let blackGrayRed     = W3WColorSet(foreground: .black,    background: .white,        highlight: .red,     secondary: .secondaryDarkGray)
+  static public let darkBlueGrayRed  = W3WColorSet(foreground: .darkBlue, background: .white,          highlight: .red,     secondary: .secondaryDarkGray)
+  static public let lightDarkMode    = W3WColorSet(foreground: .text,     background: .background,       highlight: .red,     secondary: .secondaryDarkGray)
+  static public let blackWhitePowder = W3WColorSet(foreground: .black,    background: .powderBlue,         highlight: .black,   secondary: .secondaryGray)
+  static public let whiteGrayRed     = W3WColorSet(foreground: .white,    background: .offDarkGrey,          highlight: .red,     secondary: .secondaryGray)
+  static public let blackWhiteBlue   = W3WColorSet(foreground: .black,    background: .secondarySystemBackground, highlight: .systemBlue, secondary: .secondaryGray)
+  static public let blackWhite       = W3WColorSet(foreground: .black,    background: .white,                      highlight: .black,       secondary: .black)
   static public let halo             = W3WColorSet(foreground: .red.with(alpha: 0.15), background: .red.with(alpha: 0.1), highlight: .red.with(alpha: 0.3), secondary: .red.with(alpha: 0.15))
 
 }

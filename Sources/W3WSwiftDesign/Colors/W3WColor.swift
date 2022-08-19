@@ -162,10 +162,13 @@ public struct W3WColor {
   
   // brand
   static public let red                       = W3WColor(all: .red)
+  static public let blue                      = W3WColor(all: .blue)
+  static public let darkBlue                  = W3WColor(all: .darkBlue)
   static public let powderBlue                = W3WColor(all: .powderBlue)
   static public let offDarkGrey               = W3WColor(all: .offDarkGrey)
   static public let green                     = W3WColor(all: .green)
-  
+  static public let aqua                      = W3WColor(all: .aqua)
+
   // custom
   
   static public let secondaryGray             = W3WColor(all: .offLightGrey)
