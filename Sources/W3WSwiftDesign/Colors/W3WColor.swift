@@ -149,105 +149,11 @@ public struct W3WColor {
   }
 
   
-  // MARK: what3words colours
-  
-  // basic
-  static public let clear                     = W3WColor(all: .clear)
-  static public let white                     = W3WColor(all: .white)
-  static public let black                     = W3WColor(all: .black)
-
-  // semantic
-  static public let text                      = W3WColor(light: .black, dark: .white)
-  static public let background                = W3WColor(light: .white, dark: .black)
-  
-  // brand
-  static public let red                       = W3WColor(all: .red)
-  static public let blue                      = W3WColor(all: .blue)
-  static public let darkBlue                  = W3WColor(all: .darkBlue)
-  static public let powderBlue                = W3WColor(all: .powderBlue)
-  static public let offDarkGrey               = W3WColor(all: .offDarkGrey)
-  static public let green                     = W3WColor(all: .green)
-  static public let aqua                      = W3WColor(all: .aqua)
-
-  // custom
-  
-  static public let secondaryGray             = W3WColor(all: .offLightGrey)
-  static public let secondaryDarkGray         = W3WColor(all: .grey32)
-  
-  // cta = Call To Action
-  static public let ctaText                   = W3WColor(light: .white,      dark: .white)
-  
-  static public let ctaBackgroundPrimary      = W3WColor(light: .red,        dark: .red)
-  static public let ctaBackgroundSecondary    = W3WColor(light: .darkBlue,   dark: .royalBlue)
-  static public let ctaBackgroundTertiary     = W3WColor(light: .royalBlue,  dark: .darkBlue)
-  
-  static public let ctaBodyText1              = W3WColor(light: .darkBlue,   dark: .white)
-  static public let ctaBodyText2              = W3WColor(light: .grey32,     dark: .grey92)
-  static public let ctaBodyText3              = W3WColor(light: .grey38,     dark: .grey84)
-  
-  static public let ctaBodyBackground1        = W3WColor(light: .offGrey,    dark: .darkDarkBlue)
-  static public let ctaBodyBackground2        = W3WColor(light: .white,      dark: .black)
-  static public let ctaBodyBackground3        = W3WColor(light: .powderBlue, dark: .offDarkGrey)
-  static public let ctaBodyBackground4        = W3WColor(light: .lightCyan,  dark: .offMidGrey)
-  
-  // tov = Tone of Voice
-  static public let tovConfirmationText       = W3WColor(light: .green,      dark: .darkGreen)
-  static public let tovInformaitonText        = W3WColor(light: .darkerCyan, dark: .darkCyan)
-  static public let tovWarningText            = W3WColor(light: .brown,      dark: .darkBrown)
-  static public let tovErrorText              = W3WColor(light: .dullRed,    dark: .darkerBrown)
-  
-  static public let tovConfirmationBackground = W3WColor(light: .white,      dark: .brightGreen)
-  static public let tovInformaitonBackground  = W3WColor(light: .white,      dark: .lightBlue)
-  static public let tovWarningBackground      = W3WColor(light: .white,      dark: .yellow)
-  static public let tovErrorBackground        = W3WColor(light: .white,      dark: .coral)
-  
-  // overlays
-  public static let overlaylight              = W3WColor(light: .white.with(alpha: 0.3),      dark: .white.with(alpha: 0.3))
-  public static let overlayNormal             = W3WColor(light: .darkBlue.with(alpha: 0.6),   dark: .darkBlue.with(alpha: 0.6))
-  public static let overlayDark               = W3WColor(light: .darkBlue.with(alpha: 0.9),   dark: .darkBlue.with(alpha: 0.9))
-  
-  public static let overlayLightBlur          = W3WColor(light: .white.with(alpha: 0.3),      dark: .white.with(alpha: 0.3))
-  public static let overlayNormalBlur         = W3WColor(light: .grey77.with(alpha: 0.01),    dark: .grey77.with(alpha: 0.01))
-  public static let overlayDarkBlur           = W3WColor(light: .darkBlue.with(alpha: 0.6),   dark: .darkBlue.with(alpha: 0.6))
-  
-  public static let overlayHover              = W3WColor(light: .royalBlue.with(alpha: 0.08), dark: .white.with(alpha: 0.12))
-  public static let overlayPressed            = W3WColor(light: .royalBlue.with(alpha: 0.16), dark: .black.with(alpha: 0.16))
-  public static let overlayDisabled           = W3WColor(light: .grey50.with(alpha: 7),       dark: .grey50.with(alpha: 0.6))
-
-  // Label Colours
-  public static let labelColourLight          = W3WColor(all: W3WCoreColor(hex: 0x3C3C43, alpha: 0.6))
-  
-  // iOS System Colours, taken from https://sarunw.com/posts/dark-color-cheat-sheet/
-  
-  static public let systemBackground           = W3WColor(light: .systemBackgroundLight,               dark: .systemBackgroundDark)
-  static public let secondarySystemBackground    = W3WColor(light: .secondarySystemBackgroundLight,      dark: .secondarySystemBackgroundDark)
-  static public let tertiarySystemBackground       = W3WColor(light: .tertiarySystemBackgroundLight,       dark: .tertiarySystemBackgroundDark)
-  static public let systemGroupedBackground         = W3WColor(light: .systemGroupedBackgroundLight,         dark: .systemGroupedBackgroundDark)
-  static public let secondarySystemGroupedBackground = W3WColor(light: .secondarySystemGroupedBackgroundLight, dark: .secondarySystemBackgroundDark)
-  static public let tertiarySystemGroupedBackground   = W3WColor(light: .tertiarySystemGroupedBackgroundLight,   dark: .tertiarySystemGroupedBackgroundDark)
-
-  static public let label           = W3WColor(light: .labelLight,           dark: .labelDark)
-  static public let secondaryLabel  = W3WColor(light: .secondaryLabelLight,  dark: .secondaryLabelDark)
-  static public let tertiaryLabel   = W3WColor(light: .tertiaryLabelLight,   dark: .tertiaryLabelDark)
-  static public let quaternaryLabel = W3WColor(light: .quaternaryLabelLight, dark: .quaternaryLabelDark)
-  static public let placeholderText = W3WColor(light: .placeholderTextLight, dark: .placeholderTextDark)
-  static public let separator       = W3WColor(light: .separatorLight,       dark: .separatorDark)
-  static public let opaqueSeparator = W3WColor(light: .opaqueSeparatorLight, dark: .opaqueSeparatorDark)
-  static public let systemBlue      = W3WColor(light: .systemBlueLight,     dark: .systemBlueDark)
-  static public let systemGreen     = W3WColor(light: .systemGreenLight,   dark: .systemGreenDark)
-  static public let systemIndigo    = W3WColor(light: .systemIndigoLight, dark: .systemIndigoDark)
-  static public let systemOrange    = W3WColor(light: .systemOrangeLight, dark: .systemOrangeDark)
-  static public let systemPink      = W3WColor(light: .systemPinkLight,   dark: .systemPinkDark)
-  static public let systemPurple    = W3WColor(light: .systemPurpleLight, dark: .systemPurpleDark)
-  static public let systemRed       = W3WColor(light: .systemRedLight,    dark: .systemRedDark)
-  static public let systemTeal      = W3WColor(light: .systemTealLight,   dark: .systemTealDark)
-  static public let systemYellow    = W3WColor(light: .systemYellowLight, dark: .systemYellowDark)
-  static public let systemGray      = W3WColor(light: .systemGrayLight,   dark: .systemGrayDark)
-  static public let systemGray2     = W3WColor(light: .systemGray2Light,  dark: .systemGray2Dark)
-  static public let systemGray3     = W3WColor(light: .systemGray3Light,  dark: .systemGray3Dark)
-  static public let systemGray4     = W3WColor(light: .systemGray4Light,  dark: .systemGray4Dark)
-  static public let systemGray5     = W3WColor(light: .systemGray5Light,  dark: .systemGray5Dark)
-  static public let systemGray6     = W3WColor(light: .systemGray6Light,  dark: .systemGray6Dark)
+  /// indicates of the color is "light" or "dark"
+  /// mainly used to hlep fnid a contrasting color
+  public func isLight(threshold: Float = 0.5) -> Bool {
+    return current.isLight()
+  }
   
 }
 
