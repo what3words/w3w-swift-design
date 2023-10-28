@@ -9,10 +9,8 @@ import UIKit
 import W3WSwiftCore
 
 
-/// a convenience class overriding UITableViewController taking care
-/// of most of the boilerplate.  Allows UITableViewControlellers to
-/// be made by pretty much only writing the cellForRowAtIndexPath, and
-/// Giving it a row data type and a Cell view type
+/// a table VC that allows the adding of modular 'cell providers'
+/// to allow multiple data sources.
 open class W3WMultiSourceTableViewController: UITableViewController {
   
   // MARK: Vars
@@ -21,9 +19,6 @@ open class W3WMultiSourceTableViewController: UITableViewController {
   
   // callback for errors
   public var onError: W3WErrorResponse = { _ in }
-  
-  /// called when the user selects a suggestion
-  //public var onRowSelected: (Any?, IndexPath) -> () = { _,_ in }
   
   var providers = [W3WTableCellProviderProtocol]()
   
@@ -35,15 +30,6 @@ open class W3WMultiSourceTableViewController: UITableViewController {
   
   /// the height of each row
   public var rowHeight = W3WRowHeight.large.value
-  
-  /// the height of a section header
-  //public var headerHeight = W3WRowHeight.extraSmall.value
-  
-  /// message to disply if there are no rows
-  //var noResultsMessage: String?
-  
-  /// the label to show when there are no result sin the view
-  //var noResultsLabel = UILabel()
   
   /// the time for an amnimation, in seconds
   public var animationSpeed: CGFloat? = nil

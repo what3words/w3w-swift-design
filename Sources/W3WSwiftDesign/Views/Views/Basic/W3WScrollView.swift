@@ -49,6 +49,7 @@ open class W3WScrollView: UIScrollView, W3WViewProtocol, UIScrollViewDelegate  {
     self.showsVerticalScrollIndicator   = false
     self.showsHorizontalScrollIndicator = false
         
+    // figure out the extents of the subviews
     var extents = CGSize.zero
     for view in subviews {
       
@@ -61,18 +62,25 @@ open class W3WScrollView: UIScrollView, W3WViewProtocol, UIScrollViewDelegate  {
       }
     }
     
-    extents.height += theme?.style?.padding?.value ?? 0.0
-    extents.width  += theme?.style?.padding?.value ?? 0.0
+    // pad the extents a bit
+    extents.height += theme?[.base]?.styles?.padding?.value ?? 0.0
+    extents.width  += theme?[.base]?.styles?.padding?.value ?? 0.0
 
     // we can turn the scroll indicators back on, now that we've enumerated the subviews
     self.showsVerticalScrollIndicator = showsVerticalScrollIndicator;
     self.showsHorizontalScrollIndicator = showsHorizontalScrollIndicator;
 
-    UIView.animate(withDuration: W3WDuration.animation.seconds) { [weak self] in
+    // apply the extents to the content view
+    UIView.animate(withDuration: W3WDuration.defaultAnimationSpeed.seconds) { [weak self] in
       self?.contentSize = extents
     }
   }
   
+
+  public func update(theme: W3WTheme?) {
+    apply(theme: theme)
+  }
   
+
 }
 

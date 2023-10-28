@@ -28,7 +28,7 @@ open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol { //}
 
   public var onTextDisappeared: () -> () = { }
 
-  //lazy var icons = W3WIconRow()
+  var lastFontPointSize = CGFloat(0.0)
 
   // MARK: Init
   
@@ -245,8 +245,58 @@ open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol { //}
 
   
   open override func layoutSubviews() {
-    super.layoutSubviews()
+    //super.layoutSubviews()
     updateView()
   }
 
+  
+  public func update(theme: W3WTheme?) {
+    apply(theme: theme, set: .textFields)
+    update(colors: theme?[.textFields]?.colors)
+    update(style: theme?[.textFields]?.styles)
+  }
+  
+  
+  func update(style: W3WStyles?) {
+    var fontWasSet = false
+    
+    // set styles
+    if let style = style {
+      
+      // fonts
+      if let f = style.fonts?.body {
+        fontWasSet = true
+        if font != f {
+          font = f
+        }
+      }
+    }
+    
+    // if the font wasn't set then we do some default behaviour
+    if !fontWasSet {
+      let desiredPoints = frame.height / 2.0
+      if lastFontPointSize != desiredPoints {
+        font = font?.withSize(desiredPoints)
+        lastFontPointSize = font?.pointSize ?? 0.0
+      }
+    }
+  }
+  
+  
+  func update(colors: W3WColors?) {
+    // set colours
+    if let colorSet = colors {
+      
+      // text colour
+      if let text = colorSet.foreground {
+        textColor = text.current.uiColor
+      }
+      
+      // background
+      if let background = colorSet.background {
+        backgroundColor = background.current.uiColor
+      }
+    }
+  }
+ 
 }

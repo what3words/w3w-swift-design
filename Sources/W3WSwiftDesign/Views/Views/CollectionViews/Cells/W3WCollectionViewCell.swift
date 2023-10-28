@@ -63,5 +63,9 @@ open class W3WCollectionViewCell: UICollectionViewCell, W3WViewProtocol { //}, W
     //updateViews()
   }
   
-  
+
+  public func update(theme: W3WTheme?) {
+    apply(theme: theme)
+  }
+
 }

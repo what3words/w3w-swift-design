@@ -13,13 +13,17 @@ import W3WSwiftCore
 
 open class W3WTableCellProvider<CellType: UITableViewCell>: W3WTableCellProviderProtocol {
 
+  public var theme: W3WTheme? = nil
+
   public var closure: () -> () = { }
   
   public var onError: W3WErrorResponse = { _ in }
   
   public var sectionHeaderView: UIView?
 
-  public init() {
+  
+  public init(theme: W3WTheme? = nil) {
+    self.theme = theme
   }
   
   
@@ -59,10 +63,19 @@ open class W3WTableCellProvider<CellType: UITableViewCell>: W3WTableCellProvider
   
   
   open func update(cell: UITableViewCell, row: Int) -> UITableViewCell {
-    if let cell = cell as? CellType  {
-      return cell
+    var retval: CellType!
+    
+    if let c = cell as? CellType  {
+      retval = c
+    } else {
+      retval = CellType()
     }
-    return CellType()
+    
+    if let c = retval as? W3WViewProtocol {
+      c.updateView()
+    }
+    
+    return retval
   }
   
   

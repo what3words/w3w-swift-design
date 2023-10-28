@@ -19,7 +19,8 @@ public class W3WButton: UIButton, W3WViewProtocol {
   
   public init(image: W3WImage, theme: W3WTheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
     super.init(frame: .w3wWhatever)
-    configure(icon: W3WIconView(image: image, theme: theme?.with(icons: theme?.colors?[.buttons])), theme: theme, position: position, onTap: onTap)
+    //configure(icon: W3WIconView(image: image, theme: theme?.with(icons: theme?[.buttons]?.colorSet)), theme: theme, position: position, onTap: onTap)
+    configure(icon: W3WIconView(image: image, theme: theme?.copy(from: .buttons, to: .icons)), theme: theme, position: position, onTap: onTap)
   }
   
 
@@ -37,7 +38,7 @@ public class W3WButton: UIButton, W3WViewProtocol {
   
   public init(image: W3WImage, label: String, theme: W3WTheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
     super.init(frame: .w3wWhatever)
-    configure(icon: W3WIconView(image: image, theme: theme?.with(icons: theme?.colors?[.buttons])), label: label, theme: theme, position: position, onTap: onTap)
+    configure(icon: W3WIconView(image: image, theme: theme?.copy(from: .buttons, to: .icons)), label: label, theme: theme, position: position, onTap: onTap)
   }
 
   
@@ -79,4 +80,9 @@ public class W3WButton: UIButton, W3WViewProtocol {
     icon?.updateView()
   }
 
+  
+  public func update(theme: W3WTheme?) {
+    apply(theme: theme?.copy(from: .buttons, to: .base))
+  }
+  
 }

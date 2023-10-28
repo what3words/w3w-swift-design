@@ -5,123 +5,69 @@
 //  Created by Dave Duprey on 31/08/2022.
 //
 
-import Foundation
-
-
-// main colour palettes
 
 extension W3WColors {
   
-  static public let basic = W3WColors(base: .basic)
-  
-  static public let standard = W3WColors(
-    base:       .standard,
-    buttons:    W3WColorSet(foreground: .text, background: .systemBlue, tint: .systemGray, secondary: .tertiaryLabel, highlight: .highlight, border: .systemGray),
-    textFields: W3WColorSet(foreground: .text, background: .background, tint: .systemGray, secondary: .tertiaryLabel, highlight: .highlight, border: .systemGray),
-    labels:     W3WColorSet(foreground: .text, background: .background, tint: .systemGray, secondary: .tertiaryLabel, highlight: .highlight, border: .systemGray, error: .errorLabel)
-  )
-  
-  static public let what3words = W3WColors(
-    base:    W3WColorSet(foreground: .text,  background: .background, tint: .red, secondary: .tertiaryLabel, border: .systemGray),
-    buttons: W3WColorSet(foreground: .white, background: .systemBlue, tint: .systemGray, secondary: .tertiaryLabel, highlight: .highlight)
-  )
-  
-  static public let maps = W3WColors(base: .maps)
-  
-  static public let blackOnClear = W3WColors(foreground: .text, background: .clear, tint: .red, secondary: .tertiaryLabel)
-  
-  //static public let demo = W3WColors(colors: W3WBasicColors.demo)
-  
-  static public let debug = W3WColors(
-    base:       W3WColorSet(foreground: .darkBlue, background: .systemYellow, tint: .systemPurple, secondary: .green, highlight: .good, border: .aqua),
-    buttons:    W3WColorSet(foreground: .darkBlue, background: .orange, tint: .systemPurple, secondary: .green, highlight: .good, border: .aqua),
-    textFields: W3WColorSet(foreground: .darkBlue, background: .aqua, tint: .systemPurple, secondary: .green, highlight: .good, border: .aqua),
-    labels:     W3WColorSet(foreground: .darkBlue, background: .systemPink, tint: .systemPurple, secondary: .green, highlight: .good, border: .aqua)
-  )
-  
-  //W3WColorScheme(base: W3WColorSet.mapPinDefault, brand: .tovWarningBackground, highlight: .good, secondary: .secondaryGray, shadow: .systemYellow, border: .green, separator: .dullRed, placeholder: .aqua, error: .error)
-  
-  static public let cellIconFilled = W3WColors(foreground: .white, background: .systemBlue)
-
-  static public let whiteGrayRed       = W3WColors(base: .whiteGrayRed)
-  static public let blackGrayRed       = W3WColors(base: .blackGrayRed)
-  static public let blackGrayRedScheme = W3WColors(base: .blackGrayRedScheme)
-  static public let darkBlueGrayRed    = W3WColors(base: .darkBlueGrayRed)
-
-  static public let emptyColorSet = W3WColors(base: .emptyColorSet)
-  
-  static public let iconBlue      = W3WColors(base: .iconBlue)
-  static public let iconBlueFill  = W3WColors(base: .iconBlueFill)
-  static public let iconBlack     = W3WColors(base: .iconBlack)
-  static public let iconBlackFill = W3WColors(base: .iconBlackFill)
-  static public let iconRed       = W3WColors(base: .iconRed)
-  static public let iconRedFill   = W3WColors(base: .iconRedFill)
-  static public let iconGray      = W3WColors(base: .iconGray)
-  
-  static public let halo          = W3WColors(base: .halo)
-  
-  static public let microphoneWhiteOutline = W3WColors(base: .microphoneWhiteOutline)
-  static public let microphoneRedWhiteLogo = W3WColors(base: .microphoneRedWhiteLogo)
-  static public let microphoneOn           = W3WColors(base: .microphoneOn)
-
-
-}
-
-
-extension W3WColorSet {
-  
   // color sets
   
-  static public let standard = W3WColorSet(foreground: .text, background: .background, tint: .systemGray, secondary: .tertiaryLabel, highlight: .highlight, border: .systemGray)
+  static public let standard = W3WColors(foreground: .text, background: .background, tint: .systemGray, secondary: .tertiaryLabel, highlight: .highlight, border: .systemGray)
+  static public let standardButtons    = W3WColors(foreground: .text, background: .systemBlue, tint: .systemGray, secondary: .secondaryLabel, highlight: .highlight, border: .systemGray)
+  static public let standardTextFields = W3WColors(foreground: .text, background: .background, tint: .systemGray, secondary: .secondaryLabel, highlight: .highlight, border: .systemGray)
+  static public let standardLabels     = W3WColors(foreground: .text, background: .background, tint: .systemGray, secondary: .secondaryLabel, highlight: .highlight, border: .systemGray, error: .errorLabel)
+  static public let standardCells      = W3WColors(foreground: .text, background: .background, tint: .systemGray, secondary: .secondaryLabel, brand: .red, highlight: W3WBasicColors(foreground: .text, background: .highlightBackground), border: .systemGray, header: W3WBasicColors(foreground: .secondaryLabel, background: .septenaryFill))
+  static public let standardIcons      = W3WColors(foreground: .text, background: .clear, tint: .text, secondary: .text)
+  static public let standardVoice      = W3WColors.microphoneOn
+  static public let standardOcr        = W3WColors.ocrColors(text: .darkBlue, background: .overlayDark, outline: .white, outlineFound: .green, outlineError: .coral, wordsOutline: .white)
+
   
-  static public let standardButtonFilled = W3WColorSet(foreground: .white, background: .systemBlue)
-  static public let standardButtonTinted = W3WColorSet(foreground: .systemBlue, background: .powderBlue)
-  static public let standardButtonGray   = W3WColorSet(foreground: .text, background: W3WColor(light: .clear, dark: .black))
-  static public let standardButtonPlain  = W3WColorSet(foreground: .systemBlue, background: .clear)
+  static public let standardButtonFilled = W3WColors(foreground: .white, background: .systemBlue)
+  static public let standardButtonTinted = W3WColors(foreground: .systemBlue, background: .powderBlue)
+  static public let standardButtonGray   = W3WColors(foreground: .text, background: W3WColor(light: .clear, dark: .black))
+  static public let standardButtonPlain  = W3WColors(foreground: .systemBlue, background: .clear)
 
-  static public let maps = W3WColorSet(foreground: .white, background: .darkBlue, tint: .red, secondary: .tertiaryLabel, separator: .mediumGrey)
+  static public let maps = W3WColors(foreground: .white, background: .darkBlue, tint: .red, secondary: .tertiaryLabel, line: .mediumGrey)
 
-  static public let iconGray      = W3WColorSet(foreground: .systemGray, background: .clear, tint: .systemGray, secondary: .systemGray)
-  static public let iconBlue      = W3WColorSet(foreground: W3WColor(light: .darkBlue, dark: .white), background: .clear, tint: W3WColor(light: .darkBlue, dark: .white), secondary: W3WColor(light: .darkBlue, dark: .white))
-  static public let iconBlueFill  = W3WColorSet(foreground: W3WColor(light: .darkBlue, dark: .white), background: .clear, tint: W3WColor(light: .white, dark: .darkBlue), secondary: W3WColor(light: .darkBlue, dark: .white))
-  static public let iconBlack     = W3WColorSet(foreground: .foreground, background: .clear, tint: .foreground, secondary: .foreground)
-  static public let iconBlackFill = W3WColorSet(foreground: .foreground, background: .clear, tint: .background, secondary: .foreground)
+  static public let iconGray      = W3WColors(foreground: .systemGray, background: .clear, tint: .systemGray, secondary: .systemGray)
+  static public let iconBlue      = W3WColors(foreground: W3WColor(light: .darkBlue, dark: .white), background: .clear, tint: W3WColor(light: .darkBlue, dark: .white), secondary: W3WColor(light: .darkBlue, dark: .white))
+  static public let iconBlueFill  = W3WColors(foreground: W3WColor(light: .darkBlue, dark: .white), background: .clear, tint: W3WColor(light: .white, dark: .darkBlue), secondary: W3WColor(light: .darkBlue, dark: .white))
+  static public let iconBlack     = W3WColors(foreground: .foreground, background: .clear, tint: .foreground, secondary: .foreground)
+  static public let iconBlackFill = W3WColors(foreground: .foreground, background: .clear, tint: .background, secondary: .foreground)
   //static public let iconWhite     = W3WColorSet(foreground: .background, background: .clear, tint: .background, secondary: .background)
   //static public let iconWhiteFill = W3WColorSet(foreground: .background, background: .clear, tint: .foreground, secondary: .background)
-  static public let iconRed       = W3WColorSet(foreground: .red, background: .clear, tint: .red, secondary: .red)
-  static public let iconRedFill    = W3WColorSet(foreground: .red, background: .clear, tint: .white, secondary: .red)
+  static public let iconRed       = W3WColors(foreground: .red, background: .clear, tint: .red, secondary: .red)
+  static public let iconRedFill    = W3WColors(foreground: .red, background: .clear, tint: .white, secondary: .red)
   
-  static public let emptyColorSet   = W3WColorSet(foreground: nil, background: nil, tint: nil, secondary: nil)
+  static public let emptyColorSet   = W3WColors(foreground: nil, background: nil, tint: nil, secondary: nil)
   
-  static public let blackGrayRed     = W3WColorSet(foreground: .black,    background: .white,        tint: .red,     secondary: .secondaryDarkGray)
-  static public let darkBlueGrayRed   = W3WColorSet(foreground: .darkBlue, background: .white,          tint: .red,     secondary: .secondaryDarkGray)
-  static public let lightDarkMode      = W3WColorSet(foreground: .text,     background: .background,       tint: .red,     secondary: .secondaryDarkGray)
-  static public let blackWhitePowder   = W3WColorSet(foreground: .black,    background: .powderBlue,         tint: .black,   secondary: .secondaryGray)
-  static public let whiteGrayRed       = W3WColorSet(foreground: .white,    background: .offDarkGrey,          tint: .red,     secondary: .secondaryGray)
-  static public let blackWhiteBlue    = W3WColorSet(foreground: .black,    background: .secondarySystemBackground, tint: .systemBlue, secondary: .secondaryGray)
-  static public let blackWhite       = W3WColorSet(foreground: .black,    background: .white,                      tint: .black,       secondary: .black)
-  static public let halo            = W3WColorSet(foreground: .red.with(alpha: 0.15), background: .red.with(alpha: 0.1), tint: .red.with(alpha: 0.3), secondary: .red.with(alpha: 0.15))
-  static public let mapPinDefault   = W3WColorSet(foreground: .white, background: .blue, tint: .blue, secondary: .blue)
+  static public let blackGrayRed     = W3WColors(foreground: .black,    background: .white,        tint: .red,     secondary: .secondaryDarkGray)
+  static public let darkBlueGrayRed   = W3WColors(foreground: .darkBlue, background: .white,          tint: .red,     secondary: .secondaryDarkGray)
+  static public let lightDarkMode      = W3WColors(foreground: .text,     background: .background,       tint: .red,     secondary: .secondaryDarkGray)
+  static public let blackWhitePowder   = W3WColors(foreground: .black,    background: .powderBlue,         tint: .black,   secondary: .secondaryGray)
+  static public let whiteGrayRed       = W3WColors(foreground: .white,    background: .offDarkGrey,          tint: .red,     secondary: .secondaryGray)
+  static public let blackWhiteBlue    = W3WColors(foreground: .black,    background: .secondarySystemBackground, tint: .systemBlue, secondary: .secondaryGray)
+  static public let blackWhite       = W3WColors(foreground: .black,    background: .white,                      tint: .black,       secondary: .black)
+  static public let halo            = W3WColors(foreground: .red.with(alpha: 0.15), background: .red.with(alpha: 0.1), tint: .red.with(alpha: 0.3), secondary: .red.with(alpha: 0.15))
+  static public let mapPinDefault   = W3WColors(foreground: .white, background: .blue, tint: .blue, secondary: .blue)
   
-  static public let searchBox       = W3WColorSet(foreground: .black, background: W3WColor(all: W3WCoreColor(hex: 0x767680, alpha: 0.12)), tint: .labelColourLight, secondary: .labelColourLight)
-  static public let searchIcon      = W3WColorSet(foreground: .secondaryLabel, background: .clear, tint: .secondaryLabel,   secondary: .secondaryLabel)
-  static public let microphoneOff    = W3WColorSet(foreground: .red,   background: .clear,       tint: .white, secondary: .red)
-  static public let microphoneOn      = W3WColorSet(foreground: .red,   background: .clear,       tint: .red,   secondary: .red)
-  static public let microphoneGray      = W3WColorSet(foreground: .secondaryLabel, background: .clear, tint: .secondaryLabel,   secondary: .secondaryLabel)
-  static public let microphoneWhiteBlack  = W3WColorSet(foreground: .white, background: .white, tint: .black,   secondary: .white)
-  static public let microphoneRedWhiteLogo = W3WColorSet(foreground: .red, background: .red, tint: .white, secondary: .red)
-  static public let microphoneWhiteOutline = W3WColorSet(foreground: .white, background: .red, tint: .white, secondary: .white)
+  static public let searchBox       = W3WColors(foreground: .black, background: W3WColor(all: W3WCoreColor(hex: 0x767680, alpha: 0.12)), tint: .labelColourLight, secondary: .labelColourLight)
+  static public let searchIcon      = W3WColors(foreground: .secondaryLabel, background: .clear, tint: .secondaryLabel,   secondary: .secondaryLabel)
+  static public let microphoneOff    = W3WColors(foreground: .red,   background: .clear,       tint: .white, secondary: .red)
+  static public let microphoneOn      = W3WColors(foreground: .red,   background: .clear,       tint: .red,   secondary: .red)
+  static public let microphoneGray      = W3WColors(foreground: .secondaryLabel, background: .clear, tint: .secondaryLabel,   secondary: .secondaryLabel)
+  static public let microphoneWhiteBlack  = W3WColors(foreground: .white, background: .white, tint: .black,   secondary: .white)
+  static public let microphoneRedWhiteLogo = W3WColors(foreground: .red, background: .red, tint: .white, secondary: .red)
+  static public let microphoneWhiteOutline = W3WColors(foreground: .white, background: .red, tint: .white, secondary: .white)
   
   //static public let blackGrayRedScheme     = W3WColorSetcheme(main: .blackGrayRed, brand: .darkBlue, highlight: W3WBasicColors(foreground: .text, background: .darkBlue), border: .mediumGrey, separator: .lightGrey, shadow: .offDarkGrey, placeholder: .mediumGrey, error: .error)
-  static public let blackGrayRedScheme     = W3WColorSet(foreground: .black, background: .white, tint: .red, secondary: .secondaryDarkGray, brand: .darkBlue, highlight: W3WBasicColors(foreground: .text, background: .darkBlue), border: .mediumGrey, separator: .lightGrey, shadow: .offDarkGrey, placeholder: .mediumGrey, error: .error)
-  static public let darkBlueGrayRedScheme  = W3WColorSet(foreground: .darkBlue, background: .white, tint: .red, secondary: .secondaryDarkGray, brand: .darkBlue, highlight: W3WBasicColors(foreground: .text, background: .darkBlue), border: .mediumGrey, separator: .lightGrey, shadow: .offDarkGrey, placeholder: .mediumGrey, error: .error)
+  static public let blackGrayRedScheme     = W3WColors(foreground: .black, background: .white, tint: .red, secondary: .secondaryDarkGray, brand: .darkBlue, highlight: W3WBasicColors(foreground: .text, background: .darkBlue), border: .mediumGrey, separator: .lightGrey, shadow: .offDarkGrey, placeholder: .mediumGrey, error: .error)
+  static public let darkBlueGrayRedScheme  = W3WColors(foreground: .darkBlue, background: .white, tint: .red, secondary: .secondaryDarkGray, brand: .darkBlue, highlight: W3WBasicColors(foreground: .text, background: .darkBlue), border: .mediumGrey, separator: .lightGrey, shadow: .offDarkGrey, placeholder: .mediumGrey, error: .error)
   
   //static public let darkBlueGrayRedScheme  = W3WColorScheme(main: .darkBlueGrayRed, brand: .darkBlue, highlight: W3WBasicColors(foreground: .text, background: .darkBlue), border: .mediumGrey, separator: .lightGrey, shadow: .offDarkGrey, placeholder: .mediumGrey, error: .error)
   
   //, positive: W3WBasicColors(foreground: .white, background: .green), negative: W3WBasicColors(foreground: .white, background: .red)
   //, positive: W3WBasicColors(foreground: .white, background: .green), negative: W3WBasicColors(foreground: .white, background: .red)
 
-  static public let basic = W3WColorSet(foreground: .text, background: .background)
+  static public let basic = W3WColors(foreground: .text, background: .background)
   
 }
 
@@ -228,6 +174,7 @@ extension W3WCoreColor {
   static public let quaternaryFillLight  = W3WCoreColor(hex: 0x747480, alpha: 0.08)
   static public let quinaryFillLight     = W3WCoreColor(hex: 0xEDEDED, alpha: 0.8)
   static public let senaryFillLight      = W3WCoreColor(hex: 0xF2F2F2, alpha: 0.8)
+  static public let septenaryFillLight   = W3WCoreColor(hex: 0xF9F9F9, alpha: 0.86)
 
   static public let primaryFillDark      = W3WCoreColor(hex:0x787880, alpha: 0.36)
   static public let secondaryFillDark    = W3WCoreColor(hex: 0x787880, alpha: 0.32)
@@ -235,6 +182,7 @@ extension W3WCoreColor {
   static public let quaternaryFillDark   = W3WCoreColor(hex: 0x747480, alpha: 0.18)
   static public let quinaryFillDark      = W3WCoreColor(hex: 0x252525, alpha: 0.5)
   static public let senaryFillDark       = W3WCoreColor(hex: 0x1E1E1E, alpha: 0.75)
+  static public let septenaryFillDark    = W3WCoreColor(hex: 0x747480, alpha: 0.18)
 
   static public let separatorLight       = W3WCoreColor(hex: 0x3C3C43, alpha: 0.3)
   static public let separatorDark        = W3WCoreColor(hex: 0x545458, alpha: 0.6)
@@ -306,6 +254,7 @@ extension W3WColor {
   static public let green                     = W3WColor(all: .green)
   static public let aqua                      = W3WColor(all: .aqua)
   static public let orange                    = W3WColor(all: .orange)
+  static public let coral                     = W3WColor(all: .coral)
   
   // extended brand
   
@@ -388,6 +337,7 @@ extension W3WColor {
   static public let quaternaryFill  = W3WColor(light: .quaternaryFillLight, dark: .quaternaryFillDark)
   static public let quinaryFill     = W3WColor(light: .quinaryFillLight, dark: .quinaryFillDark)
   static public let senaryFill      = W3WColor(light: .senaryFillLight, dark: .senaryFillDark)
+  static public let septenaryFill   = W3WColor(light: .septenaryFillLight, dark: .septenaryFillDark)
   
   static public let systemBlue      = W3WColor(light: .systemBlueLight,     dark: .systemBlueDark)
   static public let systemGreen     = W3WColor(light: .systemGreenLight,   dark: .systemGreenDark)
@@ -429,3 +379,7 @@ extension W3WBasicColors {
   static public let highlight = W3WBasicColors(background: .highlightBackground)
   
 }
+
+
+
+

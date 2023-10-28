@@ -8,7 +8,5 @@
 import W3WSwiftCore
 
 public extension W3WDuration {
-  static let animation = W3WDuration(seconds: 0.3)
-  
-  static func seconds(_ seconds: Double) -> W3WDuration { return W3WDuration(seconds: seconds) }
+  static let defaultAnimationSpeed = W3WDuration(seconds: 0.3)
 }

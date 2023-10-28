@@ -31,13 +31,15 @@ class W3WDismissButton: W3WButton {
   /// - Parameters:
   ///   - parentViewController: - need to know the parent in order to do the dismiss
   ///   - colors: - the colours to use
-  init(parentViewController: W3WViewController, colors: W3WColors = .blackGrayRed) {
-    let icon = W3WIconView(drawing: .x, theme: W3WTheme(colors: colors))
-    icon.position = W3WViewPosition.top()
+  init(parentViewController: W3WViewController, scheme: W3WScheme? = nil) { //, colors: W3WColorSet = .blackGrayRed) {
     //icon.position = .place(topOf: parentViewController.view)
     //super.init(icon: W3WIconDrawing(drawing: .x, position: .top(of: parentViewController.view)), color: colors, frame: .w3wWhatever)
     //super.init(icon: icon, color: colors, frame: .w3wWhatever)
     super.init(image: .xmark)
+
+    let icon = W3WIconView(drawing: .x, theme: theme)
+    icon.position = W3WViewPosition.top()
+
     onTap = {
       parentViewController.dismiss(animated: true)
     }

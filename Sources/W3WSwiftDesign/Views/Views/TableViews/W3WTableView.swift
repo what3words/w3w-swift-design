@@ -54,8 +54,15 @@ public class W3WTableView: UITableView, W3WViewProtocol {
 
   
   open override func layoutSubviews() {
-    super.layoutSubviews()
-    updateView()
+    if superview != nil {
+      super.layoutSubviews()
+      updateView()
+    }
+  }
+  
+
+  public func update(theme: W3WTheme?) {
+    apply(theme: theme)
   }
   
 }

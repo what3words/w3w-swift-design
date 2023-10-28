@@ -18,21 +18,11 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   ///called when the view is about to dissappear
   public var onDismiss: () -> () = { }
   
-  /// the basic colours to use, actually stored in protocol data, so we wrap the value here
-  public var colors: W3WColors {
-    get {
-      return w3wView?.theme?.colors ?? .basic
-    }
-    set {
-      w3wView?.theme?.colors = newValue
-    }
-  }
-  
   /// the little notch in the top shown when this is presented modally
   var handleIndicator = W3WHandleIndicator()
   
   /// an optional X button to dismiss this view
-  lazy var dismissButton = W3WDismissButton(parentViewController: self, colors: W3WColors(foreground: W3WBasicColors.basic.foreground, background: W3WBasicColors.basic.background, tint: W3WBasicColors.basic.foreground, secondary: W3WBasicColors.basic.background))
+  lazy var dismissButton = W3WDismissButton(parentViewController: self) //, colors: W3WllColors(foreground: W3WBasicColors.basic.foreground, background: W3WBasicColors.basic.background, tint: W3WBasicColors.basic.foreground, secondary: W3WBasicColors.basic.background))
   
   /// a list of the sub views that were added with `add(view:frame)` used for managing the view postions
   public var managedViews = [W3WViewProtocol]()
@@ -44,8 +34,18 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   
   /// shows/hides the handle
   public var showHandle: Bool {
-    get { return !handleIndicator.isHidden }
-    set { handleIndicator.isHidden = !newValue }
+    
+    get {
+      return (handleIndicator.superview != nil)
+    }
+    
+    set {
+      if newValue {
+        add(view: handleIndicator)
+      } else {
+        remove(view: handleIndicator)
+      }
+    }
   }
   
   /// shows/hides the dismiss button
@@ -72,6 +72,13 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
     super.init(coder: coder)
   }
   
+
+// This?
+//  /// initializer override to instantiate the W3WOcrScannerView
+//  public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)   {
+//    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//  }
+
   
   // MARK: ViewDidLoad
   
@@ -89,10 +96,6 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   override open func viewDidLoad() {
     super.viewDidLoad()
     
-    //w3wView?.design = W3WDesign(owner: view)
-    
-    //updateColors()
-
     // add the sub views
     //add(view: W3WWrappedView<UIView>(view: handleIndicator), position: handleIndicator.getFrame)
     //add(view: W3WWrappedView<W3WDismissButton>(view: dismissButton),   position: dismissButton.getFrame)
@@ -108,34 +111,26 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   // MARK: Accessors
   
   
-//  public func add(view: UIView, frame: @escaping () -> (CGRect)) {
-//    add(view: view, position: W3WViewPosition(position: frame))
-//  }
-//  
-//  
-//  public func add(view: UIView, position: W3WViewPosition) {
-//    let managedView = W3WManagedView(view: view, position: position)
-//    managedViews.append(managedView)
-//    
-//    self.view.addSubview(view)
-//  }
-//  
-//  
-//  public func add(view: UIView, theme: W3WDesign, position: W3WViewPosition) {
-//    let managedView = W3WManagedView(view: view, theme: theme, position: position)
-//    managedViews.append(managedView)
-//    
-//    self.view.addSubview(view)
-//  }
-//  
-//  
-//  public func add(view: W3WViewProtocol, position: W3WViewPosition? = nil) {
-//    let managedView = W3WManagedView(view: view, position: position)
-//    managedViews.append(managedView)
-//    
-//    self.view.addSubview(view)
-//  }
-
+  public func add(viewController: W3WViewController, position: W3WViewPosition) {
+    DispatchQueue.main.async { [weak self] in
+      if let v = viewController.w3wView {
+        self?.addChild(viewController)
+        self?.view.addSubview(v)
+        v.set(position: position)
+      }
+    }
+  }
+  
+  
+  public func remove(viewController: W3WViewController) {
+    DispatchQueue.main.async {
+      if let v = viewController.w3wView {
+        v.removeFromSuperview()
+        viewController.removeFromParent()
+      }
+    }
+  }
+  
   
   // MARK: Colour stuff
   
@@ -146,14 +141,6 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
     w3wView?.updateView()
   }
   
-  
-  //func updateColors() {
-    //w3wView?.theme?.updateColors(view: view)
-    //w3wView?.updateView()
-    //view.backgroundColor = colors.background.current.uiColor
-    //view.layer.backgroundColor = colors.background.current.cgColor
-  //}
-
   
   // MARK: Additional VC overrides
 
@@ -167,7 +154,7 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   }
   
   
-  public override func viewWillDisappear(_ animated: Bool) {
+  open override func viewWillDisappear(_ animated: Bool) {
     onDismiss()
     super.viewWillDisappear(animated)
   }
@@ -194,5 +181,66 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   }
   
   
+  // MARK: Popovers
+  
+  
+//  public func popover(vc: W3WViewController) {
+//    if let v = vc.w3wView {
+//      addChild(vc)
+//      view.addSubview(v)
+//      v.set(position: .bottom())
+//    }
+//
+//    //vc.modalPresentationStyle = .overCurrentContext
+//    //vc.preferredContentSize = .init(width: view.frame.width, height: 256.0)
+//    //
+//    //let smallDetentId = UISheetPresentationController.Detent.Identifier("small")
+//    //let smallDetent = UISheetPresentationController.Detent.custom(identifier: smallDetentId) { context in
+//    //  return 100
+//    //}
+//    //vc?.detents = [smallDetent, .medium(), .large()]
+//    //
+//    //present(vc, animated: true)
+//    //if let sheet = vc.sheetPresentationController {
+//    //  sheet.detents = [.medium(), .large()]
+//    //  sheet.largestUndimmedDetentIdentifier = .medium
+//    //  sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+//    //  sheet.prefersEdgeAttachedInCompactHeight = true
+//    //  sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+//    //}
+//    //present(vc, animated: true, completion: nil)
+//  }
+  
 
 }
+
+
+
+
+//  public func add(view: UIView, frame: @escaping () -> (CGRect)) {
+//    add(view: view, position: W3WViewPosition(position: frame))
+//  }
+//
+//
+//  public func add(view: UIView, position: W3WViewPosition) {
+//    let managedView = W3WManagedView(view: view, position: position)
+//    managedViews.append(managedView)
+//
+//    self.view.addSubview(view)
+//  }
+//
+//
+//  public func add(view: UIView, theme: W3WDesign, position: W3WViewPosition) {
+//    let managedView = W3WManagedView(view: view, theme: theme, position: position)
+//    managedViews.append(managedView)
+//
+//    self.view.addSubview(view)
+//  }
+//
+//
+//  public func add(view: W3WViewProtocol, position: W3WViewPosition? = nil) {
+//    let managedView = W3WManagedView(view: view, position: position)
+//    managedViews.append(managedView)
+//
+//    self.view.addSubview(view)
+//  }

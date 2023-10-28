@@ -27,7 +27,7 @@ open class W3WCollectionViewController<RowDataType, CellType: W3WCollectionViewC
 
   
   lazy var layout: UICollectionViewFlowLayout = {
-    let size = theme?.style?[.cells].rowHeight?.value ?? W3WRowHeight.extraLarge.value
+    let size = theme?[.cells]?.styles?.rowHeight?.value ?? W3WRowHeight.extraLarge.value
     
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .vertical

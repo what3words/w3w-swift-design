@@ -21,7 +21,7 @@ open class W3WView: UIView, W3WViewProtocol  {
 
   public init(theme: W3WTheme? = nil) { //, position: W3WViewPosition? = nil) {
     super.init(frame: .w3wWhatever)
-    //frame = position?.position(superview, self) ?? .w3wWhatever
+
     position?.position(superview, self)
     set(theme: theme, position: position)
   }
@@ -42,31 +42,10 @@ open class W3WView: UIView, W3WViewProtocol  {
     updateView()
   }
 
-    
-  
-  // MARK: resultBuilder functions
-  
-  
-//  static public func with(@W3WView _ content: () -> W3WViewProtocol) -> W3WViewProtocol {
-//    content()
-//  }
-//  
-////  public func with(@W3WView _ content: () -> W3WViewProtocol) -> W3WViewProtocol {
-////    content()
-////  }
-//  
-//  static public func buildBlock() -> W3WViewProtocol {
-//    W3WView()
-//  }
-//  
-//  
-//  static public func buildBlock(_ views: W3WViewProtocol...) -> W3WViewProtocol {
-//    let stack = W3WStackView(views: views)
-//    stack.distribution = .fillEqually
-//    //stack.axis = .horizontal
-//    return stack
-//  }
-  
+
+  open func update(theme: W3WTheme?) {
+    apply(theme: theme)
+  }
   
 }
 

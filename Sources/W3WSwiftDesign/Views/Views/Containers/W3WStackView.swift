@@ -107,6 +107,11 @@ open class W3WStackView: UIStackView, W3WViewProtocol  {
     updateView()
   }
   
+
+  public func update(theme: W3WTheme?) {
+    apply(theme: theme)
+  }
   
+
 }
 

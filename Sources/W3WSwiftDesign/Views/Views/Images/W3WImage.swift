@@ -54,7 +54,7 @@ public class W3WImage {
   
   
   func from(drawing: W3WDrawing, size: CGSize) -> UIImage {
-    return UIImage(cgImage: drawing.asCGImage(size: size, colors: colors?[.icons] ?? .standard)!)
+    return UIImage(cgImage: drawing.asCGImage(size: size, colors: colors ?? .standardIcons)!)
   }
   
   
@@ -66,7 +66,7 @@ public class W3WImage {
       let context = UIGraphicsGetCurrentContext()
       
       context?.clip(to: bounds, mask: maskImage.cgImage!)
-      if let color = colors?[.icons].foreground?.current.cgColor {
+      if let color = colors?.foreground?.current.cgColor {
         context?.setFillColor(color)
       }
       context?.fill(bounds)
@@ -93,15 +93,15 @@ public class W3WImage {
     if #available(iOS 15.0, *) {
       var colorArray = [UIColor]()
       
-      if let foreground = colors?[.icons].foreground?.current.uiColor {
+      if let foreground = colors?.foreground?.current.uiColor {
         colorArray.append(foreground)
       }
       
-      if let secondary = colors?[.icons].secondary?.current.uiColor {
+      if let secondary = colors?.secondary?.current.uiColor {
         colorArray.append(secondary)
       }
       
-      if let tint = colors?[.icons].tint?.current.uiColor {
+      if let tint = colors?.tint?.current.uiColor {
         colorArray.append(tint)
       }
       
@@ -119,11 +119,11 @@ public class W3WImage {
       
     if #available(iOS 13.0, *) { // if we have SF Symbols available at all
       // if there is a tint colour
-      if let tint = colors?[.icons].tint?.current.uiColor {
+      if let tint = colors?.tint?.current.uiColor {
         return UIImage(systemName: symbol)!.withTintColor(tint)
         
       // no tint colour, go with foreground color
-      } else if let color = colors?[.icons].foreground?.current.uiColor {
+      } else if let color = colors?.foreground?.current.uiColor {
         return UIImage(systemName: symbol)!.withTintColor(color)
         
       } else {

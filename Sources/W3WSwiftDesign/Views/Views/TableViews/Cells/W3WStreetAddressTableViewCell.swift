@@ -51,7 +51,9 @@ public class W3WStreetAddressTableViewCell: W3WTableViewDetailCell {
     self.title = title
     self.subTitle = subTitle
 
-    updateUI()
+    //updateUI()
+    updateLabels()
+    updateView()
   }
   
   
@@ -62,26 +64,33 @@ public class W3WStreetAddressTableViewCell: W3WTableViewDetailCell {
   }
     
   
-  func updateUI() {
-    theme?.update(view: self)
-    updateLabels()
-  }
+//  func updateUI() {
+//    //theme?.update(view: self)
+//    updateView()
+//    updateLabels()
+//  }
   
   
   /// respond to dark/light mode updates
   public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
-    updateUI()
+    //updateUI()
+    updateView()
   }
   
   
   /// respond to layout changes
   public override func layoutSubviews() {
     super.layoutSubviews()
-    updateUI()
+    //updateUI()
+    updateLabels()
+    updateView()
   }
   
   
+//  override public func update(theme: W3WTheme?) {
+//    apply(theme: theme)
+//  }
   
 }
 

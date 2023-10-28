@@ -57,7 +57,7 @@ public struct W3WDrawing: Sequence, IteratorProtocol, ExpressibleByArrayLiteral 
   }
   
   
-  func asCGImage(size: CGSize, colors: W3WColorSet) -> CGImage? {
+  func asCGImage(size: CGSize, colors: W3WColors) -> CGImage? {
     //let scaledSize =  CGSize(width: size.width / UIScreen.main.scale, height: size.height / UIScreen.main.scale)
     UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
     guard let context = UIGraphicsGetCurrentContext() else { return nil }
@@ -97,7 +97,7 @@ public struct W3WDrawing: Sequence, IteratorProtocol, ExpressibleByArrayLiteral 
   // MARK: Drawing
 
   
-  func draw(_ line: W3WDrawLine, rect: CGRect, context: CGContext, colors: W3WColorSet) {
+  func draw(_ line: W3WDrawLine, rect: CGRect, context: CGContext, colors: W3WColors) {
     let path = UIBezierPath()
     
     path.move(to: scale(point: line.start, rect: rect))
@@ -110,7 +110,7 @@ public struct W3WDrawing: Sequence, IteratorProtocol, ExpressibleByArrayLiteral 
   }
   
   
-  func draw(_ circle: W3WDrawCircle, rect: CGRect, context: CGContext, colors: W3WColorSet) {
+  func draw(_ circle: W3WDrawCircle, rect: CGRect, context: CGContext, colors: W3WColors) {
     let path = UIBezierPath(arcCenter: scale(point: circle.center, rect: rect), radius: scale(float: circle.radius, rect: rect), startAngle: 0.0, endAngle: 2.0 * CGFloat.pi, clockwise: true)
     
     colors[circle.color].current.uiColor.setFill()
@@ -119,7 +119,7 @@ public struct W3WDrawing: Sequence, IteratorProtocol, ExpressibleByArrayLiteral 
   }
   
   
-  func draw(_ arc: W3WDrawArc, rect: CGRect, context: CGContext, colors: W3WColorSet) {
+  func draw(_ arc: W3WDrawArc, rect: CGRect, context: CGContext, colors: W3WColors) {
     let path = UIBezierPath(arcCenter: scale(point: arc.center, rect: rect), radius: scale(float: arc.radius, rect: rect), startAngle: arc.start, endAngle: arc.end, clockwise: true)
     
     colors[arc.color].current.uiColor.setStroke()
@@ -129,7 +129,7 @@ public struct W3WDrawing: Sequence, IteratorProtocol, ExpressibleByArrayLiteral 
   }
   
   
-  func draw(_ rectangle: W3WDrawRectangle, rect: CGRect, context: CGContext, colors: W3WColorSet) {
+  func draw(_ rectangle: W3WDrawRectangle, rect: CGRect, context: CGContext, colors: W3WColors) {
     let path = UIBezierPath(rect: scale(rectangle: rectangle.rectangle, rect: rect))
     
     colors[rectangle.color].current.uiColor.setFill()
@@ -139,7 +139,7 @@ public struct W3WDrawing: Sequence, IteratorProtocol, ExpressibleByArrayLiteral 
 
   
   /// iOS UIView draw function
-  func draw(context: CGContext, colors: W3WColorSet, rect: CGRect) {
+  func draw(context: CGContext, colors: W3WColors, rect: CGRect) {
     for i in self {
       switch i {
       case .line(let line):

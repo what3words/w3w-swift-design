@@ -22,4 +22,10 @@ public class W3WCollectionView: UICollectionView, W3WViewProtocol {
     super.layoutSubviews()
     updateView()
   }
+
+  
+  public func update(theme: W3WTheme?) {
+    apply(theme: theme)
+  }
+
 }

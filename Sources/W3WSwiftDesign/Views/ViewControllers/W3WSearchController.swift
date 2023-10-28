@@ -40,7 +40,8 @@ open class W3WSearchController: UISearchController, UISearchControllerDelegate, 
   public init(searchResultsController: UIViewController?, theme: W3WTheme? = nil) {
     super.init(searchResultsController: searchResultsController)
     self.theme = theme
-    theme?.update(view: self.searchBar)
+    self.searchBar.apply(theme: theme)
+    //theme?.update(view: self.searchBar)
   }
   
   
@@ -64,7 +65,8 @@ open class W3WSearchController: UISearchController, UISearchControllerDelegate, 
     delegate = self
     searchBar.delegate = self
 
-    theme?.update(view: self.searchBar)
+    self.searchBar.apply(theme: theme)
+    //theme?.update(view: self.searchBar)
   }
 
 
@@ -108,14 +110,16 @@ open class W3WSearchController: UISearchController, UISearchControllerDelegate, 
 
   
   public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    theme?.update(view: self.searchBar)
+    self.searchBar.apply(theme: theme)
+    //theme?.update(view: self.searchBar)
   }
   
   
   open override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
     
-    theme?.update(view: self.searchBar)
+    self.searchBar.apply(theme: theme)
+    //theme?.update(view: self.searchBar)
   }
   
 }

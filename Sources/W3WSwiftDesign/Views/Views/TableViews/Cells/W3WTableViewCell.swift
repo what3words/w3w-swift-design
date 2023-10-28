@@ -105,7 +105,7 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
   
   
   public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    updateImage()
+    //updateImage()
     updateView()
   }
   
@@ -115,9 +115,14 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
     separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     //self.imageView?.frame = CGRect(x: 8.0, y: 8.0, width: frame.height - 16.0, height: frame.height - 16.0)
     //self.imageView?.frame = CGRect(x: 8.0, y: 8.0, width: 16.0, height: 16.0)
-    updateImage()
+    //updateImage()
     updateView()
   }
 
+  
+  public func update(theme: W3WTheme?) {
+    updateImage()
+    apply(theme: theme?.copy(from: .cells, to: .base))
+  }
   
 }

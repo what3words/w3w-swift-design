@@ -149,18 +149,47 @@ extension W3WViewPosition {
       return parent?.bounds.inset(by: by) ?? this.frame
     }
   }
+
   
-  
-  static public func sideColumnLeft(width: CGFloat = 300.0, insetBy: CGFloat = W3WPadding.bold.value, left: Bool = true) -> W3WViewPosition {
+  static public func inset(by: W3WPadding) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
-      return CGRect(
-        x: (parent?.safeAreaInsets.left ?? 0.0) + insetBy,
-        y: (parent?.safeAreaInsets.top ?? 0.0)  + insetBy,
-        width: width,
-        height: (parent?.frame.height ?? width) - insetBy * 3.0 - (parent?.safeAreaInsets.top ?? 0.0) - (parent?.safeAreaInsets.bottom ?? 0.0)
-      )
+      return parent?.bounds.inset(by: by.insets) ?? this.frame
     }
   }
 
+  
+  static public func sideColumnLeft(width: CGFloat = 300.0, insetBy: W3WPadding = .bold, left: Bool = true) -> W3WViewPosition {
+    return W3WViewPosition() { parent, this in
+      if let p = parent {
+        return CGRect(
+          x: p.safeAreaInsets.left + insetBy.left,
+          y: p.safeAreaInsets.top  + insetBy.top,
+          width: width,
+          height: p.frame.height - (insetBy.bottom + insetBy.top) * 3.0 - p.safeAreaInsets.top - p.safeAreaInsets.bottom
+        )
+      } else {
+        return .zero
+      }
+    }
+  }
+
+  static public func insideLeading(insetBy: W3WPadding = .none) -> W3WViewPosition {
+    return W3WViewPosition() { parent, this in
+      let size = (parent?.frame.height ?? W3WPadding.fine.value) - insetBy.top - insetBy.bottom
+      return CGRect(x: insetBy.left, y: insetBy.top, width: size, height: size)
+    }
+  }
+  
+
+  static public func bottom(insetBy: W3WPadding = .none, height: CGFloat? = nil) -> W3WViewPosition {
+    return W3WViewPosition() { parent, this in
+      let newHeight = height ?? this.frame.height
+
+      let origin = CGPoint(x: insetBy.left, y: insetBy.top + (parent?.frame.height ?? 1024.0) - newHeight)
+      let size   = CGSize(width: (parent?.frame.width ?? 320.0) - insetBy.left - insetBy.right, height: newHeight - insetBy.top - insetBy.bottom)
+
+      return CGRect(origin: origin, size: size)
+    }
+  }
   
 }

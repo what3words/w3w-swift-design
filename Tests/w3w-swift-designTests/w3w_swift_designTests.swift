@@ -1,11 +1,30 @@
-//import XCTest
-//@testable import w3w_swift_design
-//
-//final class w3w_swift_designTests: XCTestCase {
-//    func testExample() throws {
-//        // This is an example of a functional test case.
-//        // Use XCTAssert and related functions to verify your tests produce the correct
-//        // results.
-//        XCTAssertEqual(w3w_swift_design().text, "Hello, World!")
-//    }
-//}
+import XCTest
+@testable import W3WSwiftDesign
+
+final class w3w_swift_designTests: XCTestCase {
+  
+  func testBase() throws {
+    let theme = W3WTheme()
+    XCTAssertNotNil(theme[.base])
+  }
+  
+  
+  func testCopyColor() throws {
+    let theme = W3WTheme.standard
+    let theme2 = theme.with(foreground: .white, into: .base)
+
+    XCTAssert(theme[.base]?.colorSet?.foreground?.current.red == 0.0)
+    XCTAssert(theme2[.base]?.colorSet?.foreground?.current.red == 1.0)
+  }
+ 
+  
+  func testCopyStyle() throws {
+    let theme = W3WTheme.standard
+    let theme2 = theme.with(padding: .bold, into: .labels)
+    
+    XCTAssert(theme[.labels]?.style?.padding == .medium)
+    XCTAssert(theme2[.labels]?.style?.padding == .bold)
+  }
+  
+  
+}

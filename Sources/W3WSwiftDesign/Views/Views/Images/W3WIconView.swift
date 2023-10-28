@@ -19,31 +19,10 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
 
   // MARK: Init
 
-
-//  convenience public init(file: String, colors: W3WColors, theme: W3WTheme? = nil) {
-//    self.init(file: file, colorSet: colors[.icons], theme: theme)
-//  }
-//
-//
-//  convenience  public init(systemName: String, colors: W3WColors, theme: W3WTheme? = nil) {
-//    self.init(systemName: systemName, colorSet: colors[.icons], theme: theme)
-//  }
-//
-//
-//  convenience public init(drawing: W3WDrawing, colors: W3WColors, theme: W3WTheme? = nil) {
-//    self.init(drawing: drawing, colorSet: colors[.icons], theme: theme)
-//  }
-//
-//
-//  convenience public init(image: W3WImage, colors: W3WColors, theme: W3WTheme? = nil) {
-//    self.init(image: image, colorSet: colors[.icons], theme: theme)
-//  }
-
   
-  //public init(image: W3WImage, colorSet: W3WColorSet = .standard, theme: W3WTheme? = nil) {
   public init(image: W3WImage, theme: W3WTheme? = nil) {
     self.underlyingImage = image
-    self.underlyingImage.colors = theme?.colors?[.icons].asColors()
+    self.underlyingImage.colors = theme?[.icons]?.colors
     //self.iconColors      = colorSet
     
     super.init(image: self.underlyingImage.get())
@@ -54,9 +33,8 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   }
   
   
-  //public init(drawing: W3WDrawing, colorSet: W3WColorSet = .standard, theme: W3WTheme? = nil) {
   public init(drawing: W3WDrawing, theme: W3WTheme? = nil) {
-    self.underlyingImage = W3WImage(drawing: drawing, colors: theme?.colors?[.icons].asColors() ?? .standard)
+    self.underlyingImage = W3WImage(drawing: drawing, colors: theme?[.icons]?.colors ?? .standard)
     //self.iconColors      = colorSet
     
     super.init(image: self.underlyingImage.get())
@@ -69,7 +47,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   //public init(systemName: String, colorSet: W3WColorSet = .emptyColorSet, theme: W3WTheme? = nil) {
   public init(systemName: String, theme: W3WTheme? = nil) {
-    self.underlyingImage = W3WImage(systemName: systemName, colors: theme?.colors?[.icons].asColors() ?? .standard)
+    self.underlyingImage = W3WImage(systemName: systemName, colors: theme?[.icons]?.colors ?? .standard)
     //self.iconColors      = colorSet
     
     super.init(image: self.underlyingImage.get())
@@ -82,7 +60,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   //public init(file: String, colorSet: W3WColorSet = .emptyColorSet, theme: W3WTheme? = nil) {
   public init(file: String, theme: W3WTheme? = nil) {
-    self.underlyingImage = W3WImage(file: file, colors: theme?.colors?[.icons].asColors() ?? .standard)
+    self.underlyingImage = W3WImage(file: file, colors: theme?[.icons]?.colors ?? .standard)
     //self.iconColors      = colorSet
     
     super.init(image: self.underlyingImage.get())
@@ -153,7 +131,12 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
     updateView()
   }
 
+
+  public func update(theme: W3WTheme?) {
+    apply(theme: theme)
+  }
   
+
 }
 
 

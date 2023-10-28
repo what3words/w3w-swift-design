@@ -35,7 +35,7 @@ public class W3WPaddedView: W3WView {
       wrappedView = newView
       addSubview(newView)
 
-      let margin = theme?.style?.padding?.value ?? W3WPadding.thin.value
+      let margin = theme?[.base]?.styles?.padding?.value ?? W3WPadding.thin.value
       let insets = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
       wrappedView?.position = .center(inset: insets)
     }

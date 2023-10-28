@@ -13,79 +13,80 @@ import w3w
 #endif
 
 
-public class W3WSuggestionsTableViewCell: W3WTableViewCell {
+public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WSuggestionViewLayoutProtocol {
 
   // MARK: Vars
-
-  public var suggestion: W3WSuggestion?
-
   
+  public var suggestion: W3WSuggestion?
+    
+  public var wordsLabel: W3WLabel?
+  
+  public var nearestPlaceLabel: W3WLabel?
+  
+  public var distanceLabel: W3WLabel?
+  
+  public weak var parentView: UIView? { get { self } set {  } }
+
+  public var managedViews = [W3WViewProtocol]()
+  
+
   // MARK: Init
 
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    super.init(style: .default, reuseIdentifier: reuseIdentifier)
+    instantiateUIElements()
   }
   
   
   override public init(theme: W3WTheme? = nil) {
-    super.init(style: .subtitle, reuseIdentifier: Self.cellIdentifier)
+    super.init(style: .default, reuseIdentifier: Self.cellIdentifier)
+    self.theme = theme
+    instantiateUIElements()
   }
 
 
   public required init?(coder: NSCoder) {
     super.init(coder: coder)
+    instantiateUIElements()
   }
   
   
   // MARK: Acccessors
 
   
-  /// assign the three words values to the UI elecments
-  public func set(suggestion: W3WSuggestion?) {
-    self.suggestion = suggestion
-    updateLabels()
-    theme?.update(view: self)
-  }
-  
-  
-  /// override to allow SDK to work with this library
-  #if canImport(w3w)
-  func set(suggestion: W3WSdkSuggestion?) {
-    let s = suggestion?.asBaseSuggestion()
-    set(suggestion: s)
-  }
-  #endif
-
-  
-  /// update labels
-  func updateLabels() {
-    textLabel?.attributedText = W3WString(suggestion?.words ?? "", color: theme?.colors?.foreground ?? W3WColor.foreground).withSlashes(color: theme?.colors?.base.tint ?? .tint).asAttributedString()
-
-    detailTextLabel?.text = suggestion?.nearestPlace
-    detailTextLabel?.textColor = theme?.colors?.base.secondary?.current.uiColor ?? W3WColor.secondary.current.uiColor
-  }
-
-
-
   /// respond to dark/light mode updates
   public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
-    theme?.update(view: self)
-    updateLabels()
+    updateView()
   }
 
 
   /// respond to layout changes
   public override func layoutSubviews() {
     super.layoutSubviews()
-    theme?.update(view: self)
-    updateLabels()
+    updateView()
   }
 
 
+  override public func update(theme: W3WTheme?) {
+    apply(theme: theme, set: .cells)
+    update(with: .cells)
+  }
+
   
 }
+
+
+
+//apply(theme: theme)
+//
+//if let colorSet = theme?.colors?[.cells] {
+//  textLabel?.attributedText = W3WString(suggestion?.words ?? "", color: colorSet.foreground).withSlashes(color: colorSet.brand ?? .red).asAttributedString()
+//
+//  detailTextLabel?.text = suggestion?.nearestPlace
+//  detailTextLabel?.textColor = colorSet.secondary?.current.uiColor
+//}
 
 
 /// A UITableViewCell for displaying a what3words address.
