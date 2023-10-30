@@ -13,9 +13,9 @@ open class W3WWrappedView: W3WView {
   // this view can optionally wrap another UIView to allow regular UIViews to interact with this w3w design library
   public var wrappedView: UIView?
   
-  public init<ViewType: UIView>(view: ViewType? = nil, theme: W3WTheme? = nil) {
-    super.init(theme: theme)
-    set(theme: theme, position: position)
+  public init<ViewType: UIView>(view: ViewType? = nil, scheme: W3WScheme? = nil) {
+    super.init(scheme: scheme)
+    set(scheme: scheme, position: position)
     set(view: view)
   }
   

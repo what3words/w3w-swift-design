@@ -13,7 +13,7 @@ open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol { //}
 
   // MARK: W3WViewProtocol
   
-  public var theme: W3WTheme?
+  public var scheme: W3WScheme?
   public var position: W3WViewPosition?
   
   // MARK: Vars
@@ -33,11 +33,11 @@ open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol { //}
   // MARK: Init
   
   
-  public init(theme: W3WTheme? = nil) {
+  public init(scheme: W3WScheme? = nil) {
     super.init(frame: .w3wWhatever)
     //frame = position?.position(superview, self) ?? .w3wWhatever
     position?.position(superview, self)
-    set(theme: theme)
+    set(scheme: scheme)
     configure()
   }
   
@@ -62,26 +62,6 @@ open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol { //}
     // set up this view
     //placeholder = "Search"
     clearButtonMode = .always
-
-    //adjustsFontForContentSizeCategory = true
-    
-    // icon sizes
-    //let iconSize = CGRect(x: 0.0, y: 0.0, width: frame.height, height: frame.height)
-
-    // put search icon on left side
-    //leftView = W3WIcon(systemName: "magnifyingglass", colors: .searchIcon, frame: iconSize, padding: .light)
-
-    // put icon buttons on the right hand side
-    //icons.frame = CGRect(x: bounds.width - icons.frame.width, y: 0.0, width: 0.0, height: frame.height / 2.0)
-    //icons.clipsToBounds = true
-    //rightView = icons
-    //rightViewMode = .unlessEditing
-    
-    //apply(style: style)
-    //if let c = colors.background {
-    //  layer.backgroundColor = c.current.cgColor
-    //}
-    //icons.backgroundColor = .clear
     
     updateView()
   }
@@ -110,38 +90,6 @@ open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol { //}
       rightViewMode = .never
     }
   }
-  
-    
-//  public func add(button: W3WIconButton) {
-//    icons.add(icon: button)
-//    setNeedsLayout()
-//  }
-  
-//
-//  public func add(icon: W3WIcon) {
-//    icons.add(icon: icon)
-//    setNeedsLayout()
-//  }
-//
-//
-////  public func add(plugin: W3WPlugin) {
-////    add(button: plugin.button)
-////    setNeedsLayout()
-////  }
-//
-//
-//  public func hide(view: UIView) {
-//    self.icons.hide(view: view) {
-//      self.setNeedsLayout()
-//    }
-//  }
-//
-//
-//  public func show(view: UIView) {
-//    self.icons.show(view: view) {
-//      self.setNeedsLayout()
-//    }
-//  }
   
   
   public func set(text: String) {
@@ -173,11 +121,6 @@ open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol { //}
   }
   
   
-//  public func textFieldDidChangeSelection(_ textField: UITextField) {
-//    onTextChange: text ?? "")
-//  }
-  
-  
   open func textAppeared() {
     onTextAppeared()
   }
@@ -187,11 +130,6 @@ open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol { //}
     onTextDisappeared()
   }
   
-
-//  open func on(textChange: String) {
-//    onTextChange(textChange)
-//  }
-
   
   public func textFieldDidBeginEditing(_ textField: UITextField) {
     onEditingBegan()
@@ -250,10 +188,10 @@ open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol { //}
   }
 
   
-  public func update(theme: W3WTheme?) {
-    apply(theme: theme, set: .textFields)
-    update(colors: theme?[.textFields]?.colors)
-    update(style: theme?[.textFields]?.styles)
+  public func update(scheme: W3WScheme?) {
+    apply(scheme: scheme, set: .textFields)
+    update(colors: scheme?.colors)
+    update(style: scheme?.styles)
   }
   
   

@@ -181,7 +181,7 @@ open class W3WCollectionViewController<RowDataType, CellType: W3WCollectionViewC
   override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CellType
 
-    cell.set(theme: theme)
+    cell.set(scheme: theme?[.cells])
     
     return cell
   }

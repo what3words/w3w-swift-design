@@ -15,8 +15,8 @@ open class W3WViewDropdown: W3WView {
   var dropdownManager: W3WDropdownViewsManager?
 
   
-  public init(theme: W3WTheme? = nil, dropdownSuperView: UIView) {
-    super.init(theme: theme)
+  public init(scheme: W3WScheme? = nil, dropdownSuperView: UIView) {
+    super.init(scheme: scheme)
     dropdownManager = W3WDropdownViewsManager(dropdownFromView: self, dropdownSuperView: dropdownSuperView)
   }
 
@@ -49,9 +49,6 @@ open class W3WViewDropdown: W3WView {
   open override func layoutSubviews() {
     super.layoutSubviews()
     dropdownManager?.update()
-//    if let dv = dropdownView {
-//      dv.position?.position(self, dv)
-//    }
   }
   
 }

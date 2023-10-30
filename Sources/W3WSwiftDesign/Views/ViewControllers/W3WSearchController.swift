@@ -40,8 +40,7 @@ open class W3WSearchController: UISearchController, UISearchControllerDelegate, 
   public init(searchResultsController: UIViewController?, theme: W3WTheme? = nil) {
     super.init(searchResultsController: searchResultsController)
     self.theme = theme
-    self.searchBar.apply(theme: theme)
-    //theme?.update(view: self.searchBar)
+    self.searchBar.apply(scheme: theme?[.textFields])
   }
   
   
@@ -65,7 +64,7 @@ open class W3WSearchController: UISearchController, UISearchControllerDelegate, 
     delegate = self
     searchBar.delegate = self
 
-    self.searchBar.apply(theme: theme)
+    self.searchBar.apply(scheme: theme?[.textFields])
     //theme?.update(view: self.searchBar)
   }
 
@@ -97,29 +96,19 @@ open class W3WSearchController: UISearchController, UISearchControllerDelegate, 
     }
 
     return true
-    
-//    var allowTextChange = true
-//
-//    if let t = searchBar.text {
-//      let newText = t.replacingCharacters(in: Range(range, in: t)!, with: text)
-//      allowTextChange = onTextChange(newText)
-//    }
-//
-//    return allowTextChange
+
   }
 
   
   public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    self.searchBar.apply(theme: theme)
-    //theme?.update(view: self.searchBar)
+    self.searchBar.apply(scheme: theme?[.textFields])
   }
   
   
   open override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
     
-    self.searchBar.apply(theme: theme)
-    //theme?.update(view: self.searchBar)
+    self.searchBar.apply(scheme: theme?[.textFields])
   }
   
 }

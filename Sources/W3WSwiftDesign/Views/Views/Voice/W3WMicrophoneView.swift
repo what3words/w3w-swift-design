@@ -10,7 +10,16 @@
 //import W3WSwiftTypes
 //
 //
-///// A microphone view 
+
+/*********
+ 
+ This needs updating to the new design system or rewritten 
+ 
+ ************/
+
+
+
+///// A microphone view
 //open class W3WMicrophoneView: UIView { //}, W3WOptionAcceptorProtocol {
 //    
 //  // MARK: Vars

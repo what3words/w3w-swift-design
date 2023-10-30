@@ -13,7 +13,7 @@ public class W3WTableViewDetailCell: W3WTableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-    set(theme: theme, position: position)
+    set(scheme: scheme, position: position)
   }
 
   
@@ -23,11 +23,11 @@ public class W3WTableViewDetailCell: W3WTableViewCell {
 
   
   
-  public override func update(theme: W3WTheme?) {
-    apply(theme: theme)
+  public override func update(scheme: W3WScheme?) {
+    apply(scheme: scheme)
     
-    textLabel?.textColor       = theme?[.cells]?.colors?.foreground?.current.uiColor
-    detailTextLabel?.textColor = theme?[.cells]?.colors?.secondary?.current.uiColor
+    textLabel?.textColor       = scheme?.colors?.foreground?.current.uiColor
+    detailTextLabel?.textColor = scheme?.colors?.secondary?.current.uiColor
   }
   
 }

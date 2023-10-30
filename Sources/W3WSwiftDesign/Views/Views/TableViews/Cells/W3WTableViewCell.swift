@@ -13,7 +13,7 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
 
   // MARK: Vars
   
-  public var theme: W3WTheme?
+  public var scheme: W3WScheme?
   
   public var position: W3WViewPosition?
   
@@ -26,25 +26,25 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    set(theme: theme, position: position)
+    set(scheme: scheme, position: position)
   }
   
   
-  public init(cellStyle: UITableViewCell.CellStyle, theme: W3WTheme) {
+  public init(cellStyle: UITableViewCell.CellStyle, scheme: W3WScheme) {
     super.init(style: cellStyle, reuseIdentifier: Self.cellIdentifier)
-    set(theme: theme, position: position)
+    set(scheme: scheme, position: position)
   }
   
   
-  public init(theme: W3WTheme?) {
+  public init(scheme: W3WScheme?) {
     super.init(style: .default, reuseIdentifier: Self.cellIdentifier)
-    set(theme: theme, position: position)
+    set(scheme: scheme, position: position)
   }
   
   
   public init() {
     super.init(style: .default, reuseIdentifier: Self.cellIdentifier)
-    set(theme: theme, position: position)
+    set(scheme: scheme, position: position)
   }
   
   
@@ -67,13 +67,8 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
   }
   
 
-//  public func set(accessory: UITableViewCell.AccessoryType) {
-//    accessoryType = accessory
-//  }
-  
-  
   func updateImage() {
-    let length = 8.0 // frame.height * (1.0 / W3WSettings.goldenRatio)
+    let length = 8.0
     var frameLength = length
 
     if #available(iOS 13.0, *) {
@@ -85,12 +80,6 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
     self.imageView?.bounds      = CGRect(origin: .zero, size: CGSize(width: frameLength, height: frameLength))
     self.imageView?.contentMode = .scaleAspectFit
     self.imageView?.image       = image?.underlyingImage.get(size: CGSize(width: length, height: length))
-    
-    // design needs to be applied here because it is a view controlled by UITableViewCell and not us
-//    if let i = imageView {
-//      var iconDesign = W3WDesign.w3wCellIconFilled
-//      iconDesign.update(view: i)
-//    }
     
     updateView()
   }
@@ -120,9 +109,9 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
   }
 
   
-  public func update(theme: W3WTheme?) {
+  public func update(scheme: W3WScheme?) {
     updateImage()
-    apply(theme: theme?.copy(from: .cells, to: .base))
+    apply(scheme: scheme)
   }
   
 }

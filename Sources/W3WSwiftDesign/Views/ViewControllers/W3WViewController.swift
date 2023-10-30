@@ -73,18 +73,20 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   }
   
 
-// This?
-//  /// initializer override to instantiate the W3WOcrScannerView
-//  public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)   {
-//    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//  }
+  // MARK: Accessors
+  
+  public func set(theme: W3WTheme?) {
+    self.theme = theme
+    w3wView?.scheme = theme?[.base]
+    w3wView?.updateView()
+  }
 
   
   // MARK: ViewDidLoad
   
   
   override open func loadView() {
-    self.view = W3WView(theme: theme)
+    self.view = W3WView(scheme: theme?[.base])
   }
   
   
@@ -180,67 +182,4 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
     return false
   }
   
-  
-  // MARK: Popovers
-  
-  
-//  public func popover(vc: W3WViewController) {
-//    if let v = vc.w3wView {
-//      addChild(vc)
-//      view.addSubview(v)
-//      v.set(position: .bottom())
-//    }
-//
-//    //vc.modalPresentationStyle = .overCurrentContext
-//    //vc.preferredContentSize = .init(width: view.frame.width, height: 256.0)
-//    //
-//    //let smallDetentId = UISheetPresentationController.Detent.Identifier("small")
-//    //let smallDetent = UISheetPresentationController.Detent.custom(identifier: smallDetentId) { context in
-//    //  return 100
-//    //}
-//    //vc?.detents = [smallDetent, .medium(), .large()]
-//    //
-//    //present(vc, animated: true)
-//    //if let sheet = vc.sheetPresentationController {
-//    //  sheet.detents = [.medium(), .large()]
-//    //  sheet.largestUndimmedDetentIdentifier = .medium
-//    //  sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-//    //  sheet.prefersEdgeAttachedInCompactHeight = true
-//    //  sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
-//    //}
-//    //present(vc, animated: true, completion: nil)
-//  }
-  
-
 }
-
-
-
-
-//  public func add(view: UIView, frame: @escaping () -> (CGRect)) {
-//    add(view: view, position: W3WViewPosition(position: frame))
-//  }
-//
-//
-//  public func add(view: UIView, position: W3WViewPosition) {
-//    let managedView = W3WManagedView(view: view, position: position)
-//    managedViews.append(managedView)
-//
-//    self.view.addSubview(view)
-//  }
-//
-//
-//  public func add(view: UIView, theme: W3WDesign, position: W3WViewPosition) {
-//    let managedView = W3WManagedView(view: view, theme: theme, position: position)
-//    managedViews.append(managedView)
-//
-//    self.view.addSubview(view)
-//  }
-//
-//
-//  public func add(view: W3WViewProtocol, position: W3WViewPosition? = nil) {
-//    let managedView = W3WManagedView(view: view, position: position)
-//    managedViews.append(managedView)
-//
-//    self.view.addSubview(view)
-//  }

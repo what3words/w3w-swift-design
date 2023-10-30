@@ -15,7 +15,7 @@ open class W3WScrollViewController: W3WViewController {
   }
 
   override open func loadView() {
-    self.view = W3WScrollView(theme: theme)
+    self.view = W3WScrollView(scheme: theme?[.base])
   }
   
 }

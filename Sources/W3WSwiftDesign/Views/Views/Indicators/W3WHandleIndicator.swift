@@ -15,8 +15,8 @@ import UIKit
 public class W3WHandleIndicator: W3WView {
 
   
-  public override init(theme: W3WTheme? = nil) {
-    super.init(theme: theme)
+  public override init(scheme: W3WScheme? = nil) {
+    super.init(scheme: scheme)
     configure()
   }
 

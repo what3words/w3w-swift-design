@@ -10,10 +10,12 @@ let package = Package(
       .library(name: "W3WSwiftDesign", targets: ["W3WSwiftDesign"]),
     ],
     
-    dependencies: [.package(name: "W3WSwiftCore", path: "/Users/daveduprey/Documents/src/projects/Packages/W3WSwiftCore/src/w3w-swift-core/")],
+    dependencies: [
+      .package(url: "git@github.com:what3words/w3w-swift-core.git", branch: "main")
+    ],
     
     targets: [
-      .target(name: "W3WSwiftDesign", dependencies: ["W3WSwiftCore"], resources: [.process("Resources")]),
+      .target(name: "W3WSwiftDesign", dependencies: [.product(name: "W3WSwiftCore", package: "w3w-swift-core")], resources: [.process("Resources")]),
       .testTarget(name: "w3w-swift-designTests", dependencies: ["W3WSwiftDesign"]),
     ]
 )

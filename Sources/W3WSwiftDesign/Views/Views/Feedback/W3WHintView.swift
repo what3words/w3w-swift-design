@@ -9,7 +9,6 @@
 
 import Foundation
 import UIKit
-import W3WSwiftCore
 
 
 /// view to display an erro
@@ -65,12 +64,7 @@ public class W3WHintView: W3WMessageView {
     //let hintFontHeight  = frame.height * (18.0 / 58.0)
     hintLabel?.attributedText = W3WString(hintLabel?.text ?? "").asAttributedString() //, font: W3WFont.pickaFont(size: hintFontHeight, weight: .semibold)).asAttributedString() //  W3WFormatter.ensureSlashes(text: hintLabel?.text, font: W3WFormatter.pickaFont(size: hintFontHeight, weight: .semibold))
   }
-  
-  
-//  override func updateGeometry() {
-//    super.updateGeometry()
-//  }
-  
+    
   
   /// sets the error as an atributed string
   public func set(title: String, hint: NSAttributedString) {

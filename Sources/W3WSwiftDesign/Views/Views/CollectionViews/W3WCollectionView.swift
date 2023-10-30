@@ -9,7 +9,7 @@ import UIKit
 
 
 public class W3WCollectionView: UICollectionView, W3WViewProtocol {
-  public var theme: W3WTheme?
+  public var scheme: W3WScheme?
   public var position: W3WViewPosition?
   
 
@@ -24,8 +24,8 @@ public class W3WCollectionView: UICollectionView, W3WViewProtocol {
   }
 
   
-  public func update(theme: W3WTheme?) {
-    apply(theme: theme)
+  public func update(scheme: W3WScheme?) {
+    apply(scheme: scheme)
   }
 
 }

@@ -13,7 +13,7 @@ import W3WSwiftCore
 
 open class W3WTableCellProvider<CellType: UITableViewCell>: W3WTableCellProviderProtocol {
 
-  public var theme: W3WTheme? = nil
+  public var scheme: W3WScheme? = nil
 
   public var closure: () -> () = { }
   
@@ -22,8 +22,8 @@ open class W3WTableCellProvider<CellType: UITableViewCell>: W3WTableCellProvider
   public var sectionHeaderView: UIView?
 
   
-  public init(theme: W3WTheme? = nil) {
-    self.theme = theme
+  public init(scheme: W3WScheme? = nil) {
+    self.scheme = scheme
   }
   
   
@@ -85,14 +85,5 @@ open class W3WTableCellProvider<CellType: UITableViewCell>: W3WTableCellProvider
   
   open func update(text: String) {
   }
-
-
-//  func refreshViews() {
-//    DispatchQueue.main.async {
-//      //self.tableViewController?.tableView.reloadData()
-//      //self.tableViewController?.updateFrame()
-//    }
-//  }
-
   
 }

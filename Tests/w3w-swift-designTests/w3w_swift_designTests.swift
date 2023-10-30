@@ -13,8 +13,8 @@ final class w3w_swift_designTests: XCTestCase {
     let theme = W3WTheme.standard
     let theme2 = theme.with(foreground: .white, into: .base)
 
-    XCTAssert(theme[.base]?.colorSet?.foreground?.current.red == 0.0)
-    XCTAssert(theme2[.base]?.colorSet?.foreground?.current.red == 1.0)
+    XCTAssert(theme[.base]?.colors?.foreground?.current.red == 0.0)
+    XCTAssert(theme2[.base]?.colors?.foreground?.current.red == 1.0)
   }
  
   
@@ -22,8 +22,8 @@ final class w3w_swift_designTests: XCTestCase {
     let theme = W3WTheme.standard
     let theme2 = theme.with(padding: .bold, into: .labels)
     
-    XCTAssert(theme[.labels]?.style?.padding == .medium)
-    XCTAssert(theme2[.labels]?.style?.padding == .bold)
+    XCTAssert(theme[.labels]?.styles?.padding == .medium)
+    XCTAssert(theme2[.labels]?.styles?.padding == .bold)
   }
   
   

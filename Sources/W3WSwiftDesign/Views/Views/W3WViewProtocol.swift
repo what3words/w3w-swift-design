@@ -10,24 +10,24 @@ import W3WSwiftCore
 
 
 public protocol W3WViewProtocol: UIView {
-  var theme: W3WTheme? { get set }
+  var scheme: W3WScheme? { get set }
   var position: W3WViewPosition? { get set }
   
-  func update(theme: W3WTheme?)
+  func update(scheme: W3WScheme?)
 }
 
 
 public extension W3WViewProtocol {
   
-  func set(theme: W3WTheme?, position: W3WViewPosition?) {
-    set(theme: theme)
+  func set(scheme: W3WScheme?, position: W3WViewPosition?) {
+    set(scheme: scheme)
     set(position: position)
   }
   
   
-  func set(theme: W3WTheme?) {
-    if let t = theme {
-      self.theme = t
+  func set(scheme: W3WScheme?) {
+    if let t = scheme {
+      self.scheme = t
     }
 
     updateView()
@@ -95,7 +95,7 @@ public extension W3WViewProtocol {
   func updateView() {
     position?.position(superview, self)
     W3WThread.queueOnMain { [weak self] in
-      self?.update(theme: self?.theme)
+      self?.update(scheme: self?.scheme)
     }
   }
   
@@ -103,21 +103,6 @@ public extension W3WViewProtocol {
   var asStackView:  W3WStackView? { return self as? W3WStackView }
   var asLabel:      W3WLabel?     { return self as? W3WLabel }
   var asTextField:  W3WTextField? { return self as? W3WTextField }
-  
-  
-  //move this back...;
-  /// convert this view into a UIImage
-//  func asImage(size: CGSize? = nil) -> UIImage? {
-//    let s = size ?? self.bounds.size
-//    let b = CGRect(origin: .zero, size: s)
-//    UIGraphicsBeginImageContextWithOptions(s, false, 0.0)
-//    self.drawHierarchy(in: b, afterScreenUpdates: true)
-//    self.draw(b)
-//    let image = UIGraphicsGetImageFromCurrentImageContext()
-//    UIGraphicsEndImageContext()
-//    return image
-//  }
-
-  
+ 
 }
 

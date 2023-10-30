@@ -14,8 +14,8 @@ open class W3WManagerView: W3WView, W3WViewManagerProtocol {
   public var managedViews = [W3WViewProtocol]()
 
   
-  public override init(theme: W3WTheme? = nil) { //, position: W3WViewPosition? = nil) {
-    super.init(theme: theme)
+  public override init(scheme: W3WScheme? = nil) {
+    super.init(scheme: scheme)
   }
   
   

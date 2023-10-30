@@ -61,7 +61,7 @@ public struct W3WCoreColor {
     self.green = green
     self.blue = blue
     self.alpha = alpha
-    
+
     let _ = find(color: self.uiColor)
   }
   

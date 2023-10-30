@@ -156,15 +156,20 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
   
   public func getIdealHeight() -> CGFloat {
     return self.preferredContentSize.height
-//    var count = CGFloat(items.count)
+//    if self.preferredContentSize.height > 0.0 {
+//      return self.preferredContentSize.height
 //
-//    if let max = maxCellsShowing {
-//      if max < count {
-//        count = max
+//    } else {
+//      var count = CGFloat(items.count)
+//  
+//      if let max = maxCellsShowing {
+//        if max < count {
+//          count = max
+//        }
 //      }
+//  
+//      return rowHeight * count
 //    }
-//
-//    return rowHeight * count
   }
   
   

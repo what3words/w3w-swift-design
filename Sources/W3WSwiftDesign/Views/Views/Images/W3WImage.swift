@@ -78,9 +78,6 @@ public class W3WImage {
         UIGraphicsEndImageContext()
       }
 
-//      if let image = context?.makeImage() {
-//        return UIImage(cgImage: image)
-//      }
     }
     
     return UIImage()
@@ -112,11 +109,6 @@ public class W3WImage {
       }
     }
       
-//      if let foreground = colors?.foreground?.current.uiColor, let secondary = colors?.secondary?.current.uiColor, let tint = colors?.tint?.current.uiColor {
-//        let configuration = UIImage.SymbolConfiguration(paletteColors: [foreground, secondary, tint])
-//        return UIImage(systemName: symbol, withConfiguration: configuration)!.withRenderingMode(.automatic)
-//      }
-      
     if #available(iOS 13.0, *) { // if we have SF Symbols available at all
       // if there is a tint colour
       if let tint = colors?.tint?.current.uiColor {
@@ -135,59 +127,5 @@ public class W3WImage {
     // TODO: Add backwards compatibility, or make 'missing image' image
     return UIImage()
   }
-
-  
-//  func from_OLD(symbol: String, size: CGSize) -> UIImage {
-//    // if we have SF Symbols available
-//    if #available(iOS 13.0, *) {
-//
-//      // if SF Symbols can take multi-colour
-//      if #available(iOS 15.0, *) {
-//
-//        if let foreground = colors?.foreground?.current.uiColor, let secondary = colors?.secondary?.current.uiColor, let tint = colors?.tint?.current.uiColor {
-//          let configuration = UIImage.SymbolConfiguration(paletteColors: [foreground, secondary, tint])
-//          //  colors?.foreground?.current.uiColor ?? W3WColor.foreground.current.uiColor,
-//          //  colors?.secondary?.current.uiColor  ?? W3WColor.foreground.current.uiColor,
-//          //  colors?.tint?.current.uiColor       ?? W3WColor.foreground.current.uiColor
-//          //])
-//          return UIImage(systemName: symbol, withConfiguration: configuration)!.withRenderingMode(.automatic)
-//        }
-//
-//      // if SF Symbols don't have multi-colour
-//      } else {
-//        let image = UIImage(systemName: symbol)!
-//        image.withTintColor(colors?.tint?.current.uiColor ?? .black)
-//        return image
-//      }
-//
-//    // if there are no SF Symbols
-//    } else {
-//      // TODO: Add backwards compatibility
-//      return UIImage()
-//    }
-//
-//    return UIImage()
-//  }
-
-  //let configuration = UIImage.SymbolConfiguration(pointSize: size.height)
-  //return UIImage(systemName: symbol, withConfiguration: configuration)!
-
   
 }
-
-
-
-
-//  static func createImageWithRedCircle(size: CGSize, radius: CGFloat) -> CGImage? {
-//    UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-//    guard let context = UIGraphicsGetCurrentContext() else { return nil }
-//    let center = CGPoint(x: size.width / 2, y: size.height / 2)
-//    context.setFillColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
-//    context.fillEllipse(in: CGRect(origin: center, size: CGSize.zero).insetBy(dx: -radius, dy: -radius))
-//    let image = UIGraphicsGetImageFromCurrentImageContext()?.cgImage
-//    UIGraphicsEndImageContext()
-//    return image
-//  }
-
-
-

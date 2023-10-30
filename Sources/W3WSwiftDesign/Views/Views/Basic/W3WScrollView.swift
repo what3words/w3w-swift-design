@@ -11,18 +11,18 @@ import W3WSwiftCore
 
 open class W3WScrollView: UIScrollView, W3WViewProtocol, UIScrollViewDelegate  {
   
-  public var theme: W3WTheme?
+  public var scheme: W3WScheme?
   public var position: W3WViewPosition?
   
   // this view can optionally wrap another UIView to allow regular UIViews to interact with this w3w design library
   var wrappedView: UIView?
   
   
-  public init(theme: W3WTheme? = nil) { //, position: W3WViewPosition? = nil) {
+  public init(scheme: W3WScheme? = nil) { //, position: W3WViewPosition? = nil) {
     super.init(frame: .w3wWhatever)
 
     position?.position(superview, self)
-    set(theme: theme, position: position)
+    set(scheme: scheme, position: position)
 
     delegate = self
   }
@@ -63,8 +63,8 @@ open class W3WScrollView: UIScrollView, W3WViewProtocol, UIScrollViewDelegate  {
     }
     
     // pad the extents a bit
-    extents.height += theme?[.base]?.styles?.padding?.value ?? 0.0
-    extents.width  += theme?[.base]?.styles?.padding?.value ?? 0.0
+    extents.height += scheme?.styles?.padding?.value ?? 0.0
+    extents.width  += scheme?.styles?.padding?.value ?? 0.0
 
     // we can turn the scroll indicators back on, now that we've enumerated the subviews
     self.showsVerticalScrollIndicator = showsVerticalScrollIndicator;
@@ -77,8 +77,8 @@ open class W3WScrollView: UIScrollView, W3WViewProtocol, UIScrollViewDelegate  {
   }
   
 
-  public func update(theme: W3WTheme?) {
-    apply(theme: theme)
+  public func update(scheme: W3WScheme?) {
+    apply(scheme: scheme)
   }
   
 

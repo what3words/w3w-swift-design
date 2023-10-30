@@ -11,24 +11,22 @@ import UIKit
 
 open class W3WStackView: UIStackView, W3WViewProtocol  {
   
-  public var theme: W3WTheme?
+  public var scheme: W3WScheme?
   public var position: W3WViewPosition?
   
   
-  public init(views: [W3WViewProtocol] = [], theme: W3WTheme? = nil) {
+  public init(views: [W3WViewProtocol] = [], scheme: W3WScheme? = nil) {
     super.init(frame: .w3wWhatever)
     //frame = position?.position(superview, self) ?? .w3wWhatever
     position?.position(superview, self)
 
-    //isLayoutMarginsRelativeArrangement = false
-    //distribution = .equalCentering
     spacing = W3WMargin.light.value
 
     for view in views {
       add(view: view)
     }
     
-    set(theme: theme, position: position)
+    set(scheme: scheme, position: position)
   }
   
   
@@ -93,12 +91,6 @@ open class W3WStackView: UIStackView, W3WViewProtocol  {
   
   public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     updateView()
-
-//    for view in subviews {
-//      if let v = view as? W3WViewProtocol {
-//        v.updateView()
-//      }
-//    }
   }
   
   
@@ -108,8 +100,8 @@ open class W3WStackView: UIStackView, W3WViewProtocol  {
   }
   
 
-  public func update(theme: W3WTheme?) {
-    apply(theme: theme)
+  public func update(scheme: W3WScheme?) {
+    apply(scheme: scheme)
   }
   
 

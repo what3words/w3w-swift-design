@@ -11,7 +11,7 @@ import W3WSwiftCore
 
 public class W3WLabel: UILabel, W3WViewProtocol {
   
-  public var theme: W3WTheme?
+  public var scheme: W3WScheme?
 
   public var position: W3WViewPosition?
 
@@ -34,15 +34,15 @@ public class W3WLabel: UILabel, W3WViewProtocol {
   }
   
   
-  public init(localized: String, fontStyle: W3WFontStyle? = nil, theme: W3WTheme? = nil) {
+  public init(localized: String, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil) {
     super.init(frame: .w3wWhatever)
-    configure(text: W3WString(W3WTranslations.main.translate(key: localized)), fontStyle: fontStyle, theme: theme)
+    configure(text: W3WString(W3WTranslations.main.translate(key: localized)), fontStyle: fontStyle, scheme: scheme)
   }
 
   
-  public init(text: W3WString? = nil, fontStyle: W3WFontStyle? = nil, theme: W3WTheme? = nil) {
+  public init(text: W3WString? = nil, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil) {
     super.init(frame: .w3wWhatever)
-    configure(text: text, fontStyle: fontStyle, theme: theme)
+    configure(text: text, fontStyle: fontStyle, scheme: scheme)
   }
 
   
@@ -52,14 +52,14 @@ public class W3WLabel: UILabel, W3WViewProtocol {
   }
   
   
-  func configure(text: W3WString? = nil, fontStyle: W3WFontStyle? = nil, theme: W3WTheme? = nil) {
+  func configure(text: W3WString? = nil, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil) {
     position?.position(superview, self)
     
-    set(theme: theme, position: position)
+    set(scheme: scheme, position: position)
     
     if let fs = fontStyle {
       self.fontStyle = fs
-      self.font = theme?[.labels]?.styles?.fonts?[fs]
+      self.font = scheme?.styles?.fonts?[fs]
     }
     
     if let t = text {
@@ -85,12 +85,12 @@ public class W3WLabel: UILabel, W3WViewProtocol {
   }
 
   
-  public func update(theme: W3WTheme?) {
-    apply(theme: theme?.copy(from: .labels, to: .base))
-    update(fonts: theme?[.labels]?.styles?.fonts)
+  public func update(scheme: W3WScheme?) {
+    apply(scheme: scheme)
+    update(fonts: scheme?.styles?.fonts)
     
     if customText == nil {
-      textColor = theme?[.labels]?.colors?.foreground?.current.uiColor
+      textColor = scheme?.colors?.foreground?.current.uiColor
     }
   }
   

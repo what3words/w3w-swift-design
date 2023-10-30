@@ -55,7 +55,7 @@ open class W3WMultiSourceTableViewController: UITableViewController {
   
   
   override open func loadView() {
-    self.view = W3WTableView(theme: theme)
+    self.view = W3WTableView(scheme: theme?[.cells])
   }
   
   
@@ -106,20 +106,9 @@ open class W3WMultiSourceTableViewController: UITableViewController {
       self?.onError(error)
     }
 
-// I don't think we need this loop, it doesn't change over time does it?
-//    for provider in providers {
-//      provider.onNewData(closure: { [weak self] in self?.onNewData() })
-//      provider.onError(closure: { [weak self] error in self?.onError(error) })
-//    }
   }
   
  
-  
-//  public func set(noResultsMessage: String?) {
-//    self.noResultsMessage = noResultsMessage
-//  }
-  
-  
   public func getCellCount() -> Int {
     var itemCount = 0
     
@@ -129,50 +118,14 @@ open class W3WMultiSourceTableViewController: UITableViewController {
     
     return itemCount
   }
-  
-  
-//  public func updateNoResultMessage() {
-//    DispatchQueue.main.async {
-//      self.ensureNoResultLabel()
-//
-//
-//      if let message = self.noResultsMessage, self.getCellCount() == 0 {
-//        self.noResultsLabel.text = message
-//      } else {
-//        self.noResultsLabel.text = nil
-//      }
-//    }
-//  }
-  
-  
-  /// ensure the noResultLabel is present
-  /// must be called in main thread
-//  func ensureNoResultLabel() {
-//    noResultsLabel.textAlignment = .center
-//    noResultsLabel.textColor = W3WColor.secondaryDarkGray.current.uiColor
-//    tableView.backgroundView = noResultsLabel
-//  }
-  
+    
   
   // MARK: Geometry
   
   
   public func getIdealHeight() -> CGFloat {
     tableView.layoutIfNeeded()
-    //this seems wrong;
     return tableView.contentSize.height
-//    return w3wTableView?.intrinsicContentSize.height ?? self.preferredContentSize.height
-//    return w3wTableView?.contentSize.height ?? self.preferredContentSize.height
-//    var rowCount     = CGFloat(getCellCount())
-//    let sectionCount = CGFloat(numberOfSections(in: tableView))
-//
-//    if let max = maxCellsShowing {
-//      if max < rowCount {
-//        rowCount = max
-//      }
-//    }
-//
-//    return rowHeight * rowCount + headerHeight * sectionCount
   }
   
   

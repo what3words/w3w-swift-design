@@ -31,28 +31,11 @@ open class W3WGenericTableCellProvider<RowDataType, CellType: UITableViewCell>: 
   
   public func set(items: [RowDataType]) {
     self.items = items
-    //updateNoResultMessage()
-
-    //onNewData()
     closure()
-    
-    //refreshViews()
-//    DispatchQueue.main.async {
-//      self.tableViewController?.tableView.reloadData()
-//      self.tableViewController?.updateFrame()
-//    }
-    
-    //updateFrame()
   }
 
   
   // MARK: Overrides
-  
-  
-//  public override func getSectionHeaderView() -> UIView? {
-//    return sectionHeaderView
-//  }
-  
   
   override public func getCellIdentifier() -> String {
     return String(describing: getCellType().self)
@@ -90,9 +73,5 @@ open class W3WGenericTableCellProvider<RowDataType, CellType: UITableViewCell>: 
       onSelected(item)
     }
   }
-  
-  
-
-  
   
 }

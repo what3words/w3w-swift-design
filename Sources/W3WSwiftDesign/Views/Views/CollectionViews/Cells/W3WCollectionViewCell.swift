@@ -11,13 +11,9 @@ import W3WSwiftCore
 
 open class W3WCollectionViewCell: UICollectionViewCell, W3WViewProtocol { //}, W3WViewManagerProtocol {
 
-  //public weak var parentView: UIView? { get { self } set {  } }
-  //public var managedViews = [W3WViewProtocol]()
-
-  
   // MARK: Vars
   
-  public var theme: W3WTheme?
+  public var scheme: W3WScheme?
   
   public var position: W3WViewPosition?
   
@@ -30,13 +26,13 @@ open class W3WCollectionViewCell: UICollectionViewCell, W3WViewProtocol { //}, W
   
   override public init(frame: CGRect) {
     super.init(frame: frame)
-    set(theme: theme)
+    set(scheme: scheme)
   }
   
   
-  public init(frame: CGRect, theme: W3WTheme? = nil) {
+  public init(frame: CGRect, scheme: W3WScheme? = nil) {
     super.init(frame: frame)
-    set(theme: theme)
+    set(scheme: scheme)
   }
   
   
@@ -64,8 +60,8 @@ open class W3WCollectionViewCell: UICollectionViewCell, W3WViewProtocol { //}, W
   }
   
 
-  public func update(theme: W3WTheme?) {
-    apply(theme: theme)
+  public func update(scheme: W3WScheme?) {
+    apply(scheme: scheme)
   }
 
 }

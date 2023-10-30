@@ -10,7 +10,7 @@ import UIKit
 
 open class W3WView: UIView, W3WViewProtocol  {
 
-  public var theme: W3WTheme?
+  public var scheme: W3WScheme?
   
   public var position: W3WViewPosition? {
     didSet {
@@ -19,11 +19,11 @@ open class W3WView: UIView, W3WViewProtocol  {
   }
   
 
-  public init(theme: W3WTheme? = nil) { //, position: W3WViewPosition? = nil) {
+  public init(scheme: W3WScheme? = nil) { //, position: W3WViewPosition? = nil) {
     super.init(frame: .w3wWhatever)
 
     position?.position(superview, self)
-    set(theme: theme, position: position)
+    set(scheme: scheme, position: position)
   }
   
   
@@ -43,8 +43,8 @@ open class W3WView: UIView, W3WViewProtocol  {
   }
 
 
-  open func update(theme: W3WTheme?) {
-    apply(theme: theme)
+  open func update(scheme: W3WScheme?) {
+    apply(scheme: scheme)
   }
   
 }

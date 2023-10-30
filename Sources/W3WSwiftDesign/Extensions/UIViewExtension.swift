@@ -13,12 +13,12 @@ import UIKit
 public extension UIView {
 
   
-  func apply(theme: W3WTheme?, set: W3WSetTypes = .base) {
-    if let colors = theme?[set]?.colors {
+  func apply(scheme: W3WScheme?, set: W3WSetTypes = .base) {
+    if let colors = scheme?.colors {
       apply(colors: colors)
     }
     
-    if let styles = theme?[set]?.styles {
+    if let styles = scheme?.styles {
       apply(styles: styles)
     }
   }
