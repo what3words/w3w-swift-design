@@ -81,13 +81,9 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
     self.imageView?.contentMode = .scaleAspectFit
     self.imageView?.image       = image?.underlyingImage.get(size: CGSize(width: length, height: length))
     
-    updateView()
+    //updateView()
+    position?.position(superview, self)
   }
-  
-  
-//  public func set(theme: W3WDesign?) {
-//    self.design = design
-//  }
   
   
   // MARK: Overrides
@@ -102,16 +98,27 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
   open override func layoutSubviews() {
     super.layoutSubviews()
     separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    //self.imageView?.frame = CGRect(x: 8.0, y: 8.0, width: frame.height - 16.0, height: frame.height - 16.0)
-    //self.imageView?.frame = CGRect(x: 8.0, y: 8.0, width: 16.0, height: 16.0)
-    //updateImage()
     updateView()
   }
 
   
   public func update(scheme: W3WScheme?) {
     updateImage()
-    apply(scheme: scheme)
+    updateView()
+    
+    //selectedBackgroundView?.backgroundColor = scheme?.colors?.highlight?.background?.current.uiColor
+    //if isSelected {
+    //  apply(scheme: scheme?.with(background: scheme?.colors?.highlight?.background))
+    //  textLabel?.textColor       = scheme?.colors?.highlight?.foreground?.current.uiColor
+    //  detailTextLabel?.textColor = scheme?.colors?.highlight?.foreground?.current.uiColor
+    //  //backgroundColor            = scheme?.colors?.highlight?.background?.current.uiColor
+    //
+    //} else {
+    //  apply(scheme: scheme)
+    //  textLabel?.textColor       = scheme?.colors?.foreground?.current.uiColor
+    //  detailTextLabel?.textColor = scheme?.colors?.secondary?.current.uiColor
+    //  //backgroundColor            = scheme?.colors?.background?.current.uiColor
+    //}
   }
   
 }

@@ -23,21 +23,26 @@ public class W3WImage {
   
   public init(systemName: String, colors: W3WColors) {
     self.imageSource = .system(systemName)
-    self.colors = colors
+    set(colors: colors)
   }
   
   
   public init(drawing: W3WDrawing, colors: W3WColors) {
     imageSource = .drawing(drawing)
-    self.colors = colors
+    set(colors: colors)
   }
   
   
   public init(file: String, colors: W3WColors) {
     imageSource = .file(file)
-    self.colors = colors
+    set(colors: colors)
   }
 
+  
+  public func set(colors: W3WColors) {
+    self.colors = colors
+  }
+  
   
   public func get(size: CGSize = W3WIconSize.largeIcon.value) -> UIImage {
     switch imageSource {

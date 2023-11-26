@@ -93,7 +93,11 @@ public extension W3WViewProtocol {
 
   //@available(*, deprecated, message: "Just marking where this is called from")
   func updateView() {
-    position?.position(superview, self)
+    W3WThread.runOnMain { [weak self] in
+      if let this = self {
+        this.position?.position(this.superview, this)
+      }
+    }
     W3WThread.queueOnMain { [weak self] in
       self?.update(scheme: self?.scheme)
     }

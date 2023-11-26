@@ -15,7 +15,10 @@ let package = Package(
     ],
     
     targets: [
-      .target(name: "W3WSwiftDesign", dependencies: [.product(name: "W3WSwiftCore", package: "w3w-swift-core")], resources: [.process("Resources")]),
+      .target(
+        name: "W3WSwiftDesign",
+        dependencies: [.product(name: "W3WSwiftCore", package: "w3w-swift-core")], 
+        resources: [.process("Resources")]),
       .testTarget(name: "w3w-swift-designTests", dependencies: ["W3WSwiftDesign"]),
     ]
 )

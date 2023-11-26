@@ -44,6 +44,12 @@ open class W3WBottomSheetViewController: W3WViewController, UIGestureRecognizerD
   }
   
   
+  /// remove a place (y coord) that the sheet will snap to, if no such place, this does nothing
+  public func removeDetents() {
+    detents.removeDetents()
+  }
+
+  
   // MARK: Swiping
   
 

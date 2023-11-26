@@ -98,10 +98,6 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   override open func viewDidLoad() {
     super.viewDidLoad()
     
-    // add the sub views
-    //add(view: W3WWrappedView<UIView>(view: handleIndicator), position: handleIndicator.getFrame)
-    //add(view: W3WWrappedView<W3WDismissButton>(view: dismissButton),   position: dismissButton.getFrame)
-
     // show the handle if view is presented modally
     showHandle = isPresentedModally() ? true : false
     
@@ -149,7 +145,6 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   
   open override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    //handleIndicator.position()
     
     w3wView?.updateView()
     updateViews()

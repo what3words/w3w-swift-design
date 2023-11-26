@@ -13,7 +13,7 @@ import UIKit
 public extension UIView {
 
   
-  func apply(scheme: W3WScheme?, set: W3WSetTypes = .base) {
+  func apply(scheme: W3WScheme?) {
     if let colors = scheme?.colors {
       apply(colors: colors)
     }

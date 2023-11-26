@@ -50,7 +50,7 @@ extension W3WCoreColor: CustomDebugStringConvertible, CustomStringConvertible {
     
     //print("Colour match: ", match)
     if match > 0.01 {
-      cname = "Unknown"
+      cname = "[\(String(format: "%d", Int(red * 100.0)))%,\(String(format: "%d", Int(green * 100.0)))%,\(String(format: "%d", Int(blue * 100.0)))%]"
     }
     
     if alpha < 1.0 {
@@ -88,6 +88,7 @@ extension W3WCoreColor: CustomDebugStringConvertible, CustomStringConvertible {
     "363636": "Charcoal",
     "f26c50": "Coral",
     "0a3049": "Dark Blue",
+    "dbeffa": "Powder Blue",
     "53c18a": "Green",
     "e0e0e0": "LightGrey",
     "a7a7a7": "MediumGrey",

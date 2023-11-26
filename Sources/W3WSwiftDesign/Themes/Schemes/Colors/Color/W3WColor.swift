@@ -96,6 +96,22 @@ public class W3WColor {
   }
   
   
+  /// returns the UIColor for the current color mode automatically
+  public var uiColor: UIColor {
+    get {
+      return current.uiColor
+    }
+  }
+  
+  
+  /// returns the CGColor for the current color mode automatically
+  public var cgColor: CGColor {
+    get {
+      return current.cgColor
+    }
+  }
+  
+  
   /// return the colour for the requested mode, failing
   /// that then return for light mode, then dark mode
   /// then try anything available, then if nothing found

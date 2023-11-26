@@ -18,12 +18,8 @@ extension W3WBasicColors: CustomDebugStringConvertible, CustomStringConvertible 
     public var debugDescription: String {
       var retvals = [String]()
       
-      if let f = foreground?.debugDescription {
-        retvals.append("foreground: \(f)")
-      }
-      if let b = background?.debugDescription {
-        retvals.append("background: \(b)")
-      }
+      retvals.append("foreground: \(foreground?.debugDescription ?? "none")")
+      retvals.append("background: \(background?.debugDescription ?? "none")")
 
       return "{" + retvals.joined(separator: ", ") + "}"
     }

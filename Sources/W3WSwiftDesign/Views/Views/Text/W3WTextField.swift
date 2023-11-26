@@ -189,7 +189,7 @@ open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol { //}
 
   
   public func update(scheme: W3WScheme?) {
-    apply(scheme: scheme, set: .textFields)
+    apply(scheme: scheme)
     update(colors: scheme?.colors)
     update(style: scheme?.styles)
   }

@@ -17,7 +17,11 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
 
   /// called when the user selects a suggestion
   public var onRowSelected: (RowDataType, IndexPath) -> () = { _,_ in }
-  
+
+  /// design to use for subview
+  public var theme: W3WTheme?
+
+  /// indicates whether the `tableView.frame` should be managed by W3WViewPosition or if it will be handled by some other entity
   public var manageFrame = true
   
   /// the store of data for each row
@@ -45,6 +49,13 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
   }
   
   
+  public init(theme: W3WTheme?) {
+    super.init(style: .plain)
+    self.theme = theme
+    registerCell()
+  }
+  
+  
   public required init?(coder: NSCoder) {
     super.init(coder: coder)
     registerCell()
@@ -57,7 +68,13 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
   
   
   public func getReusableCell(indexPath: IndexPath) -> CellType {
-    return tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CellType
+    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CellType
+    
+    if let c = cell as? W3WViewProtocol {
+      c.set(scheme: theme?[.cells])
+    }
+    
+    return cell
   }
   
   
@@ -93,6 +110,14 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
 
   
   // MARK: Accessors
+  
+  
+  /// sets the theme
+  /// - Parameters:
+  ///   - theme: the theme to use
+  public func set(theme: W3WTheme?) {
+    self.theme = theme
+  }
 
   
   public func getItems() -> [RowDataType] {
@@ -208,12 +233,16 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
   
   /// called when the user selects a cell
   override public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if let cell = tableView.cellForRow(at: indexPath) as? W3WTableViewCell {
+      cell.updateView()
+    }
+    
     onRowSelected(items[indexPath.row], indexPath)
   }
   
   
   /// sets the cell height
-  override public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+  override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return rowHeight
   }
   

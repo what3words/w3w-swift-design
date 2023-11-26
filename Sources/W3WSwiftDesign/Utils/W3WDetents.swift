@@ -33,6 +33,11 @@ class W3WDetents {
   }
   
   
+  func removeDetents() {
+    detents.removeAll()
+  }
+
+  
   func nearest(value: CGFloat) -> CGFloat {
     var retval = 0.0
     var distance = CGFloat.greatestFiniteMagnitude

@@ -52,6 +52,7 @@ public class W3WButton: UIButton, W3WViewProtocol {
     position?.position(superview, self)
 
     self.icon = icon
+    self.icon.set(scheme: scheme)
     
     if let l = label {
       setTitle(l, for: .normal)
@@ -73,6 +74,12 @@ public class W3WButton: UIButton, W3WViewProtocol {
   }
   
   
+  public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    updateView()
+    icon?.updateView()
+  }
+  
+  
   open override func layoutSubviews() {
     super.layoutSubviews()
     updateView()
@@ -82,6 +89,8 @@ public class W3WButton: UIButton, W3WViewProtocol {
   
   public func update(scheme: W3WScheme?) {
     apply(scheme: scheme)
+    titleLabel?.textColor = scheme?.colors?.foreground?.current.uiColor
+    icon?.apply(scheme: scheme)
   }
   
 }

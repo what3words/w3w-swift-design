@@ -14,7 +14,6 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   public var position: W3WViewPosition?
 
   var underlyingImage: W3WImage
-  //var iconColors: W3WColorSet
 
 
   // MARK: Init
@@ -23,7 +22,6 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   public init(image: W3WImage, scheme: W3WScheme? = nil) {
     self.underlyingImage = image
     self.underlyingImage.colors = scheme?.colors
-    //self.iconColors      = colorSet
     
     super.init(image: self.underlyingImage.get())
     contentMode = .scaleAspectFit
@@ -35,7 +33,6 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   public init(drawing: W3WDrawing, scheme: W3WScheme? = nil) {
     self.underlyingImage = W3WImage(drawing: drawing, colors: scheme?.colors ?? .standard)
-    //self.iconColors      = colorSet
     
     super.init(image: self.underlyingImage.get())
     contentMode = .scaleAspectFit
@@ -45,10 +42,8 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   }
   
   
-  //public init(systemName: String, colorSet: W3WColorSet = .emptyColorSet, scheme: W3WScheme? = nil) {
   public init(systemName: String, scheme: W3WScheme? = nil) {
     self.underlyingImage = W3WImage(systemName: systemName, colors: scheme?.colors ?? .standard)
-    //self.iconColors      = colorSet
     
     super.init(image: self.underlyingImage.get())
     contentMode = .scaleAspectFit
@@ -58,10 +53,8 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   }
   
   
-  //public init(file: String, colorSet: W3WColorSet = .emptyColorSet, scheme: W3WScheme? = nil) {
   public init(file: String, scheme: W3WScheme? = nil) {
     self.underlyingImage = W3WImage(file: file, colors: scheme?.colors ?? .standard)
-    //self.iconColors      = colorSet
     
     super.init(image: self.underlyingImage.get())
     contentMode = .scaleAspectFit
@@ -73,7 +66,6 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   public required init?(coder: NSCoder) {
     self.underlyingImage = W3WImage(drawing: W3WDrawing.x, colors: .standard)
-    //self.iconColors      = .whiteGrayRed
 
     super.init(coder: coder)
     contentMode = .scaleAspectFit
@@ -100,17 +92,17 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   }
   
   
+  public func set(scheme: W3WScheme) {
+    self.scheme = scheme
+    if let c = scheme.colors {
+      self.underlyingImage.set(colors: c)
+    }
+  }
+  
+  
   /// convert this view into a UIImage
   public func asImage(size: CGSize) -> UIImage? {
     return underlyingImage.get(size: size)
-//    let s = size // ?? self.bounds.size
-//    let b = CGRect(origin: .zero, size: s)
-//    UIGraphicsBeginImageContextWithOptions(s, false, 0.0)
-//    self.drawHierarchy(in: b, afterScreenUpdates: true)
-//    self.draw(b)
-//    let image = UIGraphicsGetImageFromCurrentImageContext()
-//    UIGraphicsEndImageContext()
-//    return image
   }
 
   
@@ -134,6 +126,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
 
   public func update(scheme: W3WScheme?) {
     apply(scheme: scheme)
+    updateImage()
   }
   
 }

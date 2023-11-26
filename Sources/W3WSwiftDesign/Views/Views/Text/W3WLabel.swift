@@ -46,6 +46,12 @@ public class W3WLabel: UILabel, W3WViewProtocol {
   }
 
   
+  public init(text: W3WString? = nil, font: UIFont?, scheme: W3WScheme? = nil) {
+    super.init(frame: .w3wWhatever)
+    configure(text: text, font: font, scheme: scheme)
+  }
+
+  
   public required init?(coder: NSCoder) {
     super.init(coder: coder)
     configure()
@@ -53,24 +59,27 @@ public class W3WLabel: UILabel, W3WViewProtocol {
   
   
   func configure(text: W3WString? = nil, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil) {
+    configure(text: text, font: fontStyle == nil ? nil : scheme?.styles?.fonts?[fontStyle!], scheme: scheme)
+  }
+  
+  
+  func configure(text: W3WString? = nil, font: UIFont?, scheme: W3WScheme? = nil) {
     position?.position(superview, self)
     
     set(scheme: scheme, position: position)
     
-    if let fs = fontStyle {
-      self.fontStyle = fs
-      self.font = scheme?.styles?.fonts?[fs]
-    }
+    self.font = font
     
     if let t = text {
       attributedText = t.asAttributedString()
     }
-    //self.text = text?.asString()
   }
 
   
   public func set(localized: String) {
-    text = W3WTranslations.main.translate(key: localized)
+    W3WThread.runOnMain { [weak self] in
+      self?.text = W3WTranslations.main.translate(key: localized)
+    }
   }
   
   
