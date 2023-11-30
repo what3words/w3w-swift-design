@@ -182,12 +182,6 @@ open class W3WMultiSourceTableViewController: UITableViewController {
   public override func numberOfSections(in tableView: UITableView) -> Int {
     return providers.count
   }
-  
-  
-//  /// get section header title if any
-//  public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//    return providers[section].getSectionTitle()
-//  }
 
   
   /// get section header title if any

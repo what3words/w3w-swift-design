@@ -28,13 +28,6 @@ open class W3WSearchController: UISearchController, UISearchControllerDelegate, 
   public var onTextDisappeared: () -> () = { }
 
   
-  // MARK: Vars
-
-//  public var onTextChange: (String) -> (Bool) = { _ in true }
-//
-//  public var onEditingBeginning: () -> () = { }
-//  public var onEditingEnding: () -> () = { }
-
 
   // Pass nil if you wish to display search results in the same view that you are searching. This is not supported on tvOS; please provide a results controller on tvOS.
   public init(searchResultsController: UIViewController?, theme: W3WTheme? = nil) {

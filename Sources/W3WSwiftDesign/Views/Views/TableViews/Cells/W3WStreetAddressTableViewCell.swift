@@ -51,7 +51,6 @@ public class W3WStreetAddressTableViewCell: W3WTableViewDetailCell {
     self.title = title
     self.subTitle = subTitle
 
-    //updateUI()
     updateLabels()
     updateView()
   }
@@ -67,7 +66,6 @@ public class W3WStreetAddressTableViewCell: W3WTableViewDetailCell {
   /// respond to dark/light mode updates
   public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
-    //updateUI()
     updateView()
   }
   
@@ -75,7 +73,6 @@ public class W3WStreetAddressTableViewCell: W3WTableViewDetailCell {
   /// respond to layout changes
   public override func layoutSubviews() {
     super.layoutSubviews()
-    //updateUI()
     updateLabels()
     updateView()
   }

@@ -13,8 +13,6 @@ public class W3WHeaderCell: W3WPaddedView {
   public var label: W3WLabel? { get { wrappedView as? W3WLabel } }
   
   public init(text: String, height: W3WRowHeight, scheme: W3WScheme? = nil) {
-    //let wrapperTheme = W3WTheme(base: W3WScheme(), cells: W3WScheme(colors: W3WColors(background: theme?[.cells]?.colors?.header?.background)))
-    
     let labelTheme = scheme?.with(background: .clear)
     let labelText  = W3WString(text, color: scheme?.colors?.header?.foreground)
     

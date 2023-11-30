@@ -27,29 +27,38 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     set(scheme: scheme, position: position)
+    configure()
   }
   
   
   public init(cellStyle: UITableViewCell.CellStyle, scheme: W3WScheme) {
     super.init(style: cellStyle, reuseIdentifier: Self.cellIdentifier)
     set(scheme: scheme, position: position)
+    configure()
   }
   
   
   public init(scheme: W3WScheme?) {
     super.init(style: .default, reuseIdentifier: Self.cellIdentifier)
     set(scheme: scheme, position: position)
+    configure()
   }
   
   
   public init() {
     super.init(style: .default, reuseIdentifier: Self.cellIdentifier)
     set(scheme: scheme, position: position)
+    configure()
   }
   
   
   public required init?(coder: NSCoder) {
     super.init(coder: coder)
+    configure()
+  }
+  
+  
+  func configure() {
   }
 
   
@@ -105,20 +114,6 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
   public func update(scheme: W3WScheme?) {
     updateImage()
     updateView()
-    
-    //selectedBackgroundView?.backgroundColor = scheme?.colors?.highlight?.background?.current.uiColor
-    //if isSelected {
-    //  apply(scheme: scheme?.with(background: scheme?.colors?.highlight?.background))
-    //  textLabel?.textColor       = scheme?.colors?.highlight?.foreground?.current.uiColor
-    //  detailTextLabel?.textColor = scheme?.colors?.highlight?.foreground?.current.uiColor
-    //  //backgroundColor            = scheme?.colors?.highlight?.background?.current.uiColor
-    //
-    //} else {
-    //  apply(scheme: scheme)
-    //  textLabel?.textColor       = scheme?.colors?.foreground?.current.uiColor
-    //  detailTextLabel?.textColor = scheme?.colors?.secondary?.current.uiColor
-    //  //backgroundColor            = scheme?.colors?.background?.current.uiColor
-    //}
   }
   
 }

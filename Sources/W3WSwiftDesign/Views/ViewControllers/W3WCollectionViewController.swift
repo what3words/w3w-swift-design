@@ -66,15 +66,6 @@ open class W3WCollectionViewController<RowDataType, CellType: W3WCollectionViewC
   func configure(theme: W3WTheme? = nil) {
     self.theme = theme
 
-    // set the flow
-    //let layout = UICollectionViewFlowLayout()
-    //layout.scrollDirection = .vertical
-    //layout.itemSize = CGSizeMake(theme?.style?[.cells].rowHeight?.value ?? W3WRowHeight.extraLarge.value, theme?.style?[.cells].rowHeight?.value ?? W3WRowHeight.extraLarge.value)
-    //layout.sectionInset = UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
-    //layout.minimumInteritemSpacing = 2.0
-    //layout.minimumLineSpacing = 2.0
-    //collectionView?.setCollectionViewLayout(viewLayout, animated: false)
-
     // register cell type
     self.collectionView.register(CellType.self, forCellWithReuseIdentifier: cellIdentifier)
   }

@@ -21,13 +21,5 @@ public class W3WTableViewDetailCell: W3WTableViewCell {
     super.init(coder: coder)
   }
 
-  
-  
-//  public override func update(scheme: W3WScheme?) {
-//    apply(scheme: scheme)
-//    
-//    textLabel?.textColor       = scheme?.colors?.foreground?.current.uiColor
-//    detailTextLabel?.textColor = scheme?.colors?.secondary?.current.uiColor
-//  }
-  
+
 }
