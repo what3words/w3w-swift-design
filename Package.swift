@@ -11,14 +11,20 @@ let package = Package(
     ],
     
     dependencies: [
-      .package(url: "git@github.com:what3words/w3w-swift-core.git", branch: "main")
+      .package(url: "git@github.com:what3words/w3w-swift-core.git", branch: "main"),
+      .package(url: "git@github.com:what3words/w3w-swift-themes.git", branch: "main")
     ],
     
     targets: [
       .target(
         name: "W3WSwiftDesign",
-        dependencies: [.product(name: "W3WSwiftCore", package: "w3w-swift-core")], 
-        resources: [.process("Resources")]),
-      .testTarget(name: "w3w-swift-designTests", dependencies: ["W3WSwiftDesign"]),
+        dependencies: [
+          .product(name: "W3WSwiftCore", package: "w3w-swift-core"),
+          .product(name: "W3WSwiftThemes", package: "w3w-swift-themes")
+        ],
+        resources: [.process("Resources")]
+      ),
+
+        .testTarget(name: "w3w-swift-designTests", dependencies: ["W3WSwiftDesign"]),
     ]
 )

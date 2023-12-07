@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import W3WSwiftThemes
 
 
 extension W3WViewPosition {

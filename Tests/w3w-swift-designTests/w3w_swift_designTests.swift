@@ -1,4 +1,5 @@
 import XCTest
+import W3WSwiftThemes
 @testable import W3WSwiftDesign
 
 final class w3w_swift_designTests: XCTestCase {
