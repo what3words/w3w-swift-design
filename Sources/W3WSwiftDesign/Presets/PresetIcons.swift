@@ -26,6 +26,7 @@ public extension W3WImage {
   static let micRed           = W3WImage(drawing: .micWithSlashes, colors: .iconRed)
   static let micFilledRed     = W3WImage(drawing: .micFilledWithSlashes, colors: .iconRedFill)
   static let warning          = W3WImage(systemName: "exclamationmark.triangle", colors: .iconBlack)
+  static let close            = W3WImage(file: "close", colors: .iconGray)
 
   static let arrowLeft        = W3WImage(systemName: "arrow.left", colors: .iconGray)
   static let arrowRight       = W3WImage(systemName: "arrow.right", colors: .iconGray)
