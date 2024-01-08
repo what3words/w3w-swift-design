@@ -162,7 +162,7 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   
   
   /// determines if the view was presented modally or as a regular view
-  func isPresentedModally() -> Bool {
+  public func isPresentedModally() -> Bool {
     if self.presentingViewController != nil {
       return true
     }
