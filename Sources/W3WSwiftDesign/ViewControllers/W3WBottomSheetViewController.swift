@@ -50,6 +50,9 @@ open class W3WBottomSheetViewController: W3WViewController, UIGestureRecognizerD
     detents.removeDetents()
   }
 
+  public func getDetents() -> [CGFloat] {
+    return detents.detents
+  }
   
   // MARK: Swiping
   

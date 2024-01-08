@@ -86,6 +86,13 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
   public var w3wTableView: W3WTableView? {
     return self.view as? W3WTableView
   }
+  
+  public lazy var loadingIndicator: UIActivityIndicatorView = {
+    let activity = UIActivityIndicatorView()
+    activity.hidesWhenStopped = true
+    tableView.backgroundView = activity
+    return activity
+  }()
 
   
   /// sets up the UI
@@ -102,15 +109,10 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
     //tableView.separatorColor = theme?.colors?.separator?.current.uiColor //W3WColor.tertiaryLabel.current.uiColor
 
     tableView.separatorInset = .zero
-    
-    let activity = UIActivityIndicatorView()
-    activity.startAnimating()
-    tableView.backgroundView = activity
   }
 
   
   // MARK: Accessors
-  
   
   /// sets the theme
   /// - Parameters:
@@ -118,24 +120,25 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
   public func set(theme: W3WTheme?) {
     self.theme = theme
   }
-
+  
+  public func startStopLoadingIndicator(start: Bool) {
+    start ? loadingIndicator.startAnimating() : loadingIndicator.stopAnimating()
+  }
   
   public func getItems() -> [RowDataType] {
     return items
   }
   
-  
-  public func set(items: [RowDataType]) {
+  public func set(items: [RowDataType], reload: Bool = true) {
     self.items = items
     updateNoResultMessage()
-
-    DispatchQueue.main.async {
-      self.tableView.reloadData()
+    if reload {
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
+      updateFrame()
     }
-
-    updateFrame()
   }
-  
   
   public func updateFrame(x: CGFloat? = nil, y: CGFloat? = nil, width: CGFloat? = nil, height: CGFloat? = nil) {
     if manageFrame {
@@ -232,7 +235,7 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
   
   
   /// called when the user selects a cell
-  override public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if let cell = tableView.cellForRow(at: indexPath) as? W3WTableViewCell {
       cell.updateView()
     }
@@ -251,12 +254,12 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
   
   
   /// delegate for the tablview
-  public override func numberOfSections(in tableView: UITableView) -> Int {
+  open override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
   /// delegate for the tablview
-  public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return items.count
   }
   
