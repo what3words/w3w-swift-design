@@ -19,28 +19,28 @@ enum W3WImageSource {
 public class W3WImage {
 
   var imageSource: W3WImageSource!
-  var colors: W3WColors!
+  var colors: W3WColors?
   
   
-  public init(systemName: String, colors: W3WColors) {
+  public init(systemName: String, colors: W3WColors?) {
     self.imageSource = .system(systemName)
     set(colors: colors)
   }
   
   
-  public init(drawing: W3WDrawing, colors: W3WColors) {
+  public init(drawing: W3WDrawing, colors: W3WColors?) {
     imageSource = .drawing(drawing)
     set(colors: colors)
   }
   
   
-  public init(file: String, colors: W3WColors) {
+  public init(file: String, colors: W3WColors?) {
     imageSource = .file(file)
     set(colors: colors)
   }
 
   
-  public func set(colors: W3WColors) {
+  public func set(colors: W3WColors?) {
     self.colors = colors
   }
   
@@ -65,14 +65,14 @@ public class W3WImage {
   
   
   func from(file: String, size: CGSize) -> UIImage {
-    if let maskImage = UIImage(named: file, in: Bundle.module, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate) {
+    if let colors = colors, let maskImage = UIImage(named: file, in: Bundle.module, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate) {
       let bounds = CGRect(origin: .zero, size: size)
 
       UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
       let context = UIGraphicsGetCurrentContext()
       
       context?.clip(to: bounds, mask: maskImage.cgImage!)
-      if let color = colors?.foreground?.current.cgColor {
+      if let color = colors.foreground?.current.cgColor {
         context?.setFillColor(color)
       }
       context?.fill(bounds)
@@ -83,10 +83,8 @@ public class W3WImage {
       } else {
         UIGraphicsEndImageContext()
       }
-
     }
-    
-    return UIImage()
+    return UIImage(named: file, in: Bundle.module, compatibleWith: nil) ?? UIImage()
   }
   
   

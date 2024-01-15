@@ -55,7 +55,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   
   public init(file: String, scheme: W3WScheme? = nil) {
-    self.underlyingImage = W3WImage(file: file, colors: scheme?.colors ?? .standard)
+    self.underlyingImage = W3WImage(file: file, colors: scheme?.colors)
     
     super.init(image: self.underlyingImage.get())
     contentMode = .scaleAspectFit
