@@ -35,13 +35,13 @@ public class W3WLabel: UILabel, W3WViewProtocol {
   }
   
   
-  public init(localized: String, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil) {
+  public init(localized: String, fontStyle: W3WFontStyle? = .body, scheme: W3WScheme? = nil) {
     super.init(frame: .w3wWhatever)
     configure(text: W3WString(W3WTranslations.main.translate(key: localized)), fontStyle: fontStyle, scheme: scheme)
   }
 
   
-  public init(text: W3WString? = nil, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil) {
+  public init(text: W3WString? = nil, fontStyle: W3WFontStyle? = .body, scheme: W3WScheme? = nil) {
     super.init(frame: .w3wWhatever)
     configure(text: text, fontStyle: fontStyle, scheme: scheme)
   }
@@ -59,7 +59,8 @@ public class W3WLabel: UILabel, W3WViewProtocol {
   }
   
   
-  func configure(text: W3WString? = nil, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil) {
+  func configure(text: W3WString? = nil, fontStyle: W3WFontStyle? = .body, scheme: W3WScheme? = nil) {
+    self.fontStyle = fontStyle
     configure(text: text, font: fontStyle == nil ? nil : scheme?.styles?.fonts?[fontStyle!], scheme: scheme)
   }
   
