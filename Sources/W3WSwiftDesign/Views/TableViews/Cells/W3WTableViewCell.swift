@@ -10,7 +10,7 @@ import W3WSwiftCore
 import W3WSwiftThemes
 
 
-public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
+open class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
 
   // MARK: Vars
   
@@ -25,7 +25,7 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
   // MARK: Init
 
   
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+  public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     set(scheme: scheme, position: position)
     configure()
@@ -112,7 +112,7 @@ public class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
   }
 
   
-  public func update(scheme: W3WScheme?) {
+  open func update(scheme: W3WScheme?) {
     updateImage()
     updateView()
   }
