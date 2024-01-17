@@ -114,5 +114,10 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   override public func update(scheme: W3WScheme?) {
     updateLabels()
   }
-
+  
+  
+  open override func prepareForReuse() {
+    super.prepareForReuse()
+    distanceLabel?.text = nil
+  }
 }
