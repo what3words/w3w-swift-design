@@ -117,4 +117,8 @@ open class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
     updateView()
   }
   
+  open override func prepareForReuse() {
+    super.prepareForReuse()
+    contentView.subviews.forEach({ $0.removeFromSuperview() })
+  }
 }
