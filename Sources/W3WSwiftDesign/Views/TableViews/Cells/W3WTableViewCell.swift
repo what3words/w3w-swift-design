@@ -116,5 +116,4 @@ open class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
     updateImage()
     updateView()
   }
-  
 }

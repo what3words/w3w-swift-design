@@ -87,8 +87,9 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   
   func distancePosition(parent: UIView?, this: W3WViewProtocol) -> CGRect {
     this.sizeToFit()
+    let spacing = scheme?.styles?.padding?.right ?? 0
     return CGRect(
-      x: W3WSettings.leftToRight ? frame.width - (textLabel?.frame.minX ?? 0.0) - this.frame.width : textLabel?.frame.minX ?? 0.0,
+      x: W3WSettings.leftToRight ? frame.width - spacing - this.frame.width : spacing,
       y: detailTextLabel?.frame.minY ?? 0.0,
       width: this.frame.width,
       height: detailTextLabel?.frame.height ?? 0.0
@@ -113,5 +114,10 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   override public func update(scheme: W3WScheme?) {
     updateLabels()
   }
-
+  
+  
+  open override func prepareForReuse() {
+    super.prepareForReuse()
+    distanceLabel?.text = nil
+  }
 }
