@@ -119,9 +119,9 @@ public class W3WLabel: UILabel, W3WViewProtocol {
     
     // if the font wasn't set then we do some default behaviour
     if !fontWasSet {
-      if font.pointSize != frame.height {
-        font = font?.withSize(frame.height)
-      }
+      // TODO: Replace with a preset default font
+      let defaultFont: UIFont = .systemFont(ofSize: 17.0)
+      font = defaultFont
     }
   }
   
