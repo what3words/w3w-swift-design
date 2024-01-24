@@ -21,4 +21,7 @@ public class W3WSuggestionsTableViewController: W3WTableViewController<W3WSugges
     return cell
   }
   
+  public override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return UITableView.automaticDimension
+  }
 }
