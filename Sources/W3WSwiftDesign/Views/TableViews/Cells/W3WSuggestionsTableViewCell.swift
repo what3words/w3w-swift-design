@@ -25,17 +25,21 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   public var managedViews = [W3WViewProtocol]()
 
   // MARK: Views
-  public lazy var addressLabel: UILabel = {
-    let label = UILabel()
-    label.font = scheme?.styles?.fonts?.body
+  public lazy var addressLabel: W3WLabel = {
+    let scheme = scheme ?? W3WTheme.standard[.base]
+    let font = scheme?.styles?.fonts?.body ?? W3WTheme.standard[.base]?.styles?.fonts?.body
+    let label = W3WLabel(font: font, scheme: scheme)
+    label.fontStyle = .body
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
   
   
-  public lazy var distanceLabel: UILabel = {
-    let label = UILabel()
-    label.font = scheme?.styles?.fonts?.footnote
+  public lazy var distanceLabel: W3WLabel = {
+    let scheme = scheme ?? W3WTheme.standard[.base]
+    let font = scheme?.styles?.fonts?.footnote ?? W3WTheme.standard[.base]?.styles?.fonts?.footnote
+    let label = W3WLabel(font: font, scheme: scheme)
+    label.fontStyle = .footnote
     label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,9 +47,11 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   }()
   
   
-  public lazy var placeDetailLabel: UILabel = {
-    let label = UILabel()
-    label.font = scheme?.styles?.fonts?.footnote
+  public lazy var placeDetailLabel: W3WLabel = {
+    let scheme = scheme ?? W3WTheme.standard[.base]
+    let font = scheme?.styles?.fonts?.footnote ?? W3WTheme.standard[.base]?.styles?.fonts?.footnote
+    let label = W3WLabel(font: font, scheme: scheme)
+    label.fontStyle = .footnote
     label.setContentHuggingPriority(.defaultLow, for: .horizontal)
     label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     label.lineBreakMode = .byTruncatingTail
@@ -105,27 +111,23 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   
   func updateLabels() {
     // if there is colour information we use marked up text for the title, and colour everything
-    if let colors = scheme?.colors ?? W3WTheme.standard[.base]?.colors,
-       let fonts = scheme?.styles?.fonts ?? W3WTheme.standard[.base]?.styles?.fonts {
-      addressLabel.attributedText    = W3WString(suggestion?.words ?? "", color: colors.foreground, font: fonts.body)
-        .withSlashes(color: colors.brand ?? .red).asAttributedString()
-      placeDetailLabel.textColor     = colors.secondary?.current.uiColor
-      placeDetailLabel.font          = fonts.footnote
-      
-      distanceLabel.textColor        = colors.secondary?.current.uiColor
-      distanceLabel.font             = fonts.footnote
-      
-      // absent colour info, we use plain text
-    } else {
-      addressLabel.text = suggestion?.words ?? ""
+    
+    let addressText = suggestion?.words ?? ""
+    let placeDetailText = suggestion?.nearestPlace ?? ""
+    var distanceText = ""
+    if let distance = suggestion?.distanceToFocus {
+      distanceText = String(describing: distance)
     }
     
-    placeDetailLabel.text = suggestion?.nearestPlace
-    
-    if let distance = suggestion?.distanceToFocus {
-      distanceLabel.text = String(describing: distance)
+    if let colors = scheme?.colors ?? W3WTheme.standard[.base]?.colors,
+       let fonts = scheme?.styles?.fonts ?? W3WTheme.standard[.base]?.styles?.fonts {
+      addressLabel.attributedText     = W3WString(addressText, color: colors.foreground, font: fonts.body).withSlashes(color: colors.brand ?? .red).asAttributedString()
+      placeDetailLabel.attributedText = W3WString(placeDetailText, color: colors.secondary, font: fonts.footnote).asAttributedString()
+      distanceLabel.attributedText    = W3WString(distanceText, color: colors.secondary, font: fonts.footnote).asAttributedString()
     } else {
-      distanceLabel.text = ""
+      addressLabel.attributedText     = W3WString(stringLiteral: addressText).asAttributedString()
+      placeDetailLabel.attributedText = W3WString(stringLiteral: placeDetailText).asAttributedString()
+      distanceLabel.attributedText    = W3WString(stringLiteral: distanceText).asAttributedString()
     }
     
     updateSemantic()
@@ -205,6 +207,10 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   
   open override func prepareForReuse() {
     super.prepareForReuse()
+    distanceLabel.attributedText = nil
+    addressLabel.attributedText = nil
+    placeDetailLabel.attributedText = nil
+    
     distanceLabel.text = nil
     addressLabel.text = nil
     placeDetailLabel.text = nil
