@@ -103,6 +103,10 @@ public class W3WLabel: UILabel, W3WViewProtocol {
     if customText == nil {
       textColor = scheme?.colors?.foreground?.current.uiColor
     }
+    
+    if let alignment = scheme?.styles?.textAlignment?.value {
+      textAlignment = alignment
+    }
   }
   
   
