@@ -51,7 +51,7 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
   
   public init(theme: W3WTheme?) {
     super.init(style: .plain)
-    self.theme = theme
+    configure(theme: theme)
     registerCell()
   }
   
@@ -61,6 +61,10 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
     registerCell()
   }
 
+  func configure(theme: W3WTheme? = nil) {
+    self.theme = theme
+    (view as? W3WTableView)?.set(scheme: theme?[.base])
+  }
   
   func registerCell() {
     self.tableView.register(CellType.self as? AnyClass, forCellReuseIdentifier: cellIdentifier)

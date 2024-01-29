@@ -116,7 +116,7 @@ public class W3WLabel: UILabel, W3WViewProtocol {
     // fonts, only set if it's changed
     if let fs = fontStyle, let f = fonts?[fs] {
       fontWasSet = true
-      if font != f {
+      if font != f, customText == nil {
         font = f
       }
     }
