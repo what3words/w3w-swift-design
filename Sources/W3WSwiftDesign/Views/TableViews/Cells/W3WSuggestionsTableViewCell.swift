@@ -26,7 +26,7 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
 
   // MARK: Views
   public lazy var addressLabel: W3WLabel = {
-    let scheme = scheme ?? W3WTheme.standard[.base]
+    let scheme = scheme ?? W3WTheme.standard[.base]?.with(background: .clear)
     let font = scheme?.styles?.fonts?.body ?? W3WTheme.standard[.base]?.styles?.fonts?.body
     let label = W3WLabel(font: font, scheme: scheme)
     label.fontStyle = .body
@@ -36,10 +36,10 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   
   
   public lazy var distanceLabel: W3WLabel = {
-    let scheme = scheme ?? W3WTheme.standard[.base]
+    let scheme = scheme ?? W3WTheme.standard[.base]?.with(background: .clear)
     let font = scheme?.styles?.fonts?.footnote ?? W3WTheme.standard[.base]?.styles?.fonts?.footnote
     let label = W3WLabel(font: font, scheme: scheme)
-    label.fontStyle = .footnote
+    label.fontStyle = .caption1
     label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -48,7 +48,7 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   
   
   public lazy var placeDetailLabel: W3WLabel = {
-    let scheme = scheme ?? W3WTheme.standard[.base]
+    let scheme = scheme ?? W3WTheme.standard[.base]?.with(background: .clear)
     let font = scheme?.styles?.fonts?.footnote ?? W3WTheme.standard[.base]?.styles?.fonts?.footnote
     let label = W3WLabel(font: font, scheme: scheme)
     label.fontStyle = .footnote
@@ -85,20 +85,21 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-    updateLabels()
+    scheme = .standard.with(background: .clear)
+    updateUI()
   }
   
   
   override public init(scheme: W3WScheme? = nil) {
     super.init(style: .default, reuseIdentifier: Self.cellIdentifier)
     self.scheme = scheme
-    updateLabels()
+    updateUI()
   }
   
   
   public required init?(coder: NSCoder) {
     super.init(coder: coder)
-    updateLabels()
+    updateUI()
   }
   
   
@@ -109,7 +110,7 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   }
   
   
-  func updateLabels() {
+  private func updateLabels() {
     // if there is colour information we use marked up text for the title, and colour everything
     
     let addressText = suggestion?.words ?? ""
@@ -119,11 +120,14 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
       distanceText = String(describing: distance)
     }
     
-    if let colors = scheme?.colors ?? W3WTheme.standard[.base]?.colors,
+    if let colors = scheme?.colors ?? W3WTheme.standard[.base]?.with(background: .clear).colors,
        let fonts = scheme?.styles?.fonts ?? W3WTheme.standard[.base]?.styles?.fonts {
       addressLabel.attributedText     = W3WString(addressText, color: colors.foreground, font: fonts.body).withSlashes(color: colors.brand ?? .red).asAttributedString()
-      placeDetailLabel.attributedText = W3WString(placeDetailText, color: colors.secondary, font: fonts.footnote).asAttributedString()
+      placeDetailLabel.attributedText = W3WString(placeDetailText, color: colors.secondary, font: fonts.caption1).asAttributedString()
       distanceLabel.attributedText    = W3WString(distanceText, color: colors.secondary, font: fonts.footnote).asAttributedString()
+      addressLabel.backgroundColor = colors.background?.uiColor
+      placeDetailLabel.backgroundColor = colors.background?.uiColor
+      distanceLabel.backgroundColor = colors.background?.uiColor
     } else {
       addressLabel.attributedText     = W3WString(stringLiteral: addressText).asAttributedString()
       placeDetailLabel.attributedText = W3WString(stringLiteral: placeDetailText).asAttributedString()
@@ -132,6 +136,12 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
     
     updateSemantic()
     setConstraints()
+  }
+  
+  private func updateUI() {
+    updateLabels()
+    backgroundColor = scheme?.colors?.background?.current.uiColor
+    contentView.backgroundColor = scheme?.colors?.background?.current.uiColor
   }
   
   private func setConstraints() {
@@ -201,7 +211,7 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   
   
   override public func update(scheme: W3WScheme?) {
-    updateLabels()
+    updateUI()
   }
   
   
