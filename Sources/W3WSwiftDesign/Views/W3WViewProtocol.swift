@@ -14,6 +14,7 @@ public protocol W3WViewProtocol: UIView {
   var scheme: W3WScheme? { get set }
   var position: W3WViewPosition? { get set }
   
+  func set(scheme: W3WScheme?)
   func update(scheme: W3WScheme?)
 }
 

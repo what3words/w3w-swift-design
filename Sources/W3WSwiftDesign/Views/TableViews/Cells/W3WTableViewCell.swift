@@ -111,9 +111,12 @@ open class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
     updateView()
   }
 
+  open func set(scheme: W3WScheme?) {
+    self.scheme = scheme
+    updateView()
+  }
   
   open func update(scheme: W3WScheme?) {
     updateImage()
-    updateView()
   }
 }
