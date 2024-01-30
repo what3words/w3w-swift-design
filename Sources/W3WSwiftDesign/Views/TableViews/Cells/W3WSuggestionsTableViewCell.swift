@@ -101,15 +101,13 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   
   
   private func updateLabels() {
-    // if there is colour information we use marked up text for the title, and colour everything
-    
     let addressText = suggestion?.words ?? ""
     let placeDetailText = suggestion?.nearestPlace ?? ""
     var distanceText = ""
     if let distance = suggestion?.distanceToFocus {
       distanceText = String(describing: distance)
     }
-    
+    // if there is colour information we use marked up text for the title, and colour everything
     if let colors = scheme?.colors, let fonts = scheme?.styles?.fonts {
       addressLabel.attributedText     = W3WString(addressText, color: colors.foreground, font: fonts.body).withSlashes(color: colors.brand ?? .red).asAttributedString()
       placeDetailLabel.attributedText = W3WString(placeDetailText, color: colors.secondary, font: fonts.caption1).asAttributedString()
@@ -128,6 +126,10 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   }
   
   private func updateUI() {
+    if scheme == nil {
+      // Set default scheme if user don't want to specify one
+      scheme = .standard.with(background: .clear)
+    }
     updateLabels()
     backgroundColor = scheme?.colors?.background?.current.uiColor
     contentView.backgroundColor = scheme?.colors?.background?.current.uiColor
