@@ -111,7 +111,7 @@ public class W3WLabel: UILabel, W3WViewProtocol {
   
   
   func update(fonts: W3WFonts?) {
-    // No need update font when attributed text is set
+    // No need to update font when attributed text is set
     if customText != nil {
       return
     }
