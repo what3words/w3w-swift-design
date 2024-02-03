@@ -6,6 +6,7 @@ import PackageDescription
 let package = Package(
     name: "w3w-swift-design",
     platforms: [.iOS(.v9)],
+    
     products: [
       .library(name: "W3WSwiftDesign", targets: ["W3WSwiftDesign"]),
     ],
@@ -21,8 +22,7 @@ let package = Package(
         dependencies: [
           .product(name: "W3WSwiftCore", package: "w3w-swift-core"),
           .product(name: "W3WSwiftThemes", package: "w3w-swift-themes")
-        ],
-        resources: [.process("Resources")]
+        ]
       ),
 
         .testTarget(name: "w3w-swift-designTests", dependencies: ["W3WSwiftDesign"]),
