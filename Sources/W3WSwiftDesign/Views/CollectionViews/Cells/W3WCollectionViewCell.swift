@@ -61,7 +61,7 @@ open class W3WCollectionViewCell: UICollectionViewCell, W3WViewProtocol { //}, W
   }
   
 
-  public func update(scheme: W3WScheme?) {
+  open func update(scheme: W3WScheme?) {
     apply(scheme: scheme)
   }
 

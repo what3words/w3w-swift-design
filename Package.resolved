@@ -5,17 +5,17 @@
         "package": "w3w-swift-core",
         "repositoryURL": "git@github.com:what3words/w3w-swift-core.git",
         "state": {
-          "branch": "main",
-          "revision": "20bf4a4f9a99cee5e0c78f96ff1a83ffbcaa2e94",
-          "version": null
+          "branch": null,
+          "revision": "06a5f92b7aaa9ee20426b6526e1f4f7467da0617",
+          "version": "1.0.0"
         }
       },
       {
         "package": "w3w-swift-themes",
         "repositoryURL": "git@github.com:what3words/w3w-swift-themes.git",
         "state": {
-          "branch": "main",
-          "revision": "af776c7349b78aab39283217deac577e57811e10",
+          "branch": "staging",
+          "revision": "b16301abd8da35e0958e8b2a15b6f2c977390b36",
           "version": null
         }
       }
