@@ -10,7 +10,7 @@ import W3WSwiftCore
 import W3WSwiftThemes
 
 
-public class W3WSuggestionsTableViewController: W3WTableViewController<W3WSuggestion, W3WSuggestionsTableViewCell> {
+open class W3WSuggestionsTableViewController: W3WTableViewController<W3WSuggestion, W3WSuggestionsTableViewCell> {
   
   public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
