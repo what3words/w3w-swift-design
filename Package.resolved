@@ -12,10 +12,10 @@
       },
       {
         "package": "w3w-swift-themes",
-        "repositoryURL": "git@github.com:what3words/w3w-swift-themes.git",
+        "repositoryURL": "https://github.com/what3words/w3w-swift-themes.git",
         "state": {
-          "branch": "staging",
-          "revision": "b16301abd8da35e0958e8b2a15b6f2c977390b36",
+          "branch": "main",
+          "revision": "9bd3722e96a4b7750155600c3bc03b30ef4cca69",
           "version": null
         }
       }
