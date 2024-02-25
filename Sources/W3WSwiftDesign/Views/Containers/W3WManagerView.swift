@@ -9,6 +9,8 @@ import UIKit
 import W3WSwiftThemes
 
 
+/// This adds the ability for a view to manage it's subviews positions
+///  using W3WViewProtocol and it's W3WViewPosition objects
 open class W3WManagerView: W3WView, W3WViewManagerProtocol {
   
   public weak var parentView: UIView? { get { self } set {  } }

@@ -8,6 +8,7 @@
 import Foundation
 
 
+/// a store of positions that a view may move to
 class W3WDetents {
   
   var detents = [CGFloat]()

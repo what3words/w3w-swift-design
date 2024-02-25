@@ -9,6 +9,9 @@ import UIKit
 import W3WSwiftThemes
 
 
+/// Subclass of UIStackView that adds W3WScheme for colours and styles
+/// to automatically update.  Also can manage it's own place in the superview
+/// if W3WViewPosition is set
 open class W3WStackView: UIStackView, W3WViewProtocol  {
   
   public var scheme: W3WScheme?
@@ -35,7 +38,7 @@ open class W3WStackView: UIStackView, W3WViewProtocol  {
   }
   
   
-  public func add(view: W3WViewProtocol, animated: Double? = nil) { //}, completion: @escaping (Bool) -> () = {_ in }) {
+  public func add(view: W3WViewProtocol, animated: Double? = nil) {
     if let animated = animated {
       view.isHidden = true
       addArrangedSubview(view)

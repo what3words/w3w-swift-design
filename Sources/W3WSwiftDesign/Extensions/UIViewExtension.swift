@@ -9,10 +9,14 @@
 import UIKit
 
 
-// private extension to easily color and style UIViews
+/// private extension to easily color and style UIViews
+/// this is used by a lot of the views to set colours and style
 public extension UIView {
 
   
+  /// Apply both colours and style
+  /// - Parameters:
+  ///   - scheme: a scheme containing colours and style information
   func apply(scheme: W3WScheme?) {
     if let colors = scheme?.colors {
       apply(colors: colors)
@@ -24,6 +28,9 @@ public extension UIView {
   }
   
   
+  /// Apply colours to the view
+  /// - Parameters:
+  ///   - scheme: a scheme containing colours and style information
   func apply(colors: W3WColors?) {
     if let c = colors?.background {
       backgroundColor = c.current.uiColor
@@ -42,18 +49,21 @@ public extension UIView {
     }
     
     //  special case to get inside a searchcontroller
-//    if let s = self as? UISearchBar {
-//      if let background = colors[.textFields].background {
-//        if #available(iOS 13.0, *) {
-//          s.searchTextField.backgroundColor = background.current.uiColor
-//        } else {
-//          s.backgroundColor = background.current.uiColor
-//        }
-//      }
-//    }
+    if let s = self as? UISearchBar {
+      if let background = colors?.background {
+        if #available(iOS 13.0, *) {
+          s.searchTextField.backgroundColor = background.current.uiColor
+        } else {
+          s.backgroundColor = background.current.uiColor
+        }
+      }
+    }
   }
   
   
+  /// Apply styles to the view
+  /// - Parameters:
+  ///   - scheme: a scheme containing colours and style information
   func apply(styles: W3WStyles?) {
     if let border = styles?.border?.value {
       layer.borderWidth = border

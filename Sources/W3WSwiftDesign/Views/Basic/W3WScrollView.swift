@@ -10,6 +10,8 @@ import W3WSwiftCore
 import W3WSwiftThemes
 
 
+/// A subclass of UIScrollView that adds W3WThemes and automatically manages the size of the
+/// scroll area based on the subviews placed in it
 open class W3WScrollView: UIScrollView, W3WViewProtocol, UIScrollViewDelegate  {
   
   public var scheme: W3WScheme?
@@ -19,7 +21,7 @@ open class W3WScrollView: UIScrollView, W3WViewProtocol, UIScrollViewDelegate  {
   var wrappedView: UIView?
   
   
-  public init(scheme: W3WScheme? = nil) { //, position: W3WViewPosition? = nil) {
+  public init(scheme: W3WScheme? = nil) {
     super.init(frame: .w3wWhatever)
 
     position?.position(superview, self)
@@ -40,6 +42,7 @@ open class W3WScrollView: UIScrollView, W3WViewProtocol, UIScrollViewDelegate  {
   }
   
   
+  ///  manages the size of the scroll area based on the subviews placed in it
   open override func layoutSubviews() {
     super.layoutSubviews()
     updateView()

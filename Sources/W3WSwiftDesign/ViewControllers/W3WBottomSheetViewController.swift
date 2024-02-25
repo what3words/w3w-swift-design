@@ -9,6 +9,9 @@ import UIKit
 import W3WSwiftThemes
 
 
+/// Makes a bottom sheet similar to UISheetPresentationController which we can't use
+/// yet due to it only being available in iOS 15.  Once that becomes our minimum we
+///  will depricate this
 open class W3WBottomSheetViewController: W3WViewController, UIGestureRecognizerDelegate {
   
   var touchStartY: CGFloat?
@@ -50,6 +53,7 @@ open class W3WBottomSheetViewController: W3WViewController, UIGestureRecognizerD
     detents.removeDetents()
   }
 
+  /// returns the detents in use
   public func getDetents() -> [CGFloat] {
     return detents.detents
   }

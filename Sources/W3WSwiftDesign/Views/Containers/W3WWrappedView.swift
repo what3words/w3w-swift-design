@@ -9,6 +9,7 @@ import UIKit
 import W3WSwiftThemes
 
 
+/// this view can optionally wrap another UIView to allow regular UIViews to interact with this w3w design library
 open class W3WWrappedView: W3WView {
   
   // this view can optionally wrap another UIView to allow regular UIViews to interact with this w3w design library

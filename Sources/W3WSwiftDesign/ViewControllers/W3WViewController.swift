@@ -22,9 +22,6 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   /// the little notch in the top shown when this is presented modally
   var handleIndicator = W3WHandleIndicator()
   
-  /// an optional X button to dismiss this view
-  lazy var dismissButton = W3WDismissButton(parentViewController: self) //, colors: W3WllColors(foreground: W3WBasicColors.basic.foreground, background: W3WBasicColors.basic.background, tint: W3WBasicColors.basic.foreground, secondary: W3WBasicColors.basic.background))
-  
   /// a list of the sub views that were added with `add(view:frame)` used for managing the view postions
   public var managedViews = [W3WViewProtocol]()
 
@@ -50,10 +47,8 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   }
   
   /// shows/hides the dismiss button
-  public var showDismissButton: Bool {
-    get { return !dismissButton.isHidden }
-    set { dismissButton.isHidden = !newValue }
-  }
+  @available(*, deprecated, message: "view no loger has dimiss button")
+  public var showDismissButton: Bool { get { false } set { } }
   
 
   /// design to use for subview
@@ -101,9 +96,6 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
     
     // show the handle if view is presented modally
     showHandle = isPresentedModally() ? true : false
-    
-    // dismiss is always off by default
-    showDismissButton = false
   }
   
   

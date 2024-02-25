@@ -29,18 +29,28 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
   
   
+  /// allow initialsation with a regular String
   required public init(stringLiteral value: String) {
     self.string = NSMutableAttributedString(string: value)
   }
 
 
-
+  /// make a W3WString with a certain colour in a certain font
+  /// - Parameters:
+  ///   - str: The text to use
+  ///   - color: The colour to use
+  ///   - font: The font to use
   public init(_ str: String, color: W3WColor? = nil, font: UIFont? = nil) {
     string = NSMutableAttributedString(string: str)
     _ = style(color: color, font: font)
   }
   
   
+  /// make a W3WString with a certain colour in a certain font
+  /// - Parameters:
+  ///   - str: The text to use
+  ///   - color: The colour to use
+  ///   - font: The font to use
   public init(_ str: NSAttributedString?, color: W3WColor? = nil, font: UIFont? = nil) {
     if let s = str {
       string = NSMutableAttributedString(attributedString: s)
@@ -50,22 +60,24 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
   
   
+  /// make a W3WString representing a distance formatted for default locale
+  /// - Parameters:
+  ///   - distance: The distance to show
+  ///   - color: The colour to use
+  ///   - font: The font to use
   public init(distance: W3WDistance, color: W3WColor? = nil, font: UIFont? = nil) {
     string = NSMutableAttributedString(string: distanceToString(distance: distance))
     _ = style(color: color, font: font)
   }
 
 
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
-  
+  /// returns the text as a NSAttributedString
   public func asAttributedString() -> NSAttributedString {
     return string
   }
   
   
+  /// returns the text as a String
   public func asString() -> String {
     return string.string
   }
@@ -84,6 +96,10 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
 
 
+  /// apply styles to the current texrt
+  /// - Parameters:
+  ///   - color: The colour to use
+  ///   - font: The font to use
   public func style(color: W3WColor? = nil, font: UIFont? = nil) -> W3WString {
     let style = makeAttributes(color: color, font: font)
     string.setAttributes(style, range: NSRange(location: 0, length: string.length))
@@ -100,6 +116,10 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
   
   
+  /// add w3w slashes to the text
+  /// - Parameters:
+  ///   - color: The colour to use
+  ///   - font: The font to use
   public func withSlashes(color: W3WColor = .w3wBrandBase, font: UIFont? = nil) -> W3WString {
     //trim(characterSet: CharacterSet(charactersIn: "/"))
     string = removeLeadingSlashes().string
@@ -107,6 +127,10 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
   
   
+  /// add w3w slashes to the text only if the text is in the form of a three word address
+  /// - Parameters:
+  ///   - color: The colour to use
+  ///   - font: The font to use
   public func addSlashesIfAddress(color: W3WColor = .w3wBrandBase, font: UIFont? = nil) -> W3WString {
     if W3WRegex.isPossible3wa(text: asString()) {
       string = removeLeadingSlashes().string
@@ -117,6 +141,7 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
   
   
+  /// remove leading `///` from text
   func removeLeadingSlashes() -> W3WString {
     while string.string.first == "/" {
       string.deleteCharacters(in: NSRange(location: 0, length: 1))
@@ -125,6 +150,11 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
   
 
+  /// find substrings in the text and apply styles to them
+  /// - Parameters:
+  ///   - word: The subtext to find
+  ///   - color: The colour to use
+  ///   - font: The font to use
   public func highlight(word: String, color: W3WColor? = nil, font: UIFont? = nil) {
     let style = makeAttributes(color: color, font: font)
 
@@ -138,6 +168,7 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
 
 
+  /// add two W3WStrings together
   static public func +=( lhs: inout W3WString, rhs: W3WString) {
     lhs = lhs + rhs
   }
@@ -158,20 +189,14 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
     } else if W3WSettings.measurement == .imperial {
       formatter.units = .imperial
     }
-    
-    //if distance.meters == 0 {
-    //  string = "<" + formatter.string(fromDistance: 1000.0)
-    //} else {
+
     string = formatter.string(fromDistance: distance.meters)
-    //}
-    //distance = formatter.string(fromDistance: 2.0)
-    
-    //string = string.replacingOccurrences(of: ".0", with: "")
     
     return string
   }
   
-  
+
+  /// breaks the text into an array of string by word
   func wordsToArray() -> [String] {
     let text    = string.string
     let regex   = try! NSRegularExpression(pattern: W3WRegex.regex_3wa_word)
@@ -221,6 +246,7 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
   
 
+  /// produces a description of all the colours and styles in the text
   public var description: String {
     var pieces = [String]()
 

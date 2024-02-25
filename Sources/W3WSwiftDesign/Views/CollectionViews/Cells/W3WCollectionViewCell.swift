@@ -10,7 +10,8 @@ import W3WSwiftCore
 import W3WSwiftThemes
 
 
-open class W3WCollectionViewCell: UICollectionViewCell, W3WViewProtocol { //}, W3WViewManagerProtocol {
+/// This class is derived from UICollectionViewCell and adds W3WScheme for colours and styles
+open class W3WCollectionViewCell: UICollectionViewCell, W3WViewProtocol {
 
   // MARK: Vars
   
@@ -20,8 +21,7 @@ open class W3WCollectionViewCell: UICollectionViewCell, W3WViewProtocol { //}, W
   
   public static var cellIdentifier: String { get { return String(describing: Self.self) } }
   
-  var image: W3WIconView?
-  
+
   // MARK: Init
   
   

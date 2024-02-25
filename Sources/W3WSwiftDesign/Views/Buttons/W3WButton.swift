@@ -90,8 +90,14 @@ public class W3WButton: UIButton, W3WViewProtocol {
   
   public func update(scheme: W3WScheme?) {
     apply(scheme: scheme)
-    titleLabel?.textColor = scheme?.colors?.foreground?.current.uiColor
-    icon?.apply(scheme: scheme)
+
+    let fallbackColor = scheme?.colors?.foreground?.current.uiColor
+
+    setTitleColor(scheme?.colors?.foreground?.current.uiColor ?? fallbackColor, for: .normal)
+    setTitleColor(scheme?.colors?.highlight?.foreground?.current.uiColor ?? fallbackColor, for: .highlighted)
+    setTitleColor(scheme?.colors?.secondary?.current.uiColor ?? fallbackColor, for: .disabled)
+    setTitleColor(scheme?.colors?.foreground?.current.uiColor ?? fallbackColor, for: .focused)
+    setTitleColor(scheme?.colors?.secondary?.current.uiColor ?? fallbackColor, for: .selected)
   }
   
 }

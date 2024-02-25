@@ -38,7 +38,7 @@ public class W3WHandleIndicator: W3WView {
   public func getFrame(parent: UIView?, this: W3WViewProtocol) -> CGRect {
     let indicatorSize = CGSize(width: W3WIconSize.handleIcon.value.width, height: W3WIconSize.handleIcon.value.height)
     var indicatorX = W3WPadding.heavy.value
-    backgroundColor = W3WColor.tertiaryLabel.current.uiColor
+    backgroundColor = scheme?.colors?.separator?.current.uiColor
     
     if let parentView = parent {
       indicatorX = (parentView.frame.width - indicatorSize.width) / CGFloat(2)
@@ -46,12 +46,5 @@ public class W3WHandleIndicator: W3WView {
     
     return CGRect(origin: CGPoint(x: indicatorX, y: W3WPadding.light.value), size: indicatorSize)
   }
-  
-  
-  
-//  public override func layoutSubviews() {
-//    position()
-//  }
-  
   
 }

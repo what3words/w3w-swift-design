@@ -10,6 +10,8 @@ import W3WSwiftCore
 import W3WSwiftThemes
 
 
+/// Derived from UILabel, this adds W3WScheme for colour and style
+///  and can accept W3WString
 public class W3WLabel: UILabel, W3WViewProtocol {
   
   public var scheme: W3WScheme?

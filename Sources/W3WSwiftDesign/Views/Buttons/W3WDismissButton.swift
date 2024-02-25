@@ -9,7 +9,8 @@ import UIKit
 import W3WSwiftThemes
 
 
-class W3WDismissButton: W3WButton {
+@available(*, deprecated, message: "W3WDismissButton has been removed, use W3WButton")
+public class W3WDismissButton: W3WButton {
   
   /// need to know the parent in order to do the dismiss
   public weak var parentViewController: UIViewController?
@@ -32,10 +33,10 @@ class W3WDismissButton: W3WButton {
   /// - Parameters:
   ///   - parentViewController: - need to know the parent in order to do the dismiss
   ///   - colors: - the colours to use
-  init(parentViewController: W3WViewController, scheme: W3WScheme? = nil) { //, colors: W3WColorSet = .blackGrayRed) {
+  public init(parentViewController: W3WViewController, scheme: W3WScheme? = .standardButtonFilled) { //, colors: W3WColorSet = .blackGrayRed) {
     super.init(image: .xmark)
 
-    let icon = W3WIconView(drawing: .x, scheme: scheme)
+    let icon = W3WIconView(drawing: .x, scheme: scheme?.with(cornerRadius: .soft))
     icon.position = W3WViewPosition.top()
 
     onTap = {

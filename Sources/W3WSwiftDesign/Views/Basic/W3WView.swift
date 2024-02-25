@@ -9,6 +9,9 @@ import UIKit
 import W3WSwiftThemes
 
 
+/// Subclass of UIView that adds W3WScheme for colours and styles
+/// to automatically update.  Also can manage it's own place in the superview
+/// if W3WViewPosition is set
 open class W3WView: UIView, W3WViewProtocol  {
 
   public var scheme: W3WScheme?
@@ -20,7 +23,7 @@ open class W3WView: UIView, W3WViewProtocol  {
   }
   
 
-  public init(scheme: W3WScheme? = nil) { //, position: W3WViewPosition? = nil) {
+  public init(scheme: W3WScheme? = nil) {
     super.init(frame: .w3wWhatever)
 
     position?.position(superview, self)

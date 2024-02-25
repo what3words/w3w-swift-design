@@ -9,10 +9,6 @@ import UIKit
 import W3WSwiftCore
 import W3WSwiftThemes
 
-#if canImport(w3w)
-import w3w
-#endif
-
 
 public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtocol {
   
@@ -109,7 +105,7 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
     }
     // if there is colour information we use marked up text for the title, and colour everything
     if let colors = scheme?.colors, let fonts = scheme?.styles?.fonts {
-      addressLabel.attributedText     = W3WString(addressText, color: colors.foreground, font: fonts.body).withSlashes(color: colors.brand ?? .red).asAttributedString()
+      addressLabel.attributedText     = W3WString(addressText, color: colors.foreground, font: fonts.body).withSlashes(color: colors.brand ?? .tint).asAttributedString()
       placeDetailLabel.attributedText = W3WString(placeDetailText, color: colors.secondary, font: fonts.caption1).asAttributedString()
       distanceLabel.attributedText    = W3WString(distanceText, color: colors.secondary, font: fonts.footnote).asAttributedString()
       addressLabel.backgroundColor = colors.background?.uiColor

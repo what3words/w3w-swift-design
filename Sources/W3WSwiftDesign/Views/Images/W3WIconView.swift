@@ -20,7 +20,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   // MARK: Init
 
   
-  public init(image: W3WImage, scheme: W3WScheme? = nil) {
+  public init(image: W3WImage, scheme: W3WScheme? = .standardIcons) {
     self.underlyingImage = image
     self.underlyingImage.colors = scheme?.colors
     

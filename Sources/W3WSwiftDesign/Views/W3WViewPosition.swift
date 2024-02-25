@@ -9,83 +9,23 @@ import UIKit
 import W3WSwiftThemes
 
 
+/// the definition of a positoining closure
 public typealias W3WPositionClosure = (UIView?, W3WViewProtocol) -> (CGRect)
 
 
+/// holds a closure that can be used to define a view's position
 public class W3WViewPosition {
   
-  var closure: W3WPositionClosure? // = { _,_ in return .w3wWhatever }
+  /// the closure that defines a view's position
+  var closure: W3WPositionClosure?
   
+  /// whether changes should be animated and if so for how long.  Leave nil for no animations
   var animate: Double? = nil
-  
-  var heightConstraint: CGFloat?
-  var widthConstraint: CGFloat?
-  var expandConstraint: Bool = false
-  
-  var constraintsActive: Bool {
-    return (heightConstraint != nil) || (widthConstraint != nil)
-  }
-
+    
   
   public init(animate: Double? = nil, position: @escaping W3WPositionClosure = { _,_ in return .w3wWhatever }) {
     self.animate = animate
     self.closure = position
-  }
-  
-  
-  public init(width: CGFloat, height: CGFloat? = nil, expand: Bool = false) {
-    widthConstraint  = width
-    heightConstraint = height
-    expandConstraint = expand
-  }
-  
-  
-  public init(height: CGFloat, expand: Bool = false) {
-    heightConstraint = height
-  }
-  
-  
-  public init(expand: Bool) {
-    expandConstraint = expand
-  }
-  
-  
-  func setConstraints(view: W3WViewProtocol) {
-    // first remove all constraints
-    //DispatchQueue.main.async {
-    //  view.removeConstraints(view.constraints)
-    //}
-    
-    if let height = heightConstraint {
-      if let constraint = getHeightConstraint(view: view) {
-        constraint.constant = height
-      } else {
-        let constraint = view.heightAnchor.constraint(equalToConstant: height)
-        constraint.isActive = true
-      }
-    }
-    
-    if let width = widthConstraint {
-      if let constraint = getWidthConstraint(view: view) {
-        constraint.constant = width
-      } else {
-        let constraint = view.widthAnchor.constraint(equalToConstant: width)
-        constraint.isActive = true
-      }
-    }
-    
-    if expandConstraint {
-      view.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
-      view.setContentCompressionResistancePriority(.fittingSizeLevel, for: .horizontal)
-      
-      view.setContentHuggingPriority(.fittingSizeLevel, for: .vertical)
-      view.setContentCompressionResistancePriority(.fittingSizeLevel, for: .vertical)
-    }
-  
-    if view.constraints.count > 2 {
-      print("Multiple constrints!", type(of: view), view.constraints.count, view.constraints.map({ c in return c.firstAttribute.rawValue }))
-    }
-    
   }
   
   
@@ -102,20 +42,13 @@ public class W3WViewPosition {
   
   
   func applyPosition(_ parent: UIView?, _ this: W3WViewProtocol) {
-    // use constraints
-    if constraintsActive {
-      setConstraints(view: this)
-      
-      // use the positioning closure
-    } else {
-      if let p = closure {
-        this.frame = p(parent, this)
-      }
+    if let p = closure {
+      this.frame = p(parent, this)
     }
   }
   
   
-  // MARK: Constraints
+  // MARK: Constraints - experimental
 
   
   func getHeightConstraint(view: UIView) -> NSLayoutConstraint? {
@@ -130,6 +63,5 @@ public class W3WViewPosition {
       $0.firstAttribute == .width && $0.relation == .equal
     })
   }
-
   
 }

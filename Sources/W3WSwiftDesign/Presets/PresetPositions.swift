@@ -9,39 +9,32 @@ import UIKit
 import W3WSwiftThemes
 
 
+/// This contains a closure that returns a CGRect to position a view in a superview
 extension W3WViewPosition {
-  
-  static public func width(_ width: CGFloat) -> W3WViewPosition {
-    return W3WViewPosition(width: width)
-  }
-  
-  
-  static public func height(_ height: CGFloat) -> W3WViewPosition {
-    return W3WViewPosition(height: height)
-  }
-  
-  
-  static public func expand() -> W3WViewPosition {
-    return W3WViewPosition(expand: true)
-  }
-  
-  
+
+  /// set an absolute postion
   static public func absolute(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) -> W3WViewPosition {
     return Self.absolute(origin: CGPoint(x: x, y: y), size: CGSize(width: width, height: height))
   }
   
-  
+
+  /// set an absolute position
   static public func absolute(origin: CGPoint, size: CGSize) -> W3WViewPosition {
     return Self.absolute(rect: CGRect(origin: origin, size: size))
   }
   
   
+  /// set an absolute position
   static public func absolute(rect: CGRect) -> W3WViewPosition {
     W3WViewPosition() { _,_ in return rect }
   }
                          
                          
   /// convenince function to place a textfield at the top of a narrow view
+  /// - Parameters:
+  ///   - width: the width for the view
+  ///   - height: the height fo the view
+  ///   - insetBy: an inset for the view
   static public func top(width: CGFloat? = nil, height: CGFloat = 32.0, insetBy: CGFloat = 16.0) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       return CGRect(
@@ -54,8 +47,12 @@ extension W3WViewPosition {
   }
   
   
-  
   /// conveniece function to place an view below another
+  /// - Parameters:
+  ///   - below: the view to position this view against
+  ///   - margin: the space between the views
+  ///   - width: the width for the view
+  ///   - height: the height fo the view
   static public func place(below: UIView, margin: CGFloat = 8.0, width: CGFloat? = nil, height: CGFloat? = nil) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       weak var parent = below
@@ -70,6 +67,11 @@ extension W3WViewPosition {
   
   
   /// conveniece function to place an view below another
+  /// - Parameters:
+  ///   - above: the view to position this view against
+  ///   - margin: the space between the views
+  ///   - width: the width for the view
+  ///   - height: the height fo the view
   static public func place(above: UIView, margin: CGFloat = 8.0, width: CGFloat? = nil, height: CGFloat? = nil) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       weak var parent = above
@@ -84,6 +86,11 @@ extension W3WViewPosition {
   
   
   /// conveniece function to place an view below another
+  /// - Parameters:
+  ///   - leftOF: the view to position this view against
+  ///   - margin: the space between the views
+  ///   - width: the width for the view
+  ///   - height: the height fo the view
   static public func place(leftOf: UIView, margin: CGFloat = 8.0, width: CGFloat? = nil, height: CGFloat? = nil) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       weak var parent = leftOf
@@ -98,6 +105,11 @@ extension W3WViewPosition {
   
   
   /// conveniece function to place an view below another
+  /// - Parameters:
+  ///   - rightOf: the view to position this view against
+  ///   - margin: the space between the views
+  ///   - width: the width for the view
+  ///   - height: the height fo the view
   static public func place(rightOf: UIView, margin: CGFloat = 8.0, width: CGFloat? = nil, height: CGFloat? = nil) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       weak var parent = rightOf
@@ -109,10 +121,11 @@ extension W3WViewPosition {
       )
     }
   }
-
   
   
   /// convenince function to place a view in the center of a view
+  /// - Parameters:
+  ///   - size: the size for the view
   static public func center(size: CGSize) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       return CGRect(
@@ -126,6 +139,8 @@ extension W3WViewPosition {
   
   
   /// convenince function to place a view in the center of a view
+  /// - Parameters:
+  ///   - size: the inset for the view from the edges of the parent
   static public func center(inset: UIEdgeInsets) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       return CGRect(
@@ -138,6 +153,9 @@ extension W3WViewPosition {
   }
 
   
+  /// Inset a view in it's superview
+  /// - Parameters:
+  ///   - by: the inset for the view from the edges of the parent
   static public func inset(by: CGFloat) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       return parent?.bounds.inset(by: UIEdgeInsets(top: by, left: by, bottom: by, right: by)) ?? this.frame
@@ -145,6 +163,9 @@ extension W3WViewPosition {
   }
 
   
+  /// Inset a view in it's superview
+  /// - Parameters:
+  ///   - by: the inset for the view from the edges of the parent
   static public func inset(by: UIEdgeInsets) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       return parent?.bounds.inset(by: by) ?? this.frame
@@ -152,6 +173,9 @@ extension W3WViewPosition {
   }
 
   
+  /// Inset a view in it's superview
+  /// - Parameters:
+  ///   - by: the inset for the view from the edges of the parent
   static public func inset(by: W3WPadding) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       return parent?.bounds.inset(by: by.insets) ?? this.frame
@@ -159,6 +183,11 @@ extension W3WViewPosition {
   }
 
   
+  /// Places a view to the side of a superview
+  /// - Parameters:
+  ///   - width: the width for the view
+  ///   - insetBy: the inset for the view from the edges of the parent
+  ///   - left: whether to place the view on the left, otherwise it's the right
   static public func sideColumnLeft(width: CGFloat = 300.0, insetBy: W3WPadding = .bold, left: Bool = true) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       if let p = parent {
@@ -174,6 +203,10 @@ extension W3WViewPosition {
     }
   }
 
+
+  /// Places a view to the side of a superview
+  /// - Parameters:
+  ///   - insetBy: the inset for the view from the edges of the parent
   static public func insideLeading(insetBy: W3WPadding = .none) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       let size = (parent?.frame.height ?? W3WPadding.fine.value) - insetBy.top - insetBy.bottom
@@ -182,6 +215,10 @@ extension W3WViewPosition {
   }
   
 
+  /// Places a view to the bottom of a superview
+  /// - Parameters:
+  ///   - insetBy: the inset for the view from the edges of the parent
+  ///   - height: the height fo the view
   static public func bottom(insetBy: W3WPadding = .none, height: CGFloat? = nil) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       let newHeight = height ?? this.frame.height

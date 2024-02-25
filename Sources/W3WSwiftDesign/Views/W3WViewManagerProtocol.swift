@@ -23,6 +23,9 @@ public protocol W3WViewManagerProtocol: AnyObject {
 public extension W3WViewManagerProtocol {
   
   /// adds a view as a subview with optional positioning info
+  ///  - Parameters:
+  ///    - view: the view to add
+  ///    - position: the position for the view as described by a W3WViewPosition
   func add(view: W3WViewProtocol, position: W3WViewPosition? = nil) {
     if let p = position {
       view.position = p
@@ -33,6 +36,9 @@ public extension W3WViewManagerProtocol {
   
   
   /// adds a view as a subview with an optional positioning closure
+  ///  - Parameters:
+  ///    - view: the view to add
+  ///    - position: the position for the view as described by a closure
   func add(view: W3WViewProtocol, position: @escaping W3WPositionClosure) {
     view.position = W3WViewPosition(position: position)
     managedViews.append(view)
@@ -41,6 +47,7 @@ public extension W3WViewManagerProtocol {
   }
   
   
+  // removes a subview
   func remove(view: W3WViewProtocol) {
     view.removeFromSuperview()
     managedViews.removeAll(where: { v in

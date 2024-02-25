@@ -9,8 +9,8 @@ import UIKit
 import W3WSwiftThemes
 
 
+/// This wraps a view inside another view to provide padding around the wrappedView
 public class W3WPaddedView: W3WView {
-
 
   // this view can optionally wrap another UIView to allow regular UIViews to interact with this w3w design library
   public var wrappedView: W3WViewProtocol?

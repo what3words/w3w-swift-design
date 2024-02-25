@@ -10,6 +10,8 @@ import W3WSwiftCore
 import W3WSwiftThemes
 
 
+/// adds basic functions to a UIView derived class such as
+/// colors, styles, and positioning
 public protocol W3WViewProtocol: UIView {
   var scheme: W3WScheme? { get set }
   var position: W3WViewPosition? { get set }
@@ -52,48 +54,11 @@ public extension W3WViewProtocol {
   }
   
   
-  @discardableResult
-  func with(width: CGFloat, height: CGFloat? = nil) -> W3WViewProtocol {
-    self.position = W3WViewPosition(width: width, height: height)
-    return self
-  }
-  
-  
-  @discardableResult
-  func with(height: CGFloat) -> W3WViewProtocol {
-    self.position = W3WViewPosition(height: height)
-    return self
-  }
-  
-  
-  @discardableResult
-  func with(position: @escaping W3WPositionClosure) -> W3WViewProtocol {
-    self.position = W3WViewPosition(position: position)
-    return self
-  }
-
-  
-  func set(width: CGFloat, height: CGFloat? = nil) {
-    self.position = W3WViewPosition(width: width, height: height)
-  }
-  
-  
-  func set(height: CGFloat) {
-    self.position = W3WViewPosition(height: height)
-  }
-  
-  
-  func set(expand: Bool) {
-    self.position = W3WViewPosition(expand: expand)
-  }
-  
-  
   func set(position: @escaping W3WPositionClosure) {
     self.position = W3WViewPosition(position: position)
   }
 
 
-  //@available(*, deprecated, message: "Just marking where this is called from")
   func updateView() {
     W3WThread.runOnMain { [weak self] in
       if let this = self {
@@ -106,8 +71,13 @@ public extension W3WViewProtocol {
   }
   
  
+  // convenience accessor to get the view if it's a W3WStackView
   var asStackView:  W3WStackView? { return self as? W3WStackView }
+
+  // convenience accessor to get the view if it's a W3WLabel
   var asLabel:      W3WLabel?     { return self as? W3WLabel }
+
+  // convenience accessor to get the view if it's a W3WTextField
   var asTextField:  W3WTextField? { return self as? W3WTextField }
  
 }

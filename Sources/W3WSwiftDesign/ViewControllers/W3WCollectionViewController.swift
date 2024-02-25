@@ -138,7 +138,7 @@ open class W3WCollectionViewController<RowDataType, CellType: W3WCollectionViewC
   /// must be called in main thread
   func ensureNoResultLabel() {
     noResultsLabel.textAlignment = .center
-    noResultsLabel.textColor = W3WColor.secondaryDarkGray.current.uiColor
+    noResultsLabel.textColor = theme?[.labels]?.colors?.secondary?.current.uiColor //W3WColor.secondaryDarkGray.current.uiColor
     collectionView.backgroundView = noResultsLabel
   }
   

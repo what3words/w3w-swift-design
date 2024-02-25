@@ -9,6 +9,7 @@ import UIKit
 import W3WSwiftThemes
 
 
+/// This class is derived from UICollectionView and adds W3WScheme for colours and styles
 public class W3WCollectionView: UICollectionView, W3WViewProtocol {
   public var scheme: W3WScheme?
   public var position: W3WViewPosition?

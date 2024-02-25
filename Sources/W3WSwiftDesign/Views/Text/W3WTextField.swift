@@ -10,7 +10,7 @@ import UIKit
 import W3WSwiftThemes
 
 
-open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol { //}, W3WStyleProtocol {
+open class W3WTextField: UITextField, UITextFieldDelegate, W3WViewProtocol {
 
   // MARK: W3WViewProtocol
   
