@@ -103,7 +103,6 @@ public class W3WButton: UIButton, W3WViewProtocol {
     if let insets = scheme?.styles?.padding?.insets {
       contentEdgeInsets = insets
     }
-    addVisualEffect(scheme?.styles?.visualEffect)
   }
   
 }

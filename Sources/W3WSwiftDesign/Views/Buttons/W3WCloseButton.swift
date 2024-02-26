@@ -36,7 +36,7 @@ public class W3WCloseButton: W3WButton {
       .with(visualEffect: visualEffect)
       .with(padding: W3WPadding(value: inset + 8.0))
     let scheme = W3WScheme(colors: colors, styles: styles)
-    super.init(image: W3WImage(systemName: "xmark", colors: colors), scheme: scheme)
+    super.init(image: .xmark, scheme: scheme)
     addTarget(self, action: #selector(didTouch), for: .touchUpInside)
     translatesAutoresizingMaskIntoConstraints = false
   }
