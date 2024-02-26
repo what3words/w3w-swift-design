@@ -80,39 +80,86 @@ public extension UIView {
     }
     
     if let visualEffect = styles?.visualEffect {
-      addVisualEffect(visualEffect)
+      add(visualEffect: visualEffect)
     }
   }
   
-}
 
-// MARK: - Extension for adding visual effect
-public extension UIView {
+  func effectToBlur(effect: W3WVisualEffectBlur) -> UIBlurEffect.Style {
+    switch effect {
+      case .regular:
+        return .regular
+      case .thick:
+        return .dark
+      case .thin:
+        return .light
+      case .ultraThick:
+        return .dark
+      case .ultraThin:
+        return .extraLight
+    }
+  }
+  
+  
+  @available(iOS 13, *)
+  func effectToVibrancy(effect: W3WVisualEffectFill) -> UIVibrancyEffectStyle {
+    switch effect {
+      case .label:
+        return .label
+      case .secondaryLabel:
+        return .secondaryLabel
+      case .tertiaryLabel:
+        return .tertiaryLabel
+      case .quaternaryLabel:
+        return .quaternaryLabel
+      case .fill:
+        return .fill
+      case .secondaryFill:
+        return .secondaryFill
+      case .tertiaryFill:
+        return .tertiaryFill
+      case .separator:
+        return .separator
+    }
+  }
+  
+  
   /// Add w3w visual effect to current view
   /// - Parameters:
   ///   - w3wVisualEffect: w3w model containing all the styles of the visual effect view to be added to current view
-  func addVisualEffect(_ w3wVisualEffect: W3WVisualEffect?) {
-    guard let w3wVisualEffect = w3wVisualEffect else {
-      return
-    }
+  func add(visualEffect: W3WVisualEffect) {
+    
     if #available(iOS 13.0, *) {
-      guard let blurEffectStyle = UIBlurEffect.Style(rawValue: w3wVisualEffect.blurEffectStyle),
-            let vibrancyEffectStyle = UIVibrancyEffectStyle(rawValue: w3wVisualEffect.vibrancyEffectStyle) else {
-        return
-      }
-      addVisualEffect(blurEffectStyle: blurEffectStyle,
-                      vibrantEffectStyle: vibrancyEffectStyle,
-                      inset: w3wVisualEffect.padding.insets,
-                      cornerRadius: w3wVisualEffect.cornerRadius.value)
+      addVisualEffectIos13Up(visualEffect: visualEffect)
     } else {
-      guard let blurEffectStyle = UIBlurEffect.Style(rawValue: w3wVisualEffect.blurEffectStyle) else {
-        return
-      }
-      addVisualEffect(blurEffectStyle: blurEffectStyle,
-                      inset: w3wVisualEffect.padding.insets,
-                      cornerRadius: w3wVisualEffect.cornerRadius.value)
+      addVisualEffectIos12Down(visualEffect: visualEffect)
     }
   }
+
+  
+  @available(iOS 13, *)
+  func addVisualEffectIos13Up(visualEffect: W3WVisualEffect) {
+    let blurEffectStyle     = effectToBlur(effect: visualEffect.style) //UIBlurEffect.Style(rawValue: w3wVisualEffect.blurEffectStyle),
+    let vibrancyEffectStyle = effectToVibrancy(effect: visualEffect.fill) //UIVibrancyEffectStyle(rawValue: w3wVisualEffect.vibrancyEffectStyle) else {
+
+    addVisualEffect(
+      blurEffectStyle: blurEffectStyle,
+      vibrantEffectStyle: vibrancyEffectStyle,
+      inset: visualEffect.padding.insets,
+      cornerRadius: visualEffect.cornerRadius.value
+    )
+  }
+  
+  
+  func addVisualEffectIos12Down(visualEffect: W3WVisualEffect) {
+    let blurEffectStyle = effectToBlur(effect: visualEffect.style)
+    addVisualEffect(
+      blurEffectStyle: blurEffectStyle,
+      inset: visualEffect.padding.insets,
+      cornerRadius: visualEffect.cornerRadius.value
+    )
+  }
+  
   
   /// Add visual effect to current view
   /// - Parameters:

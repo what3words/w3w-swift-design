@@ -14,9 +14,9 @@
         "package": "w3w-swift-themes",
         "repositoryURL": "https://github.com/what3words/w3w-swift-themes.git",
         "state": {
-          "branch": null,
-          "revision": "44a23db812aae69e5f0bbedddc5ef52c9c30e240",
-          "version": "1.0.0"
+          "branch": "task/add-visual-effect-dd",
+          "revision": "1ace0fe3058d0b2e7d21a33d21663119a8b1330a",
+          "version": null
         }
       }
     ]
