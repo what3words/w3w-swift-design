@@ -23,18 +23,18 @@ public class W3WCloseButton: W3WButton {
     let colors = W3WColors(foreground: .clear, tint: .white)
     let visualEffect: W3WVisualEffect
     if #available(iOS 13.0, *) {
-      visualEffect = W3WVisualEffect(blurEffectStyle: .light,
-                                     vibrancyEffectStyle: .tertiaryFill,
+      visualEffect = W3WVisualEffect(blurEffectStyle: UIBlurEffect.Style.light.rawValue,
+                                     vibrancyEffectStyle: UIVibrancyEffectStyle.tertiaryFill.rawValue,
                                      padding: W3WPadding(value: inset),
                                      cornerRadius: withCornerRadius ? W3WCornerRadius(value: (size - inset * 2.0) / 2.0) : 0.0)
     } else {
-      visualEffect = W3WVisualEffect(blurEffectStyle: .light,
+      visualEffect = W3WVisualEffect(blurEffectStyle: UIBlurEffect.Style.light.rawValue,
                                      padding: W3WPadding(value: inset),
                                      cornerRadius: withCornerRadius ? W3WCornerRadius(value: (size - inset * 2.0) / 2.0) : 0.0)
     }
     let styles: W3WStyles = .standard
       .with(visualEffect: visualEffect)
-      .with(padding: W3WPadding(value: inset + 8))
+      .with(padding: W3WPadding(value: inset + 8.0))
     let scheme = W3WScheme(colors: colors, styles: styles)
     super.init(image: W3WImage(systemName: "xmark", colors: colors), scheme: scheme)
     addTarget(self, action: #selector(didTouch), for: .touchUpInside)
