@@ -3,20 +3,20 @@
     "pins": [
       {
         "package": "w3w-swift-core",
-        "repositoryURL": "git@github.com:what3words/w3w-swift-core.git",
+        "repositoryURL": "https://github.com/what3words/w3w-swift-core.git",
         "state": {
           "branch": null,
-          "revision": "76e240b3c60d30fe814f8d1c0d4990d65a984af3",
-          "version": "1.0.0"
+          "revision": "66e15157c8a355d55dfa019740667315ee56d9bc",
+          "version": "1.0.1"
         }
       },
       {
         "package": "w3w-swift-themes",
         "repositoryURL": "https://github.com/what3words/w3w-swift-themes.git",
         "state": {
-          "branch": null,
-          "revision": "44a23db812aae69e5f0bbedddc5ef52c9c30e240",
-          "version": "1.0.0"
+          "branch": "staging",
+          "revision": "88ec68d3864f2bb52a6729ea7540420f9140d30b",
+          "version": null
         }
       }
     ]

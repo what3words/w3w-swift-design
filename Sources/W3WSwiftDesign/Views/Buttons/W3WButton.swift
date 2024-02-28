@@ -98,6 +98,11 @@ public class W3WButton: UIButton, W3WViewProtocol {
     setTitleColor(scheme?.colors?.secondary?.current.uiColor ?? fallbackColor, for: .disabled)
     setTitleColor(scheme?.colors?.foreground?.current.uiColor ?? fallbackColor, for: .focused)
     setTitleColor(scheme?.colors?.secondary?.current.uiColor ?? fallbackColor, for: .selected)
+    
+    imageView?.tintColor = scheme?.colors?.tint?.current.uiColor
+    if let insets = scheme?.styles?.padding?.insets {
+      contentEdgeInsets = insets
+    }
   }
   
 }
