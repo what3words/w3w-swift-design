@@ -12,19 +12,24 @@ public class W3WCloseButton: W3WButton {
   
   let size: CGFloat
   let inset: CGFloat
+  let roundedCorners: Bool
   
   public init(size: CGFloat = 60.0,
               inset: CGFloat = 16.0,
-              withCornerRadius: Bool = true,
+              roundedCorners: Bool = true,
               onTouch: (() -> Void)?) {
     self.size = size
     self.inset = inset
+    self.roundedCorners = roundedCorners
     self.onTouch = onTouch
 
     let colors = W3WColors(foreground: .clear, tint: .white)
 
     let styles: W3WStyles = .standard
-      .with(visualEffect: W3WVisualEffect(style: .ultraThin, fill: .fill, padding: .bold, cornerRadius: .soft))
+      .with(visualEffect: W3WVisualEffect(style: .thin, 
+                                          fill: .fill,
+                                          padding: W3WPadding(value: inset),
+                                          cornerRadius: roundedCorners ? W3WCornerRadius(value: (size - inset * 2.0) / 2.0) : 0.0))
       .with(padding: W3WPadding(value: inset + 8.0))
 
     let scheme = W3WScheme(colors: colors, styles: styles)
