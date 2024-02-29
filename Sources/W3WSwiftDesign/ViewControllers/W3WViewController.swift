@@ -20,7 +20,7 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   public var onDismiss: () -> () = { }
   
   /// the little notch in the top shown when this is presented modally
-  var handleIndicator = W3WHandleIndicator()
+  public var handleIndicator = W3WHandleIndicator()
   
   /// a list of the sub views that were added with `add(view:frame)` used for managing the view postions
   public var managedViews = [W3WViewProtocol]()
@@ -75,6 +75,7 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
     self.theme = theme
     w3wView?.scheme = theme?[.base]
     w3wView?.updateView()
+    handleIndicator.scheme = theme?[.base]
   }
 
   
