@@ -29,11 +29,14 @@ public class W3WHandleIndicator: W3WView {
   
 
   func configure() {
-    layer.cornerRadius = W3WPadding.thin.value / CGFloat(2.0)
+    layer.cornerRadius = W3WIconSize.handleIcon.value.height / CGFloat(2.0)
     self.frame = getFrame(parent: superview, this: self)
     set(position: getFrame)
   }
 
+  public override func update(scheme: W3WScheme?) {
+    backgroundColor = scheme?.colors?.separator?.current.uiColor
+  }
   
   public func getFrame(parent: UIView?, this: W3WViewProtocol) -> CGRect {
     let indicatorSize = CGSize(width: W3WIconSize.handleIcon.value.width, height: W3WIconSize.handleIcon.value.height)
