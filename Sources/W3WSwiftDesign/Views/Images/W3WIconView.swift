@@ -20,11 +20,11 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   // MARK: Init
 
   
-  public init(image: W3WImage, scheme: W3WScheme? = .standardIcons) {
+  public init(image: W3WImage, scheme: W3WScheme? = .standardIcons, size: W3WIconSize = .largeIcon) {
     self.underlyingImage = image
     self.underlyingImage.colors = scheme?.colors
     
-    super.init(image: self.underlyingImage.get())
+    super.init(image: self.underlyingImage.get(size: size.value))
     contentMode = .scaleAspectFit
     clipsToBounds = true
     
