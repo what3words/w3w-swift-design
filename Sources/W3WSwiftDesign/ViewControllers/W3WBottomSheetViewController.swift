@@ -24,6 +24,8 @@ open class W3WBottomSheetViewController: W3WViewController, UIGestureRecognizerD
     let panGestureRecognizerUp = UIPanGestureRecognizer(target: self, action: #selector(didSwipe(_:)))
     view.addGestureRecognizer(panGestureRecognizerUp)
     panGestureRecognizerUp.delegate = self
+    
+    w3wView?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
   }
   
   
@@ -82,6 +84,9 @@ open class W3WBottomSheetViewController: W3WViewController, UIGestureRecognizerD
       } else if let ts = touchStartY {
         let point = sender.location(in: sv)
         height = sv.frame.height - point.y + ts
+        if let max = detents.detents.max() {
+          height = min(height, max)
+        }
         w3wView?.set(position: .bottom(height: height))
       }
     }
