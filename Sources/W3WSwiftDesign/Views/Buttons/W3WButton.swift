@@ -49,7 +49,8 @@ public class W3WButton: UIButton, W3WViewProtocol {
   
   func configure(icon: W3WIconView? = nil, label: String? = nil, scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
     set(scheme: scheme, position: position)
-
+    
+    imageView?.contentMode = .center
     position?.position(superview, self)
 
     self.icon = icon
