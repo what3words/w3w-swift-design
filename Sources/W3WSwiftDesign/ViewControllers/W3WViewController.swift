@@ -71,7 +71,7 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
 
   // MARK: Accessors
   
-  public func set(theme: W3WTheme?) {
+  open func set(theme: W3WTheme?) {
     self.theme = theme
     w3wView?.scheme = theme?[.base]
     w3wView?.updateView()
