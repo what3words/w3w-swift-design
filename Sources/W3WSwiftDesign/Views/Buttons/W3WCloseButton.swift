@@ -8,8 +8,6 @@
 import UIKit
 
 public class W3WCloseButton: W3WButton {
-  public var onTouch: (() -> Void)?
-  
   let size: CGFloat
   let inset: CGFloat
   let roundedCorners: Bool
@@ -23,23 +21,22 @@ public class W3WCloseButton: W3WButton {
     self.size = size
     self.inset = inset
     self.roundedCorners = roundedCorners
-    self.onTouch = onTouch
     
     let colors = W3WColors(foreground: .clear, tint: .white)
     
     let styles: W3WStyles = .standard
       .with(visualEffect: W3WVisualEffect(style: .thin,
-                                          fill: .fill,
+                                          fill: .tertiaryFill,
                                           padding: W3WPadding(value: inset),
                                           cornerRadius: roundedCorners ? W3WCornerRadius(value: (size - inset * 2.0) / 2.0) : 0.0))
-      .with(padding: W3WPadding(value: inset + 8.0))
+      .with(padding: W3WPadding(value: inset + 7.0))
 
     let scheme = W3WScheme(colors: colors, styles: styles)
 
-    super.init(image: .xmark, scheme: scheme)
+    super.init(image: .xmark, scheme: scheme, onTap: onTouch)
     
-    addTarget(self, action: #selector(didTouch), for: .touchUpInside)
     translatesAutoresizingMaskIntoConstraints = false
+    imageView?.contentMode = .scaleAspectFit
   }
   
   @available(iOS 13.0, *)
@@ -53,16 +50,15 @@ public class W3WCloseButton: W3WButton {
     self.size = size
     self.inset = inset
     self.roundedCorners = roundedCorners
-    self.onTouch = onTouch
     
     let colors = W3WColors(foreground: .clear, tint: .white)
     
     let styles: W3WStyles = .standard
       .with(visualEffect: W3WVisualEffect(style: .thin,
-                                          fill: .fill,
+                                          fill: .tertiaryFill,
                                           padding: W3WPadding(value: inset),
                                           cornerRadius: roundedCorners ? W3WCornerRadius(value: (size - inset * 2.0) / 2.0) : 0.0))
-      .with(padding: W3WPadding(value: inset + 8.0))
+      .with(padding: W3WPadding(value: inset + 7.0))
     
     let scheme = W3WScheme(colors: colors, styles: styles)
     
@@ -71,17 +67,13 @@ public class W3WCloseButton: W3WButton {
       w3wImage.setImageConfiguration(imageConfiguration)
     }
 
-    super.init(image: w3wImage, scheme: scheme)
+    super.init(image: w3wImage, scheme: scheme, onTap: onTouch)
     
-    addTarget(self, action: #selector(didTouch), for: .touchUpInside)
     translatesAutoresizingMaskIntoConstraints = false
+    imageView?.contentMode = .scaleAspectFit
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
-  }
-  
-  @objc open func didTouch() {
-    onTouch?()
   }
 }
