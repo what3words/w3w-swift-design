@@ -106,19 +106,21 @@ open class W3WViewController: UIViewController, W3WViewManagerProtocol {
   public func add(viewController: W3WViewController, position: W3WViewPosition) {
     DispatchQueue.main.async { [weak self] in
       if let v = viewController.w3wView {
+        self?.add(view: v, position: position)
         self?.addChild(viewController)
         self?.view.addSubview(v)
-        v.set(position: position)
+        //v.set(position: position)
       }
     }
   }
-  
+
   
   public func remove(viewController: W3WViewController) {
-    DispatchQueue.main.async {
+    DispatchQueue.main.async { [weak self] in
       if let v = viewController.w3wView {
         v.removeFromSuperview()
         viewController.removeFromParent()
+        self?.remove(view: v)
       }
     }
   }
