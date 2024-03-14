@@ -93,9 +93,9 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   }
   
   
-  public func set(scheme: W3WScheme) {
+  public func set(scheme: W3WScheme?) {
     self.scheme = scheme
-    if let c = scheme.colors {
+    if let c = scheme?.colors {
       self.underlyingImage.set(colors: c)
     }
   }

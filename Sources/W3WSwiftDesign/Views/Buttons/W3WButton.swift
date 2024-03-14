@@ -104,6 +104,11 @@ public class W3WButton: UIButton, W3WViewProtocol {
     if let insets = scheme?.styles?.padding?.insets {
       contentEdgeInsets = insets
     }
+    
+    icon.set(scheme: scheme)
+    if let i = icon {
+      setImage(i.asImage(size: CGSize(width: frame.height, height: frame.height)), for: .normal)
+    }
   }
   
 }
