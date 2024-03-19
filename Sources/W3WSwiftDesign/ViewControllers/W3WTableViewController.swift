@@ -121,7 +121,7 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
   /// sets the theme
   /// - Parameters:
   ///   - theme: the theme to use
-  public func set(theme: W3WTheme?) {
+  open func set(theme: W3WTheme?) {
     self.theme = theme
   }
   
