@@ -7,6 +7,7 @@
 
 import UIKit
 import W3WSwiftThemes
+import W3WSwiftCore
 
 
 public class W3WButton: UIButton, W3WViewProtocol {
@@ -89,6 +90,21 @@ public class W3WButton: UIButton, W3WViewProtocol {
   }
 
   
+  public func set(scheme: W3WScheme?) {
+    self.scheme = scheme
+    W3WThread.runOnMain {
+      self.position?.position(self.superview, self)
+    }
+    W3WThread.queueOnMain {
+      self.update(scheme: scheme)
+      self.icon.set(scheme: scheme)
+      if let i = self.icon {
+        self.setImage(i.asImage(size: CGSize(width: self.frame.height, height: self.frame.height)), for: .normal)
+      }
+    }
+  }
+  
+  
   public func update(scheme: W3WScheme?) {
     apply(scheme: scheme)
 
@@ -105,5 +121,4 @@ public class W3WButton: UIButton, W3WViewProtocol {
       contentEdgeInsets = insets
     }
   }
-  
 }
