@@ -15,6 +15,8 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   public var position: W3WViewPosition?
 
   var underlyingImage: W3WImage
+  var size: W3WIconSize
+  var images: [W3WColorMode: W3WImage]?
 
 
   // MARK: Init
@@ -22,6 +24,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   public init(image: W3WImage, scheme: W3WScheme? = .standardIcons, size: W3WIconSize = .largeIcon) {
     self.underlyingImage = image
+    self.size = size
     self.underlyingImage.colors = scheme?.colors
     
     super.init(image: self.underlyingImage.get(size: size.value))
@@ -34,7 +37,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   public init(drawing: W3WDrawing, scheme: W3WScheme? = nil, size: W3WIconSize = .largeIcon) {
     self.underlyingImage = W3WImage(drawing: drawing, colors: scheme?.colors ?? .standard)
-    
+    self.size = size
     super.init(image: self.underlyingImage.get(size: size.value))
     contentMode = .scaleAspectFit
     clipsToBounds = true
@@ -45,7 +48,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   public init(systemName: String, scheme: W3WScheme? = nil, size: W3WIconSize = .largeIcon) {
     self.underlyingImage = W3WImage(systemName: systemName, colors: scheme?.colors ?? .standard)
-    
+    self.size = size
     super.init(image: self.underlyingImage.get(size: size.value))
     contentMode = .scaleAspectFit
     clipsToBounds = true
@@ -56,7 +59,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   public init(file: String, scheme: W3WScheme? = nil, size: W3WIconSize = .largeIcon) {
     self.underlyingImage = W3WImage(file: file, colors: scheme?.colors ?? .standard)
-    
+    self.size = size
     super.init(image: self.underlyingImage.get(size: size.value))
     contentMode = .scaleAspectFit
     clipsToBounds = true
@@ -67,7 +70,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   public required init?(coder: NSCoder) {
     self.underlyingImage = W3WImage(drawing: W3WDrawing.x, colors: .standard)
-
+    self.size = .largeIcon
     super.init(coder: coder)
     contentMode = .scaleAspectFit
     clipsToBounds = true
@@ -77,7 +80,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   public init(icon: W3WIconView, frame: CGRect? = nil, size: W3WIconSize = .largeIcon) {
     self.underlyingImage = icon.underlyingImage
     //self.iconColors      = icon.iconColors
-    
+    self.size = size
     super.init(image: self.underlyingImage.get(size: size.value))
     contentMode = .scaleAspectFit
     clipsToBounds = true
@@ -85,6 +88,16 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
     self.frame = frame ?? icon.frame
     
     set(scheme: icon.scheme, position: nil)
+  }
+  
+  
+  public init(images: [W3WColorMode: W3WImage], size: W3WIconSize = .largeIcon) {
+    self.images = images
+    self.size = size
+    self.underlyingImage = images[W3WColor.theme]!
+    super.init(image: self.underlyingImage.get(size: size.value))
+    contentMode = .scaleAspectFit
+    clipsToBounds = true
   }
   
   
@@ -108,26 +121,29 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
 
   
   public func updateImage(size: W3WIconSize = .largeIcon) {
-    self.image = underlyingImage.get(size: size.value)
+    if let images = images, let image = images[W3WColor.theme] {
+      underlyingImage = image
+    }
+    image = underlyingImage.get(size: size.value)
   }
   
   
   public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    updateImage()
+    updateImage(size: size)
     updateView()
   }
   
   
   open override func layoutSubviews() {
     super.layoutSubviews()
-    updateImage()
+    updateImage(size: size)
     updateView()
   }
 
 
   public func update(scheme: W3WScheme?) {
     apply(scheme: scheme)
-    updateImage()
+    updateImage(size: size)
   }
   
 }
