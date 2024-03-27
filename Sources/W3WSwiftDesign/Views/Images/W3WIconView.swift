@@ -91,16 +91,6 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   }
   
   
-  public init(images: [W3WColorMode: W3WImage], size: W3WIconSize = .largeIcon) {
-    self.images = images
-    self.size = size
-    self.underlyingImage = images[W3WColor.theme]!
-    super.init(image: self.underlyingImage.get(size: size.value))
-    contentMode = .scaleAspectFit
-    clipsToBounds = true
-  }
-  
-  
   public func copy(frame: CGRect? = nil) -> W3WIconView {
     return W3WIconView(icon: self, frame: frame)
   }
@@ -121,10 +111,7 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
 
   
   public func updateImage(size: W3WIconSize = .largeIcon) {
-    if let images = images, let image = images[W3WColor.theme] {
-      underlyingImage = image
-    }
-    image = underlyingImage.get(size: size.value)
+    self.image = underlyingImage.get(size: size.value)
   }
   
   
