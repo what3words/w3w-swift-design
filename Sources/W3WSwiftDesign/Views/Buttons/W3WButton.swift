@@ -119,12 +119,34 @@ public class W3WButton: UIButton, W3WViewProtocol {
     setTitleColor(scheme?.colors?.foreground?.current.uiColor ?? fallbackColor, for: .focused)
     setTitleColor(scheme?.colors?.secondary?.current.uiColor ?? fallbackColor, for: .selected)
     
-    imageView?.tintColor = scheme?.colors?.tint?.current.uiColor
-    if let insets = scheme?.styles?.padding?.insets {
-      contentEdgeInsets = insets
-    }
+    // Apply foreground color to imageView so image and text have the same color
+    imageView?.tintColor = scheme?.colors?.foreground?.current.uiColor
+    
     if let fontStyle = fontStyle, let font = scheme?.styles?.fonts?[fontStyle] {
       titleLabel?.font = font
     }
+        
+    if icon != nil && !(titleLabel?.text?.isEmpty ?? true) {
+      // If button has both image and title, set space between them
+      centerTextAndImage(spacing: W3WMargin.light.value, insets: scheme?.styles?.padding?.insets ?? .zero)
+    } else {
+      contentEdgeInsets = scheme?.styles?.padding?.insets ?? .zero
+    }
+  }
+}
+
+
+extension UIButton {
+  func centerTextAndImage(spacing: CGFloat, insets: UIEdgeInsets) {
+    let insetAmount = spacing / 2.0
+    let isRTL = semanticContentAttribute == .forceRightToLeft
+    if isRTL {
+      imageEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+      titleEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
+    } else {
+      imageEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
+      titleEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+    }
+    contentEdgeInsets = UIEdgeInsets(top: insets.top, left: insetAmount + insets.left, bottom: insets.bottom, right: insetAmount + insets.right)
   }
 }
