@@ -15,19 +15,17 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   public var position: W3WViewPosition?
 
   var underlyingImage: W3WImage
-  var size: W3WIconSize
-  var images: [W3WColorMode: W3WImage]?
 
 
   // MARK: Init
 
   
-  public init(image: W3WImage, scheme: W3WScheme? = .standardIcons, size: W3WIconSize = .largeIcon) {
+  public init(image: W3WImage, scheme: W3WScheme? = .standardIcons) {
     self.underlyingImage = image
-    self.size = size
+    
     self.underlyingImage.colors = scheme?.colors
     
-    super.init(image: self.underlyingImage.get(size: size.value))
+    super.init(image: self.underlyingImage.get())
     contentMode = .scaleAspectFit
     clipsToBounds = true
     
@@ -35,10 +33,10 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   }
   
   
-  public init(drawing: W3WDrawing, scheme: W3WScheme? = nil, size: W3WIconSize = .largeIcon) {
+  public init(drawing: W3WDrawing, scheme: W3WScheme? = nil) {
     self.underlyingImage = W3WImage(drawing: drawing, colors: scheme?.colors ?? .standard)
-    self.size = size
-    super.init(image: self.underlyingImage.get(size: size.value))
+    
+    super.init(image: self.underlyingImage.get())
     contentMode = .scaleAspectFit
     clipsToBounds = true
     
@@ -46,10 +44,10 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   }
   
   
-  public init(systemName: String, scheme: W3WScheme? = nil, size: W3WIconSize = .largeIcon) {
+  public init(systemName: String, scheme: W3WScheme? = nil) {
     self.underlyingImage = W3WImage(systemName: systemName, colors: scheme?.colors ?? .standard)
-    self.size = size
-    super.init(image: self.underlyingImage.get(size: size.value))
+    
+    super.init(image: self.underlyingImage.get())
     contentMode = .scaleAspectFit
     clipsToBounds = true
 
@@ -57,10 +55,10 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   }
   
   
-  public init(file: String, scheme: W3WScheme? = nil, size: W3WIconSize = .largeIcon) {
+  public init(file: String, scheme: W3WScheme? = nil) {
     self.underlyingImage = W3WImage(file: file, colors: scheme?.colors ?? .standard)
-    self.size = size
-    super.init(image: self.underlyingImage.get(size: size.value))
+    
+    super.init(image: self.underlyingImage.get())
     contentMode = .scaleAspectFit
     clipsToBounds = true
 
@@ -70,18 +68,16 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   public required init?(coder: NSCoder) {
     self.underlyingImage = W3WImage(drawing: W3WDrawing.x, colors: .standard)
-    self.size = .largeIcon
     super.init(coder: coder)
     contentMode = .scaleAspectFit
     clipsToBounds = true
   }
   
   
-  public init(icon: W3WIconView, frame: CGRect? = nil, size: W3WIconSize = .largeIcon) {
+  public init(icon: W3WIconView, frame: CGRect? = nil) {
     self.underlyingImage = icon.underlyingImage
-    //self.iconColors      = icon.iconColors
-    self.size = size
-    super.init(image: self.underlyingImage.get(size: size.value))
+    
+    super.init(image: self.underlyingImage.get())
     contentMode = .scaleAspectFit
     clipsToBounds = true
     
@@ -105,32 +101,32 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   
   /// convert this view into a UIImage
-  public func asImage(size: CGSize) -> UIImage? {
-    return underlyingImage.get(size: size)
+  public func asImage() -> UIImage? {
+    return underlyingImage.get()
   }
 
   
-  public func updateImage(size: W3WIconSize = .largeIcon) {
-    self.image = underlyingImage.get(size: size.value)
+  public func updateImage(size: W3WIconSize? = nil) {
+    self.image = underlyingImage.get()
   }
   
   
   public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    updateImage(size: size)
+    updateImage()
     updateView()
   }
   
   
   open override func layoutSubviews() {
     super.layoutSubviews()
-    updateImage(size: size)
+    updateImage()
     updateView()
   }
 
 
   public func update(scheme: W3WScheme?) {
     apply(scheme: scheme)
-    updateImage(size: size)
+    updateImage()
   }
   
 }

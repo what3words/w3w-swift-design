@@ -65,7 +65,7 @@ public class W3WButton: UIButton, W3WViewProtocol {
     }
 
     if let i = icon {
-      setImage(i.asImage(size: CGSize(width: frame.height, height: frame.height)), for: .normal)
+      setImage(i.asImage(), for: .normal)
     }
     
     self.onTap = onTap
@@ -102,7 +102,7 @@ public class W3WButton: UIButton, W3WViewProtocol {
       self.update(scheme: scheme)
       self.icon?.set(scheme: scheme)
       if let i = self.icon {
-        self.setImage(i.asImage(size: CGSize(width: self.frame.height, height: self.frame.height)), for: .normal)
+        self.setImage(i.asImage(), for: .normal)
       }
     }
   }
