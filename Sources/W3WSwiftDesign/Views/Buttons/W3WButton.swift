@@ -18,29 +18,53 @@ public class W3WButton: UIButton, W3WViewProtocol {
   public var position: W3WViewPosition?
 
   var icon: W3WIconView?
+  
+  /// font style of titleLabel
   var fontStyle: W3WFontStyle?
   
-  public init(image: W3WImage, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
+  /// spacing between titleLabel and imageView, will just be applied when button has both image and text
+  var spacing: CGFloat?
+  
+  public init(image: W3WImage,
+              scheme: W3WScheme? = nil,
+              position: W3WViewPosition? = nil,
+              onTap: @escaping () -> () = { }) {
     super.init(frame: .w3wWhatever)
-    configure(icon: W3WIconView(image: image, scheme: scheme), fontStyle: fontStyle, scheme: scheme, position: position, onTap: onTap)
+    configure(icon: W3WIconView(image: image, scheme: scheme), scheme: scheme, position: position, onTap: onTap)
   }
   
 
-  public init(label: String, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
+  public init(label: String, 
+              fontStyle: W3WFontStyle? = nil,
+              scheme: W3WScheme? = nil,
+              position: W3WViewPosition? = nil,
+              onTap: @escaping () -> () = { }) {
     super.init(frame: .w3wWhatever)
     configure(label: label, fontStyle: fontStyle, scheme: scheme, position: position, onTap: onTap)
   }
   
   
-  public init(icon: W3WIconView, label: String? = nil, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
+  public init(icon: W3WIconView, 
+              label: String? = nil,
+              fontStyle: W3WFontStyle? = nil,
+              spacing: CGFloat? = W3WMargin.light.value,
+              scheme: W3WScheme? = nil,
+              position: W3WViewPosition? = nil,
+              onTap: @escaping () -> () = { }) {
     super.init(frame: .w3wWhatever)
-    configure(icon: icon, label: label, fontStyle: fontStyle, scheme: scheme, position: position, onTap: onTap)
+    configure(icon: icon, label: label, fontStyle: fontStyle, spacing: spacing, scheme: scheme, position: position, onTap: onTap)
   }
   
   
-  public init(image: W3WImage, label: String, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
+  public init(image: W3WImage, 
+              label: String,
+              fontStyle: W3WFontStyle? = nil,
+              spacing: CGFloat? = nil,
+              scheme: W3WScheme? = nil,
+              position: W3WViewPosition? = nil,
+              onTap: @escaping () -> () = { }) {
     super.init(frame: .w3wWhatever)
-    configure(icon: W3WIconView(image: image, scheme: scheme), label: label, fontStyle: fontStyle, scheme: scheme, position: position, onTap: onTap)
+    configure(icon: W3WIconView(image: image, scheme: scheme), label: label, fontStyle: fontStyle, spacing: spacing, scheme: scheme, position: position, onTap: onTap)
   }
 
   
@@ -49,8 +73,15 @@ public class W3WButton: UIButton, W3WViewProtocol {
   }
 
   
-  func configure(icon: W3WIconView? = nil, label: String? = nil, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
+  func configure(icon: W3WIconView? = nil, 
+                 label: String? = nil,
+                 fontStyle: W3WFontStyle? = nil,
+                 spacing: CGFloat? = nil,
+                 scheme: W3WScheme? = nil,
+                 position: W3WViewPosition? = nil,
+                 onTap: @escaping () -> () = { }) {
     self.fontStyle = fontStyle
+    self.spacing = spacing
     
     set(scheme: scheme, position: position)
     
@@ -126,9 +157,9 @@ public class W3WButton: UIButton, W3WViewProtocol {
       titleLabel?.font = font
     }
         
-    if icon != nil && !(titleLabel?.text?.isEmpty ?? true) {
+    if let spacing = spacing, icon != nil && !(titleLabel?.text?.isEmpty ?? true) {
       // If button has both image and title, set space between them
-      centerTextAndImage(spacing: W3WMargin.light.value, insets: scheme?.styles?.padding?.insets ?? .zero)
+      centerTextAndImage(spacing: spacing, insets: scheme?.styles?.padding?.insets ?? .zero)
     } else {
       contentEdgeInsets = scheme?.styles?.padding?.insets ?? .zero
     }
