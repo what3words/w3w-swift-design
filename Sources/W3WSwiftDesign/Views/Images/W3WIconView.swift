@@ -101,13 +101,13 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   
   /// convert this view into a UIImage
-  public func asImage() -> UIImage? {
-    return underlyingImage.get()
+  public func asImage(size: W3WIconSize? = nil) -> UIImage? {
+    return underlyingImage.get(size: size)
   }
 
   
   public func updateImage(size: W3WIconSize? = nil) {
-    self.image = underlyingImage.get()
+    self.image = underlyingImage.get(size: size)
   }
   
   
