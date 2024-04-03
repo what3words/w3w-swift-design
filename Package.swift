@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "w3w-swift-design",
-    platforms: [.iOS(.v9)],
+    platforms: [.iOS(.v12)],
     
     products: [
       .library(name: "W3WSwiftDesign", targets: ["W3WSwiftDesign"]),
