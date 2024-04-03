@@ -14,8 +14,8 @@
         "package": "w3w-swift-themes",
         "repositoryURL": "https://github.com/what3words/w3w-swift-themes.git",
         "state": {
-          "branch": "staging",
-          "revision": "88ec68d3864f2bb52a6729ea7540420f9140d30b",
+          "branch": "task/unit-test-job",
+          "revision": "c070697b04aa5ec91538f5530b7e8d6d8570acdd",
           "version": null
         }
       }
