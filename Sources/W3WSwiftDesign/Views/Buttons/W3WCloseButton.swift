@@ -22,7 +22,7 @@ public class W3WCloseButton: W3WButton {
     self.inset = inset
     self.roundedCorners = roundedCorners
     
-    let colors = W3WColors(foreground: .clear, tint: .white)
+    let colors = W3WColors(foreground: .white)
     
     let styles: W3WStyles = .standard
       .with(visualEffect: W3WVisualEffect(style: .thin,
@@ -51,7 +51,7 @@ public class W3WCloseButton: W3WButton {
     self.inset = inset
     self.roundedCorners = roundedCorners
     
-    let colors = W3WColors(foreground: .clear, tint: .white)
+    let colors = W3WColors(foreground: .white)
     
     let styles: W3WStyles = .standard
       .with(visualEffect: W3WVisualEffect(style: .thin,

@@ -18,29 +18,53 @@ public class W3WButton: UIButton, W3WViewProtocol {
   public var position: W3WViewPosition?
 
   var icon: W3WIconView?
+  
+  /// font style of titleLabel
   var fontStyle: W3WFontStyle?
   
-  public init(image: W3WImage, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
+  /// spacing between titleLabel and imageView, will just be applied when button has both image and text
+  var spacing: CGFloat?
+  
+  public init(image: W3WImage,
+              scheme: W3WScheme? = nil,
+              position: W3WViewPosition? = nil,
+              onTap: @escaping () -> () = { }) {
     super.init(frame: .w3wWhatever)
-    configure(icon: W3WIconView(image: image, scheme: scheme), fontStyle: fontStyle, scheme: scheme, position: position, onTap: onTap)
+    configure(icon: W3WIconView(image: image, scheme: scheme), scheme: scheme, position: position, onTap: onTap)
   }
   
 
-  public init(label: String, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
+  public init(label: String, 
+              fontStyle: W3WFontStyle? = nil,
+              scheme: W3WScheme? = nil,
+              position: W3WViewPosition? = nil,
+              onTap: @escaping () -> () = { }) {
     super.init(frame: .w3wWhatever)
     configure(label: label, fontStyle: fontStyle, scheme: scheme, position: position, onTap: onTap)
   }
   
   
-  public init(icon: W3WIconView, label: String? = nil, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
+  public init(icon: W3WIconView, 
+              label: String? = nil,
+              fontStyle: W3WFontStyle? = nil,
+              spacing: CGFloat? = W3WMargin.light.value,
+              scheme: W3WScheme? = nil,
+              position: W3WViewPosition? = nil,
+              onTap: @escaping () -> () = { }) {
     super.init(frame: .w3wWhatever)
-    configure(icon: icon, label: label, fontStyle: fontStyle, scheme: scheme, position: position, onTap: onTap)
+    configure(icon: icon, label: label, fontStyle: fontStyle, spacing: spacing, scheme: scheme, position: position, onTap: onTap)
   }
   
   
-  public init(image: W3WImage, label: String, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
+  public init(image: W3WImage, 
+              label: String,
+              fontStyle: W3WFontStyle? = nil,
+              spacing: CGFloat? = nil,
+              scheme: W3WScheme? = nil,
+              position: W3WViewPosition? = nil,
+              onTap: @escaping () -> () = { }) {
     super.init(frame: .w3wWhatever)
-    configure(icon: W3WIconView(image: image, scheme: scheme), label: label, fontStyle: fontStyle, scheme: scheme, position: position, onTap: onTap)
+    configure(icon: W3WIconView(image: image, scheme: scheme), label: label, fontStyle: fontStyle, spacing: spacing, scheme: scheme, position: position, onTap: onTap)
   }
 
   
@@ -49,8 +73,15 @@ public class W3WButton: UIButton, W3WViewProtocol {
   }
 
   
-  func configure(icon: W3WIconView? = nil, label: String? = nil, fontStyle: W3WFontStyle? = nil, scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
+  func configure(icon: W3WIconView? = nil, 
+                 label: String? = nil,
+                 fontStyle: W3WFontStyle? = nil,
+                 spacing: CGFloat? = nil,
+                 scheme: W3WScheme? = nil,
+                 position: W3WViewPosition? = nil,
+                 onTap: @escaping () -> () = { }) {
     self.fontStyle = fontStyle
+    self.spacing = spacing
     
     set(scheme: scheme, position: position)
     
@@ -65,7 +96,7 @@ public class W3WButton: UIButton, W3WViewProtocol {
     }
 
     if let i = icon {
-      setImage(i.asImage(size: CGSize(width: frame.height, height: frame.height)), for: .normal)
+      setImage(i.asImage(), for: .normal)
     }
     
     self.onTap = onTap
@@ -102,7 +133,7 @@ public class W3WButton: UIButton, W3WViewProtocol {
       self.update(scheme: scheme)
       self.icon?.set(scheme: scheme)
       if let i = self.icon {
-        self.setImage(i.asImage(size: CGSize(width: self.frame.height, height: self.frame.height)), for: .normal)
+        self.setImage(i.asImage(), for: .normal)
       }
     }
   }
@@ -119,12 +150,34 @@ public class W3WButton: UIButton, W3WViewProtocol {
     setTitleColor(scheme?.colors?.foreground?.current.uiColor ?? fallbackColor, for: .focused)
     setTitleColor(scheme?.colors?.secondary?.current.uiColor ?? fallbackColor, for: .selected)
     
-    imageView?.tintColor = scheme?.colors?.tint?.current.uiColor
-    if let insets = scheme?.styles?.padding?.insets {
-      contentEdgeInsets = insets
-    }
+    // Apply foreground color to imageView so image and text have the same color
+    imageView?.tintColor = scheme?.colors?.foreground?.current.uiColor
+    
     if let fontStyle = fontStyle, let font = scheme?.styles?.fonts?[fontStyle] {
       titleLabel?.font = font
     }
+        
+    if let spacing = spacing, icon != nil && !(titleLabel?.text?.isEmpty ?? true) {
+      // If button has both image and title, set space between them
+      centerTextAndImage(spacing: spacing, insets: scheme?.styles?.padding?.insets ?? .zero)
+    } else {
+      contentEdgeInsets = scheme?.styles?.padding?.insets ?? .zero
+    }
+  }
+}
+
+
+extension UIButton {
+  func centerTextAndImage(spacing: CGFloat, insets: UIEdgeInsets) {
+    let insetAmount = spacing / 2.0
+    let isRTL = semanticContentAttribute == .forceRightToLeft
+    if isRTL {
+      imageEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+      titleEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
+    } else {
+      imageEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
+      titleEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+    }
+    contentEdgeInsets = UIEdgeInsets(top: insets.top, left: insetAmount + insets.left, bottom: insets.bottom, right: insetAmount + insets.right)
   }
 }

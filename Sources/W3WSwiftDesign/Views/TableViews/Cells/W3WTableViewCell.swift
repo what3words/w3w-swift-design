@@ -89,7 +89,7 @@ open class W3WTableViewCell: UITableViewCell, W3WViewProtocol {
 
     self.imageView?.bounds      = CGRect(origin: .zero, size: CGSize(width: frameLength, height: frameLength))
     self.imageView?.contentMode = .scaleAspectFit
-    self.imageView?.image       = image?.underlyingImage.get(size: CGSize(width: length, height: length))
+    self.imageView?.image       = image?.underlyingImage.get()
     
     //updateView()
     position?.position(superview, self)
