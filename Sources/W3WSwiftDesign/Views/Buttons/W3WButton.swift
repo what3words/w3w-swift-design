@@ -54,7 +54,7 @@ public class W3WButton: UIButton, W3WViewProtocol {
     position?.position(superview, self)
 
     self.icon = icon
-    self.icon.set(scheme: scheme)
+    self.icon?.set(scheme: scheme)
     
     if let l = label {
       setTitle(l, for: .normal)
