@@ -112,21 +112,21 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
   
   
   public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    updateImage()
+    updateImage(size: W3WIconSize(value: bounds.size))
     updateView()
   }
   
   
   open override func layoutSubviews() {
     super.layoutSubviews()
-    updateImage()
+    updateImage(size: W3WIconSize(value: bounds.size))
     updateView()
   }
 
 
   public func update(scheme: W3WScheme?) {
     apply(scheme: scheme)
-    updateImage()
+    updateImage(size: W3WIconSize(value: bounds.size))
   }
   
 }

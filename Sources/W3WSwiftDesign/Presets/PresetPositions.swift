@@ -218,7 +218,7 @@ extension W3WViewPosition {
   /// Places a view to the bottom of a superview
   /// - Parameters:
   ///   - insetBy: the inset for the view from the edges of the parent
-  ///   - height: the height fo the view
+  ///   - height: the height of the view
   static public func bottom(insetBy: W3WPadding = .none, height: CGFloat? = nil) -> W3WViewPosition {
     return W3WViewPosition() { parent, this in
       let newHeight = height ?? this.frame.height
