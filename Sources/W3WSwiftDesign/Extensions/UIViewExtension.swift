@@ -33,19 +33,27 @@ public extension UIView {
   ///   - scheme: a scheme containing colours and style information
   func apply(colors: W3WColors?) {
     if let c = colors?.background {
-      backgroundColor = c.current.uiColor
+      if c.current.uiColor != backgroundColor {
+        backgroundColor = c.current.uiColor
+      }
     }
 
     if let t = colors?.tint {
-      tintColor = t.current.uiColor
+      if t.current.uiColor != tintColor {
+        tintColor = t.current.uiColor
+      }
     }
 
     if let b = colors?.border {
-      layer.borderColor = b.current.cgColor
+      if b.current.cgColor != layer.borderColor {
+        layer.borderColor = b.current.cgColor
+      }
     }
 
     if let s = colors?.shadow {
-      layer.shadowColor = s.current.cgColor
+      if s.current.cgColor != layer.shadowColor {
+        layer.shadowColor = s.current.cgColor
+      }
     }
     
     //  special case to get inside a searchcontroller
@@ -66,21 +74,35 @@ public extension UIView {
   ///   - scheme: a scheme containing colours and style information
   func apply(styles: W3WStyles?) {
     if let border = styles?.border?.value {
-      layer.borderWidth = border
+      if layer.borderWidth != border {
+        layer.borderWidth = border
+      }
     }
 
     if let cornerRadius = styles?.cornerRadius?.value {
-      layer.cornerRadius = cornerRadius
+      if layer.cornerRadius != cornerRadius {
+        layer.cornerRadius = cornerRadius
+      }
     }
 
     if let shadow = styles?.shadow {
-      layer.shadowOpacity = Float(shadow.opacity)
-      layer.shadowOffset  = CGSize(width: shadow.offset, height: shadow.offset)
-      layer.shadowRadius  = shadow.radius
+      if layer.shadowOpacity != Float(shadow.opacity) {
+        layer.shadowOpacity = Float(shadow.opacity)
+      }
+      
+      if layer.shadowOffset != CGSize(width: shadow.offset, height: shadow.offset) {
+        layer.shadowOffset  = CGSize(width: shadow.offset, height: shadow.offset)
+      }
+      
+      if layer.shadowRadius != shadow.radius {
+        layer.shadowRadius = shadow.radius
+      }
     }
     
     if let visualEffect = styles?.visualEffect {
-      add(visualEffect: visualEffect)
+      if !visualEffectActive() {
+        add(visualEffect: visualEffect)
+      }
     }
   }
   
@@ -124,6 +146,16 @@ public extension UIView {
   }
   
   
+  /// determines if there is a UIVisualEffectView applied to the view
+  func visualEffectActive() -> Bool {
+    if let _ = subviews.first(where: { $0 is UIVisualEffectView}) {
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  
   /// Add w3w visual effect to current view
   /// - Parameters:
   ///   - w3wVisualEffect: w3w model containing all the styles of the visual effect view to be added to current view
@@ -139,8 +171,8 @@ public extension UIView {
   
   @available(iOS 13, *)
   func addVisualEffectIos13Up(visualEffect: W3WVisualEffect) {
-    let blurEffectStyle     = effectToBlur(effect: visualEffect.style) //UIBlurEffect.Style(rawValue: w3wVisualEffect.blurEffectStyle),
-    let vibrancyEffectStyle = effectToVibrancy(effect: visualEffect.fill) //UIVibrancyEffectStyle(rawValue: w3wVisualEffect.vibrancyEffectStyle) else {
+    let blurEffectStyle     = effectToBlur(effect: visualEffect.style)
+    let vibrancyEffectStyle = effectToVibrancy(effect: visualEffect.fill)
 
     addVisualEffect(
       blurEffectStyle: blurEffectStyle,
