@@ -32,6 +32,20 @@ public class W3WIconView: UIImageView, W3WViewProtocol {
     set(scheme: scheme, position: nil)
   }
   
+
+  @available(*, deprecated, message: "size parameter has been removed")
+  public init(image: W3WImage, scheme: W3WScheme? = .standardIcons, size: W3WIconSize) {
+    self.underlyingImage = image
+    
+    self.underlyingImage.colors = scheme?.colors
+    
+    super.init(image: self.underlyingImage.get(size: size))
+    contentMode = .scaleAspectFit
+    clipsToBounds = true
+    
+    set(scheme: scheme, position: nil)
+  }
+  
   
   public init(drawing: W3WDrawing, scheme: W3WScheme? = nil) {
     self.underlyingImage = W3WImage(drawing: drawing, colors: scheme?.colors ?? .standard)
