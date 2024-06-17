@@ -24,6 +24,8 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
   public lazy var addressLabel: W3WLabel = {
     let label = W3WLabel(fontStyle: .body)
     label.translatesAutoresizingMaskIntoConstraints = false
+    label.minimumScaleFactor = 0.5
+    label.adjustsFontSizeToFitWidth = true
     return label
   }()
   
@@ -102,12 +104,14 @@ public class W3WSuggestionsTableViewCell: W3WTableViewCell, W3WViewManagerProtoc
     let placeDetailText = suggestion?.nearestPlace ?? ""
     var distanceText = ""
     if let distance = suggestion?.distanceToFocus {
-      distanceText = String(describing: distance)
+      if distance.meters > 0.0 {
+        distanceText = String(describing: distance)
+      }
     }
     // if there is colour information we use marked up text for the title, and colour everything
     if let colors = scheme?.colors, let fonts = scheme?.styles?.fonts {
-      addressLabel.attributedText     = W3WString(addressText, color: colors.foreground, font: fonts.body).withSlashes(color: colors.brand ?? .tint).asAttributedString()
-      placeDetailLabel.attributedText = W3WString(placeDetailText, color: colors.secondary, font: fonts.caption1).withSlashes(color: .clear).asAttributedString()
+      addressLabel.attributedText     = W3WString(addressText, color: colors.foreground, font: fonts.body).withSlashes(color: colors.brand ?? .tint, font: fonts.body).asAttributedString()
+      placeDetailLabel.attributedText = W3WString(placeDetailText, color: colors.secondary, font: fonts.caption1).withSlashes(color: .clear, font: fonts.body).asAttributedString()
       distanceLabel.attributedText    = W3WString(distanceText, color: colors.secondary, font: fonts.footnote).asAttributedString()
       addressLabel.backgroundColor = colors.background?.uiColor
       placeDetailLabel.backgroundColor = colors.background?.uiColor

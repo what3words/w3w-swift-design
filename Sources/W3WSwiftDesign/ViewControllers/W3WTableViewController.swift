@@ -110,7 +110,6 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
 
     // TODO: W3WDesign this
     tableView.separatorColor = W3WColor.tertiaryLabel.current.uiColor
-    //tableView.separatorColor = theme?.colors?.separator?.current.uiColor //W3WColor.tertiaryLabel.current.uiColor
 
     tableView.separatorInset = .zero
   }
@@ -188,20 +187,6 @@ open class W3WTableViewController<RowDataType, CellType>: UITableViewController 
   
   public func getIdealHeight() -> CGFloat {
     return self.preferredContentSize.height
-//    if self.preferredContentSize.height > 0.0 {
-//      return self.preferredContentSize.height
-//
-//    } else {
-//      var count = CGFloat(items.count)
-//  
-//      if let max = maxCellsShowing {
-//        if max < count {
-//          count = max
-//        }
-//      }
-//  
-//      return rowHeight * count
-//    }
   }
   
   
