@@ -83,13 +83,19 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
   
   
-  func makeAttributes(color: W3WColor? = nil, font: UIFont? = nil) -> [NSAttributedString.Key: AnyObject] {
+  func makeAttributes(color: W3WColor? = nil, font: UIFont? = nil, underlined: Bool = false) -> [NSAttributedString.Key: AnyObject] {
     var style = [NSAttributedString.Key: AnyObject]()
+    
     if let c = color?.current.uiColor {
       style[.foregroundColor] = c
     }
+    
     if let f = font {
       style[.font] = f
+    }
+    
+    if underlined {
+      style[.underlineStyle] = NSUnderlineStyle.single.rawValue as AnyObject
     }
 
     return style
@@ -100,13 +106,25 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   /// - Parameters:
   ///   - color: The colour to use
   ///   - font: The font to use
-  public func style(color: W3WColor? = nil, font: UIFont? = nil) -> W3WString {
-    let style = makeAttributes(color: color, font: font)
+  public func style(color: W3WColor? = nil, font: UIFont? = nil, underlined: Bool = false) -> W3WString {
+    let style = makeAttributes(color: color, font: font, underlined: underlined)
     string.setAttributes(style, range: NSRange(location: 0, length: string.length))
 
     return self
   }
   
+  
+//  public func underlined() -> W3WString {
+//    var style = [NSAttributedString.Key: AnyObject]()
+//
+//    style[.underlineStyle] = NSUnderlineStyle.single as AnyObject
+//    style[.underlineColor] = color?.uiColor ?? .red
+//
+//    string.setAttributes(style, range: NSRange(location: 0, length: string.length))
+//    
+//    return self
+//  }
+
   
   /// this might not be working as advertised
   public func trim(characterSet: CharacterSet) {
