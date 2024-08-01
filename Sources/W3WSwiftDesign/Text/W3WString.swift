@@ -51,14 +51,43 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   ///   - str: The text to use
   ///   - color: The colour to use
   ///   - font: The font to use
+  public init(_ str: String, color: W3WColor? = nil, font: W3WFont?) {
+    string = NSMutableAttributedString(string: str)
+    _ = style(color: color, font: font?.uiFont)
+  }
+  
+  
+  /// make a W3WString with a certain colour in a certain font
+  /// - Parameters:
+  ///   - str: The text to use
+  ///   - color: The colour to use
+  ///   - font: The font to use
   public init(_ str: NSAttributedString?, color: W3WColor? = nil, font: UIFont? = nil) {
     if let s = str {
       string = NSMutableAttributedString(attributedString: s)
     } else {
       string = NSMutableAttributedString(string: "")
     }
+    
+    style(color: color, font: font)
   }
   
+  
+  /// make a W3WString with a certain colour in a certain font
+  /// - Parameters:
+  ///   - str: The text to use
+  ///   - color: The colour to use
+  ///   - font: The font to use
+  public init(_ str: NSAttributedString?, color: W3WColor? = nil, font: W3WFont?) {
+    if let s = str {
+      string = NSMutableAttributedString(attributedString: s)
+    } else {
+      string = NSMutableAttributedString(string: "")
+    }
+    
+    style(color: color, font: font?.uiFont)
+  }
+
   
   /// make a W3WString representing a distance formatted for default locale
   /// - Parameters:
@@ -68,6 +97,17 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   public init(distance: W3WDistance, color: W3WColor? = nil, font: UIFont? = nil) {
     string = NSMutableAttributedString(string: distanceToString(distance: distance))
     _ = style(color: color, font: font)
+  }
+
+
+  /// make a W3WString representing a distance formatted for default locale
+  /// - Parameters:
+  ///   - distance: The distance to show
+  ///   - color: The colour to use
+  ///   - font: The font to use
+  public init(distance: W3WDistance, color: W3WColor? = nil, font: W3WFont?) {
+    string = NSMutableAttributedString(string: distanceToString(distance: distance))
+    _ = style(color: color, font: font?.uiFont)
   }
 
 
@@ -106,6 +146,7 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   /// - Parameters:
   ///   - color: The colour to use
   ///   - font: The font to use
+  @discardableResult
   public func style(color: W3WColor? = nil, font: UIFont? = nil, underlined: Bool = false) -> W3WString {
     let style = makeAttributes(color: color, font: font, underlined: underlined)
     string.setAttributes(style, range: NSRange(location: 0, length: string.length))
@@ -114,16 +155,30 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
   
   
-//  public func underlined() -> W3WString {
-//    var style = [NSAttributedString.Key: AnyObject]()
-//
-//    style[.underlineStyle] = NSUnderlineStyle.single as AnyObject
-//    style[.underlineColor] = color?.uiColor ?? .red
-//
-//    string.setAttributes(style, range: NSRange(location: 0, length: string.length))
-//    
-//    return self
-//  }
+  /// apply styles to the current texrt
+  /// - Parameters:
+  ///   - color: The colour to use
+  ///   - font: The font to use
+  @discardableResult
+  public func style(color: W3WColor? = nil, font: W3WFont?, underlined: Bool = false) -> W3WString {
+    return style(color: color, font: font?.uiFont, underlined: underlined)
+  }
+  
+  
+  @discardableResult
+  public func replace(this: W3WString, with: W3WString) -> W3WString {
+    let mutableAttributedString = string.mutableCopy() as! NSMutableAttributedString
+    let mutableString = mutableAttributedString.mutableString
+    
+    if mutableString.contains(this.string.string) {
+      let rangeOfStringToBeReplaced = mutableString.range(of: this.string.string)
+      mutableAttributedString.replaceCharacters(in: rangeOfStringToBeReplaced, with: with.asAttributedString())
+    }
+    
+    string = mutableAttributedString
+
+    return self
+  }
 
   
   /// this might not be working as advertised
@@ -139,16 +194,25 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   ///   - color: The colour to use
   ///   - font: The font to use
   public func withSlashes(color: W3WColor = .w3wBrandBase, font: UIFont? = nil) -> W3WString {
-    //trim(characterSet: CharacterSet(charactersIn: "/"))
     string = removeLeadingSlashes().string
     return W3WString("///", color: color, font: font) + self
   }
   
   
+  /// add w3w slashes to the text
+  /// - Parameters:
+  ///   - color: The colour to use
+  ///   - font: The font to use
+  public func withSlashes(color: W3WColor = .w3wBrandBase, font: W3WFont?) -> W3WString {
+    return withSlashes(color: color, font: font?.uiFont)
+  }
+
+  
   /// add w3w slashes to the text only if the text is in the form of a three word address
   /// - Parameters:
   ///   - color: The colour to use
   ///   - font: The font to use
+  @discardableResult
   public func addSlashesIfAddress(color: W3WColor = .w3wBrandBase, font: UIFont? = nil) -> W3WString {
     if W3WRegex.isPossible3wa(text: asString()) {
       string = removeLeadingSlashes().string
@@ -159,7 +223,18 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
   }
   
   
+  /// add w3w slashes to the text only if the text is in the form of a three word address
+  /// - Parameters:
+  ///   - color: The colour to use
+  ///   - font: The font to use
+  @discardableResult
+  public func addSlashesIfAddress(color: W3WColor = .w3wBrandBase, font: W3WFont?) -> W3WString {
+    return addSlashesIfAddress(color: color, font: font?.uiFont)
+  }
+  
+  
   /// remove leading `///` from text
+  @discardableResult
   func removeLeadingSlashes() -> W3WString {
     while string.string.first == "/" {
       string.deleteCharacters(in: NSRange(location: 0, length: 1))
@@ -183,6 +258,16 @@ public class W3WString: CustomStringConvertible, ExpressibleByStringLiteral {
       }
     }
 
+  }
+
+
+  /// find substrings in the text and apply styles to them
+  /// - Parameters:
+  ///   - word: The subtext to find
+  ///   - color: The colour to use
+  ///   - font: The font to use
+  public func highlight(word: String, color: W3WColor? = nil, font: W3WFont?) {
+    highlight(word: word, color: color, font: font?.uiFont)
   }
 
 
