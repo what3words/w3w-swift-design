@@ -112,6 +112,39 @@ public class W3WLabel: UILabel, W3WViewProtocol {
   }
   
   
+  func update(font: W3WFont?) {
+    if font?.uiFont != self.font {
+      self.font = font?.uiFont
+    }
+  }
+  
+  
+  func update(typefaces: W3WTypefaces?) {
+    // No need to update font when attributed text is set
+    if customText != nil {
+      return
+    }
+    
+    var fontWasSet = false
+    
+    // fonts, only set if it's changed
+    if let fs = fontStyle, let f = typefaces?[fs].uiFont {
+      fontWasSet = true
+      if font != f {
+        font = f
+      }
+    }
+    
+    // if the font wasn't set then we do some default behaviour
+    if !fontWasSet {
+      if font.pointSize != frame.height {
+        font = font?.withSize(frame.height)
+      }
+    }
+  }
+  
+  
+  @available(*, deprecated, renamed: "update(typefaces:)")
   func update(fonts: W3WFonts?) {
     // No need to update font when attributed text is set
     if customText != nil {

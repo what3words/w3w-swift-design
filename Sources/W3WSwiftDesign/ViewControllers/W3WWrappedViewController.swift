@@ -12,7 +12,7 @@ import UIKit
 open class W3WWrapperViewController: W3WViewController {
 
   /// a convenience accessor to the W3WWrappedView
-  var wrapperView: W3WWrappedView? { get { return view as? W3WWrappedView } }
+  public var wrapperView: W3WWrappedView? { get { return view as? W3WWrappedView } }
   
   
   /// automatically make this vc's view a wrapper view
@@ -28,7 +28,7 @@ open class W3WWrapperViewController: W3WViewController {
   
   
   public init(rootView: UIView, theme: W3WTheme? = nil) {
-    super.init(theme: theme)
+    super.init(theme: theme?.with(background: .clear))
     set(view: rootView)
   }
   
