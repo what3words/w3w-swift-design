@@ -80,8 +80,8 @@ public extension UIView {
     }
 
     if let cornerRadius = styles?.cornerRadius?.value {
-      if layer.cornerRadius != cornerRadius {
-        layer.cornerRadius = cornerRadius
+      if cornerRadiusHasChanged(styles: styles) {
+        layer.cornerRadius = calculateCornerRadius(styles: styles)
       }
     }
 
@@ -104,6 +104,28 @@ public extension UIView {
         add(visualEffect: visualEffect)
       }
     }
+  }
+  
+  
+  /// Corner radius might be a simple value, or if it is circle or oval, it needs to be calculated
+  fileprivate func calculateCornerRadius(styles: W3WStyles?) -> CGFloat {
+    var retval:CGFloat = 0.0
+    
+    if styles?.cornerRadius == .circle {
+      retval = min(frame.width, frame.height) / 2.0
+    } else if styles?.cornerRadius == .oval {
+      retval = min(frame.width, frame.height) / 2.0
+    } else {
+      retval = styles?.cornerRadius?.value ?? 0.0
+    }
+    
+    return retval
+  }
+  
+  
+  /// check if the cornerRadius is already the size it needs to be, in which case we don't update it
+  fileprivate func cornerRadiusHasChanged(styles: W3WStyles?) -> Bool {
+    return layer.cornerRadius != calculateCornerRadius(styles: styles)
   }
   
 

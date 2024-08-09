@@ -19,6 +19,16 @@ final class w3w_swift_designTests: XCTestCase {
   }
  
   
+  func testStringReplace() throws {
+    let word = W3WString("chuck")
+    let text = W3WString("how much wood would a wood chuck chuck, if a wood chuck could chuck wood")
+    let replacement = W3WString("chuck")
+    
+    let newText = word.replace(this: word, with: replacement)
+    //print(newText)
+  }
+ 
+  
   func testCopyStyle() throws {
     let theme = W3WTheme.standard
     let theme2 = theme.with(padding: .bold, into: .labels)
