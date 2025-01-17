@@ -37,6 +37,11 @@ public class W3WGpsButton: W3WView {
   /// timer for animation
   var timer: Timer?
   
+  /// which side to shoot the ribbon out of
+  var direction: W3WWritingDirection = .leftToRight
+  
+  var maxWidth: CGFloat = UIScreen.main.bounds.width - W3WPadding.light.value * 4.0
+  
   
   public init(scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
     super.init(scheme: scheme?.with(cornerRadius: .circle).with(background: .clear))
@@ -63,6 +68,12 @@ public class W3WGpsButton: W3WView {
   }
   
   
+  public func set(maxWidth: CGFloat) {
+    self.maxWidth = maxWidth
+    updateView()
+  }
+  
+  
   public func set(scheme: W3WScheme?) {
     super.set(scheme: scheme)
     button?.set(scheme: scheme)
@@ -71,7 +82,9 @@ public class W3WGpsButton: W3WView {
   }
 
   
-  public func ribbon(text: W3WString?) {
+  public func ribbon(text: W3WString?, direction: W3WWritingDirection? = .leftToRight) {
+    self.direction = direction ?? .leftToRight
+    
     ribbonShowing = text != nil
     
     ribbon?.set(position: .absolute(rect: CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: frame.height, height: frame.height))), animate: .seconds(1.0))
@@ -85,21 +98,29 @@ public class W3WGpsButton: W3WView {
       
       if let message = text {
         let label = W3WLabel(text: message)
-        label.set(position: { view, this in return view?.bounds.insetBy(dx: W3WPadding.light.value, dy: W3WPadding.light.value) ?? .zero })
         label.alpha = 0.0
         label.sizeToFit()
+        label.minimumScaleFactor = 0.5
+        label.adjustsFontSizeToFitWidth = true
 
         let length = label.frame.width + W3WPadding.light.value * 2.0 // message.asAttributedString().size().width + frame.width + W3WPadding.light.value
         
         ribbon = W3WView(scheme: scheme?.with(background: scheme?.colors?.secondaryBackground))
         ribbon?.set(position: .absolute(rect: CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: frame.height, height: frame.height))))
-        
         ribbon?.addSubview(label)
         
         addSubview(ribbon!)
         sendSubviewToBack(ribbon!)
         
-        ribbon?.set(position: .absolute(rect: CGRect(origin: CGPoint(x: -length, y: 0.0), size: CGSize(width: length + frame.height, height: frame.height))), animate: .seconds(1.0))
+        var ribbonWidth = min(length + frame.height, maxWidth)
+
+        if direction == .rightToLeft {
+          label.set(position: { view, this in return view?.bounds.inset(by: UIEdgeInsets(top: 0.0, left: frame.height + W3WPadding.light.value, bottom: 0.0, right: W3WPadding.light.value)) ?? .zero })
+          ribbon?.set(position: .absolute(rect: CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: ribbonWidth, height: frame.height))), animate: .seconds(1.0))
+        } else {
+          label.set(position: { view, this in return view?.bounds.insetBy(dx: W3WPadding.light.value, dy: W3WPadding.light.value) ?? .zero })
+          ribbon?.set(position: .absolute(rect: CGRect(origin: CGPoint(x: -length, y: 0.0), size: CGSize(width: ribbonWidth, height: frame.height))), animate: .seconds(1.0))
+        }
         
         W3WThread.runIn(duration: .seconds(1.0)) {
           UIView.animate(withDuration: W3WDuration.defaultAnimationSpeed.seconds) {
