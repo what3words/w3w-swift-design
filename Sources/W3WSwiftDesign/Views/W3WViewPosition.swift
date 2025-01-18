@@ -43,7 +43,10 @@ public class W3WViewPosition {
   
   func applyPosition(_ parent: UIView?, _ this: W3WViewProtocol) {
     if let p = closure {
-      this.frame = p(parent, this)
+      let newFrame = p(parent, this)
+      if this.layer.frame != newFrame {
+        this.frame = p(parent, this)
+      }
     }
   }
   
