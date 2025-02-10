@@ -10,6 +10,13 @@ import UIKit
 import W3WSwiftCore
 
 
+public enum W3WGpsButtonMode {
+  case inactive
+  case searching
+  case active
+}
+
+
 public class W3WGpsButton: W3WView {
   
   public var isEnabled: Bool = true
@@ -34,23 +41,34 @@ public class W3WGpsButton: W3WView {
   /// indicates if the ribbon is showing
   public var ribbonShowing = false
   
-  /// timer for animation
+  /// timer for indicator animation
   var timer: Timer?
+  
+  /// timer for the icon animation
+  var iconTimer: Timer?
+  
+  /// icon searching mode toggle
+  var searchPhase = false
   
   /// which side to shoot the ribbon out of
   var direction: W3WWritingDirection = .leftToRight
   
   var maxWidth: CGFloat = UIScreen.main.bounds.width - W3WPadding.light.value * 4.0
   
-  
+
   public init(scheme: W3WScheme? = nil, position: W3WViewPosition? = nil, onTap: @escaping () -> () = { }) {
     super.init(scheme: scheme?.with(cornerRadius: .circle).with(background: .clear))
     
     self.onTap = onTap
     
-    button = W3WRoundIconButton(image: .locationFill, scheme: scheme?.with(foreground: scheme?.colors?.tint), position: position, onTap: self.onTap)
+    button = W3WRoundIconButton(image: .mapGpsDefault, scheme: scheme?.with(foreground: scheme?.colors?.tint), position: position, onTap: self.onTap)
     button?.set(position: .absolute(rect: bounds))
     addSubview(button!)
+
+    W3WThread.runIn(duration: .defaultAnimationSpeed) { [weak self] in
+      self?.set(mode: .inactive)
+    }
+    
     button?.onTap = { [weak self] in self?.onTap() }
   }
   
@@ -61,9 +79,37 @@ public class W3WGpsButton: W3WView {
   }
   
   
-  public func set(image: W3WImage?) {
+  public func set(mode: W3WGpsButtonMode) {
+    iconTimer?.invalidate()
+    iconTimer = nil
+    
+    switch mode {
+      case .inactive:
+        set(image: .location, colors: .standard.with(foreground: scheme?.colors?.secondary))
+        
+      case .searching:
+        iconTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { [weak self] timer in
+          if self?.searchPhase ?? false {
+            self?.set(image: .locationFill, colors: .standard.with(foreground: self?.scheme?.colors?.separator))
+          } else {
+            self?.set(image: .location, colors: .standard.with(foreground: self?.scheme?.colors?.secondary))
+          }
+          self?.searchPhase.toggle()
+        }
+        
+      case .active:
+        set(image: .locationFill, colors: .standard.with(foreground: scheme?.colors?.tint))
+    }
+  }
+  
+  
+  public func set(image: W3WImage?, duration: W3WDuration = .defaultAnimationSpeed, colors: W3WColors? = nil) {
     if let i = image {
-      button?.set(image: i)
+      UIView.transition(with: button!, duration: duration.seconds, options: .transitionCrossDissolve) { [weak self] in
+        self?.button?.set(scheme: .standard.with(colors: colors))
+        self?.button?.set(image: i)
+      }
+      //button?.set(image: i)
     }
   }
   
@@ -97,7 +143,7 @@ public class W3WGpsButton: W3WView {
       ribbon = nil
       
       if let message = text {
-        let label = W3WLabel(text: message)
+        let label = W3WLabel(text: message, scheme: scheme?.with(background: .clear).with(foreground: scheme?.colors?.highlight?.foreground))
         label.alpha = 0.0
         label.sizeToFit()
         label.minimumScaleFactor = 0.5
@@ -105,7 +151,7 @@ public class W3WGpsButton: W3WView {
 
         let length = label.frame.width + W3WPadding.light.value * 2.0 // message.asAttributedString().size().width + frame.width + W3WPadding.light.value
         
-        ribbon = W3WView(scheme: scheme?.with(background: scheme?.colors?.secondaryBackground))
+        ribbon = W3WView(scheme: scheme?.with(background: scheme?.colors?.highlight?.background))
         ribbon?.set(position: .absolute(rect: CGRect(origin: CGPoint(x: 0.0, y: 0.0), size: CGSize(width: frame.height, height: frame.height))))
         ribbon?.addSubview(label)
         
@@ -192,5 +238,12 @@ public class W3WGpsButton: W3WView {
     }
   }
   
+
+  /// update subviews on redraw
+  open override func layoutSubviews() {
+    super.layoutSubviews()
+    button?.set(position: .absolute(rect: bounds))
+  }
+
   
 }
