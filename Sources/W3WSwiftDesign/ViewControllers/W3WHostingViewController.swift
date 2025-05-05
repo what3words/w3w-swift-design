@@ -50,7 +50,7 @@ open class W3WHostingViewController<T: View>: UIHostingController<T> {
   public func apply(scheme: W3WScheme?) {
     view.layer.cornerRadius = scheme?.styles?.cornerRadius?.value ?? 0.0
     view.layer.shadowColor = scheme?.colors?.shadow?.cgColor
-    view.layer.shadowOffset = CGSize(width: scheme?.styles?.shadow?.offset ?? 0.0, height: scheme?.styles?.shadow?.offset ?? 0.0)
+    view.layer.shadowOffset = CGSize(width: scheme?.styles?.shadow?.offsetX ?? 0.0, height: scheme?.styles?.shadow?.offsetY ?? 0.0)
     view.layer.shadowRadius = scheme?.styles?.shadow?.radius ?? 0.0
     view.layer.shadowOpacity = Float(scheme?.styles?.shadow?.opacity ?? 0.0)
   }
