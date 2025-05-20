@@ -9,37 +9,42 @@ import Foundation
 
 
 /// a store of positions that a view may move to
-class W3WDetents {
+public class W3WDetents {
   
   var detents = [CGFloat]()
 
   
-  init(detent: CGFloat) {
+  public init(detent: CGFloat) {
     add(detent: detent)
   }
 
+  
+  public init(detents: [CGFloat]) {
+    add(detents: detents)
+  }
 
-  func add(detent: CGFloat) {
+
+  public func add(detent: CGFloat) {
     detents.append(detent)
   }
   
   
-  func add(detents arr: [CGFloat]) {
+  public func add(detents arr: [CGFloat]) {
     detents.append(contentsOf: arr)
   }
   
   
-  func remove(detent: CGFloat) {
+  public func remove(detent: CGFloat) {
     detents.removeAll(where: { d in d == detent })
   }
   
   
-  func removeDetents() {
+  public func removeDetents() {
     detents.removeAll()
   }
 
   
-  func nearest(value: CGFloat) -> CGFloat {
+  public func nearest(value: CGFloat) -> CGFloat {
     var retval = 0.0
     var distance = CGFloat.greatestFiniteMagnitude
     
