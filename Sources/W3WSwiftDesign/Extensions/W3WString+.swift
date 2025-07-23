@@ -20,10 +20,10 @@ public extension W3WString {
   func withSlashes(
     color: W3WColor = .w3wBrandBase,
     font: UIFont? = nil,
-    language: W3WLanguage? = nil
+    language: W3WLanguage
   ) -> W3WString {
-    switch language?.direction() {
-    case .leftToRight, .topToBottom, .bottomToTop, nil:
+    switch language.direction() {
+    case .leftToRight, .topToBottom, .bottomToTop:
       string = removeLeadingSlashes().string
       return W3WString("///", color: color, font: font) + self
       
@@ -33,15 +33,6 @@ public extension W3WString {
     }
   }
   
-  
-  /// add w3w slashes to the text
-  /// - Parameters:
-  ///   - color: The colour to use
-  ///   - font: The font to use
-  func withSlashes(color: W3WColor = .w3wBrandBase, font: W3WFont?) -> W3WString {
-    return withSlashes(color: color, font: font?.uiFont)
-  }
-
   
   /// remove trailing `///` from text
   @discardableResult
