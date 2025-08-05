@@ -90,8 +90,8 @@ public extension UIView {
         layer.shadowOpacity = Float(shadow.opacity)
       }
       
-      if layer.shadowOffset != CGSize(width: shadow.offset, height: shadow.offset) {
-        layer.shadowOffset  = CGSize(width: shadow.offset, height: shadow.offset)
+      if layer.shadowOffset != CGSize(width: shadow.offsetX, height: shadow.offsetY) {
+        layer.shadowOffset  = CGSize(width: shadow.offsetX, height: shadow.offsetY)
       }
       
       if layer.shadowRadius != shadow.radius {

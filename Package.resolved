@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/what3words/w3w-swift-core.git",
         "state": {
           "branch": null,
-          "revision": "66e15157c8a355d55dfa019740667315ee56d9bc",
-          "version": "1.0.1"
+          "revision": "7fe8769bfbe105bcf3b05f42aeb8833673780ec1",
+          "version": "1.1.4"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/what3words/w3w-swift-themes.git",
         "state": {
           "branch": null,
-          "revision": "bd201b3c09d7d2cb7dc88423ea034de92fa3334b",
-          "version": "1.2.0"
+          "revision": "86035dcf1cf9ce5be7dc0a1a761fb5561b795b2c",
+          "version": "1.3.0"
         }
       }
     ]
