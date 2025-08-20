@@ -16,7 +16,7 @@ open class W3WBottomSheetViewController: W3WViewController, UIGestureRecognizerD
   
   var touchStartY: CGFloat?
   
-  public var detents: [CGFloat] = [W3WRowHeight.extraLarge.value]
+  public var detents = W3WDetents(detents: [W3WRowHeight.extraLarge.value])
   
   open override func viewDidLoad() {
     super.viewDidLoad()
@@ -44,16 +44,14 @@ open class W3WBottomSheetViewController: W3WViewController, UIGestureRecognizerD
       if sender.state == .ended {
         let touchEndY = sv.frame.height - sender.location(in: sv).y
         touchStartY = nil
-        if let nearest = detents.min(by: { abs($0 - touchEndY) < abs($1 - touchEndY) }) {
-          height = nearest
-        }
+        height = detents.nearest(value: touchEndY)
         w3wView?.set(position: .bottom(height: height), animate: .defaultAnimationSpeed)
 
       // if this is mid gesture, we move the view accordingly
       } else if let ts = touchStartY {
         let point = sender.location(in: sv)
         height = sv.frame.height - point.y + ts
-        if let max = detents.max() {
+        if let max = detents.maxValue {
           height = min(height, max)
         }
         w3wView?.set(position: .bottom(height: height))
