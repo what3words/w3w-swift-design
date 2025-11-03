@@ -16,7 +16,7 @@ open class W3WBottomSheetViewController: W3WViewController, UIGestureRecognizerD
   
   var touchStartY: CGFloat?
   
-  var detents = W3WDetents(detent: W3WRowHeight.extraLarge.value)
+  public var detents = W3WDetents(detents: [W3WRowHeight.extraLarge.value])
   
   open override func viewDidLoad() {
     super.viewDidLoad()
@@ -28,43 +28,10 @@ open class W3WBottomSheetViewController: W3WViewController, UIGestureRecognizerD
     w3wView?.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
   }
   
-  
-  // MARK: Accessors
-  
-  
-  /// add a place (y coord) that the sheet will snap to
-  public func add(detent: CGFloat) {
-    detents.add(detent: detent)
-  }
-  
-  
-  /// add places (y coord) that the sheet will snap to
-  public func add(detents arr: [CGFloat]) {
-    detents.add(detents: arr)
-  }
-  
-  
-  /// remove a place (y coord) that the sheet will snap to, if no such place, this does nothing
-  public func remove(detent: CGFloat) {
-    detents.remove(detent: detent)
-  }
-  
-  
-  /// remove a place (y coord) that the sheet will snap to, if no such place, this does nothing
-  public func removeDetents() {
-    detents.removeDetents()
-  }
-
-  /// returns the detents in use
-  public func getDetents() -> [CGFloat] {
-    return detents.detents
-  }
-  
   // MARK: Swiping
   
-
   @objc private func didSwipe(_ sender: UIPanGestureRecognizer) {
-    var height = 0.0
+    var height: CGFloat = 0.0
 
     if let sv = view.superview {
       
@@ -84,7 +51,7 @@ open class W3WBottomSheetViewController: W3WViewController, UIGestureRecognizerD
       } else if let ts = touchStartY {
         let point = sender.location(in: sv)
         height = sv.frame.height - point.y + ts
-        if let max = detents.detents.max() {
+        if let max = detents.maxValue {
           height = min(height, max)
         }
         w3wView?.set(position: .bottom(height: height))
