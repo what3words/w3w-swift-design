@@ -5,9 +5,9 @@
         "package": "w3w-swift-core",
         "repositoryURL": "https://github.com/what3words/w3w-swift-core.git",
         "state": {
-          "branch": null,
-          "revision": "3e2e9859f3e7b42640fd12a689bcab26dadf19e4",
-          "version": "1.1.5"
+          "branch": "staging",
+          "revision": "1e38676bf065d6c3411895fe2c47bab04c56bba0",
+          "version": null
         }
       },
       {
