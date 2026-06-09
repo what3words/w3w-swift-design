@@ -20,7 +20,7 @@ public extension W3WString {
   func withSlashes(
     color: W3WColor = .w3wBrandBase,
     font: UIFont? = nil,
-    language: W3WLanguage
+    language: any W3WRfcLanguageProtocol
   ) -> W3WString {
     switch language.direction() {
     case .leftToRight, .topToBottom, .bottomToTop:
