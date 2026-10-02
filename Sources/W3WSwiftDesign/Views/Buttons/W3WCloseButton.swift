@@ -73,6 +73,39 @@ public class W3WCloseButton: W3WButton {
     imageView?.contentMode = .scaleAspectFit
   }
   
+  /// Colours come from the theme: the glyph uses `labelsPrimary`, the backing uses `fillsSenary`; the blur stays.
+  @available(iOS 13.0, *)
+  public init(
+    theme: W3WTheme,
+    size: CGFloat = 60.0,
+    inset: CGFloat = 16.0,
+    roundedCorners: Bool = true,
+    imageConfiguration: UIImage.Configuration? = nil,
+    accessibilityLabel: String? = nil,
+    onTouch: @escaping (() -> Void) = {}
+  ) {
+    self.size = size
+    self.inset = inset
+    self.roundedCorners = roundedCorners
+    let colors = W3WColors(foreground: theme.labelsPrimary, background: theme.fillsSenary)
+    let styles: W3WStyles = .standard
+      .with(visualEffect: W3WVisualEffect(style: .thin,
+                                          fill: .tertiaryFill,
+                                          padding: W3WPadding(value: inset),
+                                          cornerRadius: roundedCorners ? W3WCornerRadius(value: (size - inset * 2.0) / 2.0) : 0.0))
+      .with(padding: W3WPadding(value: inset + 7.0))
+    let scheme = W3WScheme(colors: colors, styles: styles)
+    let w3wImage: W3WImage = W3WNavigationControl.close.image
+    if let imageConfiguration = imageConfiguration {
+      w3wImage.setImageConfiguration(imageConfiguration)
+    }
+    super.init(image: w3wImage, scheme: scheme, onTap: onTouch)
+    translatesAutoresizingMaskIntoConstraints = false
+    imageView?.contentMode = .scaleAspectFit
+    self.accessibilityLabel = accessibilityLabel ?? W3WNavigationControl.close.defaultAccessibilityLabel
+    accessibilityIdentifier = W3WNavigationControl.close.accessibilityIdentifier
+  }
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
