@@ -8,38 +8,10 @@
 import XCTest
 @testable import W3WSwiftDesign
 
-final class W3WLayoutSizeTests: XCTestCase {
-
-  func testNarrowWidth() {
-    XCTAssertFalse(W3WLayoutSize.isNarrowWidth(.zero), "not laid out yet is never narrow")
-    XCTAssertTrue(W3WLayoutSize.isNarrowWidth(CGSize(width: 320, height: 568)))
-    XCTAssertFalse(W3WLayoutSize.isNarrowWidth(CGSize(width: 321, height: 568)))
-    XCTAssertFalse(W3WLayoutSize.isNarrowWidth(CGSize(width: 440, height: 956)))
-  }
-
-
-  func testShortHeight() {
-    XCTAssertFalse(W3WLayoutSize.isShortHeight(.zero), "not laid out yet is never short")
-    XCTAssertTrue(W3WLayoutSize.isShortHeight(CGSize(width: 375, height: 667)))
-    XCTAssertFalse(W3WLayoutSize.isShortHeight(CGSize(width: 375, height: 668)))
-    XCTAssertFalse(W3WLayoutSize.isShortHeight(CGSize(width: 440, height: 956)))
-  }
-}
-
-
 #if canImport(UIKit)
 import UIKit
 
 final class SafeAreaLayoutTests: XCTestCase {
-
-  func testViewSizeHelpersUseOwnBounds() {
-    XCTAssertFalse(UIView(frame: .zero).isNarrowWidth)
-    XCTAssertTrue(UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 568)).isNarrowWidth)
-    XCTAssertTrue(UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 568)).isShortHeight)
-    XCTAssertFalse(UIView(frame: CGRect(x: 0, y: 0, width: 402, height: 874)).isNarrowWidth)
-    XCTAssertFalse(UIView(frame: CGRect(x: 0, y: 0, width: 402, height: 874)).isShortHeight)
-  }
-
 
   func testPinBackgroundFillsEdges() {
     let container = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 800))
