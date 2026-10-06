@@ -54,4 +54,22 @@ final class W3WBarButtonItemTests: XCTestCase {
     XCTAssertEqual(item.accessibilityIdentifier, "edit")
     XCTAssertEqual(item.tintColor, W3WTheme.what3words.labelsTertiary?.uiColor)
   }
+
+  func testSchemeTintWinsOverTheme() {
+    let scheme = W3WScheme(colors: W3WColors(foreground: .white, tint: W3WColor(light: .core.red50, dark: .core.red50)))
+    let item = W3WBarButtonItem.close(theme: .what3words, scheme: scheme) { }
+    XCTAssertEqual(item.tintColor, W3WColor(light: .core.red50, dark: .core.red50).uiColor)
+  }
+
+  func testLegacyCloseButtonNowHasAccessibility() {
+    let button = W3WCloseButton()
+    XCTAssertEqual(button.accessibilityLabel, "Close")
+    XCTAssertEqual(button.accessibilityIdentifier, "navigation_bar_close")
+  }
+
+  func testSchemeCloseButtonUsesSchemeColours() {
+    let scheme = W3WScheme(colors: W3WColors(foreground: .white, background: W3WColor(light: .core.grey90, dark: .core.grey22)))
+    let button = W3WCloseButton(scheme: scheme)
+    XCTAssertEqual(button.scheme?.colors?.background?.current, W3WColor(light: .core.grey90, dark: .core.grey22).current)
+  }
 }
