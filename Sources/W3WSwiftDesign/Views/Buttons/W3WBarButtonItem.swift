@@ -37,7 +37,7 @@ public class W3WBarButtonItem: UIBarButtonItem {
                           tint: W3WColor? = nil,
                           accessibilityLabel: String? = nil,
                           action: @escaping () -> Void) {
-    self.init(image: control.image.get(),
+    self.init(image: control.templateImage,
               control: control,
               theme: theme,
               scheme: scheme,

@@ -21,6 +21,20 @@ public enum W3WNavigationControl {
     }
   }
 
+  /// SF Symbol behind `image`, mirrored the same way.
+  public var symbolName: String {
+    switch self {
+    case .close: return "xmark"
+    case .back: return W3WNavigationControl.isRightToLeft ? "chevron.right" : "chevron.left"
+    }
+  }
+
+  /// The glyph as a plain template symbol, for bar items. `W3WImage.get()` bakes palette colours into the symbol,
+  /// and a palette-configured symbol ignores `tintColor`, so the item could never re-tint on a theme change.
+  public var templateImage: UIImage {
+    UIImage(systemName: symbolName)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
+  }
+
   public var accessibilityIdentifier: String {
     switch self {
     case .close: return "navigation_bar_close"
