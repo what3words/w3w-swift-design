@@ -72,4 +72,51 @@ final class W3WBarButtonItemTests: XCTestCase {
     let button = W3WCloseButton(scheme: scheme)
     XCTAssertEqual(button.scheme?.colors?.background?.current, W3WColor(light: .core.grey90, dark: .core.grey22).current)
   }
+
+  /// Palette-configured symbols ignore `tintColor`, which left the glyph stuck in its creation-time colour.
+  func testCloseGlyphTakesTheItemTint() {
+    XCTAssertTrue(Self.rendersRed(W3WBarButtonItem.close(theme: .what3words) { }), "the close glyph must take the item tint")
+  }
+
+  func testBackGlyphTakesTheItemTint() {
+    XCTAssertTrue(Self.rendersRed(W3WBarButtonItem.back(theme: .what3words) { }), "the back glyph must take the item tint")
+  }
+
+  /// The harness itself: a plain template symbol tints, the palette-baked `W3WImage` glyph does not.
+  func testHarnessTellsTemplateFromPaletteGlyphs() {
+    let template = UIImage(systemName: "xmark")!.withRenderingMode(.alwaysTemplate)
+    XCTAssertTrue(Self.rendersRed(UIBarButtonItem(image: template, style: .plain, target: nil, action: nil)))
+    let baked = W3WImage.xmark.get().withRenderingMode(.alwaysTemplate)
+    XCTAssertFalse(Self.rendersRed(UIBarButtonItem(image: baked, style: .plain, target: nil, action: nil)))
+  }
+
+  /// Shows the item's glyph in a red-tinted image view and reports whether any opaque pixel came out red,
+  /// the way a bar button applies `tintColor`: a template symbol tints, a palette-configured one keeps its baked colours.
+  private static func rendersRed(_ item: UIBarButtonItem) -> Bool {
+    let view = UIImageView(image: item.image)
+    view.tintColor = .red
+    view.contentMode = .scaleAspectFit
+    view.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+    let rendered = UIGraphicsImageRenderer(bounds: view.bounds).image { view.layer.render(in: $0.cgContext) }
+    guard let cg = rendered.cgImage, let data = cg.dataProvider?.data, let bytes = CFDataGetBytePtr(data) else { return false }
+    let bytesPerPixel = cg.bitsPerPixel / 8
+    // Channel order in memory depends on the context: the renderer gives little-endian BGRA.
+    let little = cg.bitmapInfo.contains(.byteOrder32Little)
+    let alphaFirst = [.premultipliedFirst, .first, .noneSkipFirst].contains(cg.alphaInfo)
+    let (ri, gi, bi, ai): (Int, Int, Int, Int)
+    switch (little, alphaFirst) {
+    case (false, true): (ri, gi, bi, ai) = (1, 2, 3, 0)
+    case (false, false): (ri, gi, bi, ai) = (0, 1, 2, 3)
+    case (true, true): (ri, gi, bi, ai) = (2, 1, 0, 3)
+    case (true, false): (ri, gi, bi, ai) = (3, 2, 1, 0)
+    }
+    for y in 0..<cg.height {
+      for x in 0..<cg.width {
+        let i = y * cg.bytesPerRow + x * bytesPerPixel
+        let (r, g, b, a) = (Int(bytes[i + ri]), Int(bytes[i + gi]), Int(bytes[i + bi]), Int(bytes[i + ai]))
+        if a > 128 && r > a / 2 && g < a / 4 && b < a / 4 { return true }
+      }
+    }
+    return false
+  }
 }
