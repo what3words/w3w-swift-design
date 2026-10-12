@@ -4,15 +4,15 @@ import W3WSwiftThemes
 
 final class W3WBarButtonItemTests: XCTestCase {
 
-  func testCloseItemOptsOutOfLiquidGlass() {
+  func testCloseItemKeepsTheSystemGlassCircle() {
     let item = W3WBarButtonItem.close(theme: .what3words, accessibilityLabel: "Fermer") { }
-    XCTAssertEqual(item.style, .plain)
+    XCTAssertEqual(item.style, .plain, "`.done` would fill the circle with the tint")
     XCTAssertEqual(item.image?.renderingMode, .alwaysTemplate)
     XCTAssertEqual(item.accessibilityLabel, "Fermer")
     XCTAssertEqual(item.accessibilityIdentifier, "navigation_bar_close")
-    XCTAssertEqual(item.tintColor, W3WTheme.what3words.labelsTertiary?.uiColor)
+    XCTAssertEqual(item.tintColor, W3WTheme.what3words.labelsPrimaryBlackInverse?.uiColor)
     if #available(iOS 26.0, *) {
-      XCTAssertTrue(item.hidesSharedBackground)
+      XCTAssertFalse(item.hidesSharedBackground)
     }
   }
 
@@ -47,12 +47,18 @@ final class W3WBarButtonItemTests: XCTestCase {
     XCTAssertEqual(button.scheme?.colors?.foreground?.current, W3WColor.white.current)
   }
 
-  func testGenericIconItemOptsOutToo() {
+  func testGenericIconItemSharesTheLook() {
     let item = W3WBarButtonItem(image: UIImage(systemName: "pencil")!, theme: .what3words, accessibilityLabel: "Edit", accessibilityIdentifier: "edit") { }
     XCTAssertNil(item.control)
     XCTAssertEqual(item.style, .plain)
     XCTAssertEqual(item.accessibilityIdentifier, "edit")
-    XCTAssertEqual(item.tintColor, W3WTheme.what3words.labelsTertiary?.uiColor)
+    XCTAssertEqual(item.tintColor, W3WTheme.what3words.labelsPrimaryBlackInverse?.uiColor)
+  }
+
+  func testGlyphTintIsBlackInLightAndWhiteInDark() {
+    let tint = W3WNavigationControl.glyphTint(from: .what3words)
+    XCTAssertEqual(tint?[.light], W3WCoreColor.black)
+    XCTAssertEqual(tint?[.dark], W3WCoreColor.white)
   }
 
   func testSchemeTintWinsOverTheme() {
