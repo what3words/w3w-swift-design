@@ -8,13 +8,13 @@
 import UIKit
 import W3WSwiftThemes
 
-/// Close or back bar item without the Liquid Glass tinted circle: `.plain` style, no shared background, theme tint.
+/// Close or back bar item in the system glass circle: `.plain` style (never the tint-filled `.done` look), glyph in the theme's black/white label colour.
 public class W3WBarButtonItem: UIBarButtonItem {
   /// Nil for a generic icon item.
   public let control: W3WNavigationControl?
   private let onTap: () -> Void
 
-  /// Tint precedence: `tint`, then the scheme's tint or foreground, then the theme's nav token.
+  /// Tint precedence: `tint`, then the scheme's tint or foreground, then the theme's black/white glyph colour.
   public static func close(theme: W3WTheme? = nil,
                            scheme: W3WScheme? = nil,
                            tint: W3WColor? = nil,
@@ -47,7 +47,7 @@ public class W3WBarButtonItem: UIBarButtonItem {
               action: action)
   }
 
-  /// Any icon bar item with the same opt-out: `.plain`, no shared background, theme tint.
+  /// Any icon bar item with the same look: `.plain` in the system glass circle, theme glyph colour.
   public convenience init(image: UIImage,
                           theme: W3WTheme? = nil,
                           scheme: W3WScheme? = nil,
@@ -80,12 +80,10 @@ public class W3WBarButtonItem: UIBarButtonItem {
     style = .plain
     target = self
     self.action = #selector(tapped)
-    tintColor = (tint ?? scheme?.colors?.tint ?? scheme?.colors?.foreground ?? W3WNavigationControl.tint(from: theme))?.uiColor
+    // The system glass circle stays (Design, 2026-10-12); `.plain` keeps it from being tint-filled like `.done`.
+    tintColor = (tint ?? scheme?.colors?.tint ?? scheme?.colors?.foreground ?? W3WNavigationControl.glyphTint(from: theme))?.uiColor
     self.accessibilityLabel = accessibilityLabel
     self.accessibilityIdentifier = accessibilityIdentifier
-    if #available(iOS 26.0, *) {
-      hidesSharedBackground = true
-    }
   }
 
   required init?(coder: NSCoder) {
