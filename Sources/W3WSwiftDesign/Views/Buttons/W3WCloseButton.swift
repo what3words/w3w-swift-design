@@ -7,12 +7,20 @@
 
 import UIKit
 
-/// In-content circular close button: an X on a thin blur. The original inits keep their white glyph for
-/// camera feeds; the theme and scheme inits take both colours from the design system.
+/// In-content circular close button. On iOS 26+ it is the same system glass circle as the nav bar items
+/// (`UIGlassEffect`, black/white glyph) whatever init is used; before that it is an X on a thin blur, where the
+/// original inits keep their white glyph for camera feeds and the theme/scheme inits take both colours from the design system.
 public class W3WCloseButton: W3WButton {
+  /// Diameter of the glass circle on iOS 26+, matching the system bar item.
+  public static let glassSize: CGFloat = 44
+  /// Glyph size inside the glass circle, matching the nav bar items.
+  public static let glassGlyphSize: CGFloat = 24
+
   let size: CGFloat
   let inset: CGFloat
   let roundedCorners: Bool
+  /// True when a caller supplied its own scheme colours; otherwise the glass glyph follows the device appearance.
+  private var usesExplicitColors = false
 
   public init(
     size: CGFloat = 60.0,
@@ -83,8 +91,9 @@ public class W3WCloseButton: W3WButton {
     self.roundedCorners = roundedCorners
     let colors = W3WColors(foreground: scheme.colors?.tint ?? scheme.colors?.foreground, background: scheme.colors?.background)
     super.init(image: W3WCloseButton.glyph(imageConfiguration),
-               scheme: W3WCloseButton.scheme(colors: colors, size: size, inset: inset, roundedCorners: roundedCorners),
+               scheme: W3WCloseButton.scheme(colors: colors, size: size, inset: inset, roundedCorners: roundedCorners, explicitColors: true),
                onTap: onTouch)
+    usesExplicitColors = true
     finishSetup(accessibilityLabel: accessibilityLabel)
   }
 
@@ -94,7 +103,15 @@ public class W3WCloseButton: W3WButton {
 
   // MARK: - Shared pieces
 
-  private static func scheme(colors: W3WColors, size: CGFloat, inset: CGFloat, roundedCorners: Bool) -> W3WScheme {
+  /// `explicitColors`: a caller-supplied scheme keeps its colours on the glass; the default and theme inits take the bar items' black/white glyph.
+  private static func scheme(colors: W3WColors, size: CGFloat, inset: CGFloat, roundedCorners: Bool, explicitColors: Bool = false) -> W3WScheme {
+    if #available(iOS 26.0, *) {
+      // The glass circle is a subview (see `addGlass`); the scheme only sizes the glyph and colours it like the bar items.
+      let glyphInset = max(0, (size - glassGlyphSize) / 2)
+      let styles: W3WStyles = .standard.with(padding: W3WPadding(value: glyphInset))
+      let glassColors = explicitColors ? colors : W3WColors(foreground: W3WNavigationControl.glyphTint(from: nil))
+      return W3WScheme(colors: glassColors, styles: styles)
+    }
     let styles: W3WStyles = .standard
       .with(visualEffect: W3WVisualEffect(style: .thin,
                                           fill: .tertiaryFill,
@@ -118,5 +135,42 @@ public class W3WCloseButton: W3WButton {
     imageView?.contentMode = .scaleAspectFit
     self.accessibilityLabel = accessibilityLabel ?? W3WNavigationControl.close.defaultAccessibilityLabel
     accessibilityIdentifier = W3WNavigationControl.close.accessibilityIdentifier
+    if #available(iOS 26.0, *) {
+      addGlass()
+    }
+    // `W3WButton` applies the scheme on the next run-loop turn; the glass glyph must be right from the first frame.
+    applyGlassGlyphIfNeeded()
+  }
+
+  /// On the glass the glyph is a template symbol tinted by the device appearance (like the glass itself), unless a
+  /// caller chose its own colours. Re-applied after every scheme update because `W3WButton` bakes the scheme colour in.
+  public override func update(scheme: W3WScheme?) {
+    super.update(scheme: scheme)
+    applyGlassGlyphIfNeeded()
+  }
+
+  private func applyGlassGlyphIfNeeded() {
+    guard #available(iOS 26.0, *), !usesExplicitColors else { return }
+    let tint = W3WNavigationControl.glyphTintColor(from: nil)
+    setImage(W3WNavigationControl.close.templateImage, for: .normal)
+    tintColor = tint
+    imageView?.tintColor = tint
+  }
+
+  /// System glass circle behind the glyph, centred, the size of a bar item. A `UIVisualEffectView` subview also keeps
+  /// `W3WButton` from adding its own blur.
+  @available(iOS 26.0, *)
+  private func addGlass() {
+    let glass = UIVisualEffectView(effect: UIGlassEffect())
+    glass.cornerConfiguration = .capsule()
+    glass.isUserInteractionEnabled = false
+    glass.translatesAutoresizingMaskIntoConstraints = false
+    insertSubview(glass, at: 0)
+    NSLayoutConstraint.activate([
+      glass.centerXAnchor.constraint(equalTo: centerXAnchor),
+      glass.centerYAnchor.constraint(equalTo: centerYAnchor),
+      glass.widthAnchor.constraint(equalToConstant: Self.glassSize),
+      glass.heightAnchor.constraint(equalToConstant: Self.glassSize)
+    ])
   }
 }

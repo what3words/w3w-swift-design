@@ -81,7 +81,7 @@ public class W3WBarButtonItem: UIBarButtonItem {
     target = self
     self.action = #selector(tapped)
     // The system glass circle stays (Design, 2026-10-12); `.plain` keeps it from being tint-filled like `.done`.
-    tintColor = (tint ?? scheme?.colors?.tint ?? scheme?.colors?.foreground ?? W3WNavigationControl.glyphTint(from: theme))?.uiColor
+    tintColor = (tint ?? scheme?.colors?.tint ?? scheme?.colors?.foreground)?.uiColor ?? W3WNavigationControl.glyphTintColor(from: theme)
     self.accessibilityLabel = accessibilityLabel
     self.accessibilityIdentifier = accessibilityIdentifier
   }
