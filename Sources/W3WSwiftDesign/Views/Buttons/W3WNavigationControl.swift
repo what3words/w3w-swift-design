@@ -60,6 +60,13 @@ public enum W3WNavigationControl {
     (theme ?? .what3words).labelsPrimaryBlackInverse
   }
 
+  /// `glyphTint` as a trait-driven `UIColor`: the glass circle follows the device appearance, not the app's own
+  /// colour-mode setting, so the glyph must resolve against the same trait or it vanishes on a mismatched mode.
+  public static func glyphTintColor(from theme: W3WTheme?) -> UIColor {
+    let tint = glyphTint(from: theme) ?? W3WColor(light: .black, dark: .white)
+    return UIColor { traits in (traits.userInterfaceStyle == .dark ? tint[.dark] : tint[.light]).uiColor }
+  }
+
   public static var isRightToLeft: Bool {
     UIView.userInterfaceLayoutDirection(for: UIView.appearance().semanticContentAttribute) == .rightToLeft
   }

@@ -10,10 +10,16 @@ final class W3WBarButtonItemTests: XCTestCase {
     XCTAssertEqual(item.image?.renderingMode, .alwaysTemplate)
     XCTAssertEqual(item.accessibilityLabel, "Fermer")
     XCTAssertEqual(item.accessibilityIdentifier, "navigation_bar_close")
-    XCTAssertEqual(item.tintColor, W3WTheme.what3words.labelsPrimaryBlackInverse?.uiColor)
+    XCTAssertEqual(Self.resolved(item.tintColor, .light), W3WCoreColor.black.uiColor)
+    XCTAssertEqual(Self.resolved(item.tintColor, .dark), W3WCoreColor.white.uiColor)
     if #available(iOS 26.0, *) {
       XCTAssertFalse(item.hidesSharedBackground)
     }
+  }
+
+  /// The glass follows the device appearance, so the glyph colour must be trait-driven, not the app's colour mode.
+  private static func resolved(_ color: UIColor?, _ style: UIUserInterfaceStyle) -> UIColor? {
+    color?.resolvedColor(with: UITraitCollection(userInterfaceStyle: style))
   }
 
   func testBackItemKeepsTheExistingTestIdentifier() {
@@ -39,12 +45,36 @@ final class W3WBarButtonItemTests: XCTestCase {
     let button = W3WCloseButton(theme: .what3words, accessibilityLabel: "Fermer")
     XCTAssertEqual(button.accessibilityLabel, "Fermer")
     XCTAssertEqual(button.accessibilityIdentifier, "navigation_bar_close")
-    XCTAssertEqual(button.scheme?.colors?.foreground?.current, W3WTheme.what3words.labelsPrimary?.current)
+    if #available(iOS 26.0, *) {
+      XCTAssertEqual(button.scheme?.colors?.foreground?.current, W3WTheme.what3words.labelsPrimaryBlackInverse?.current)
+    } else {
+      XCTAssertEqual(button.scheme?.colors?.foreground?.current, W3WTheme.what3words.labelsPrimary?.current)
+    }
   }
 
   func testUntouchedCloseButtonLooksAsBefore() {
     let button = W3WCloseButton()
-    XCTAssertEqual(button.scheme?.colors?.foreground?.current, W3WColor.white.current)
+    if #available(iOS 26.0, *) {
+      XCTAssertEqual(button.scheme?.colors?.foreground?.current, W3WTheme.what3words.labelsPrimaryBlackInverse?.current)
+    } else {
+      XCTAssertEqual(button.scheme?.colors?.foreground?.current, W3WColor.white.current)
+    }
+  }
+
+  /// On iOS 26 every close button carries the same system glass circle as the bar items, whatever init made it.
+  func testCloseButtonCarriesTheSystemGlassCircle() throws {
+    guard #available(iOS 26.0, *) else { throw XCTSkip("no glass before iOS 26") }
+    for button in [W3WCloseButton(), W3WCloseButton(theme: .what3words), W3WCloseButton(scheme: W3WScheme(colors: W3WColors(foreground: .white)))] {
+      let glass = button.subviews.compactMap { $0 as? UIVisualEffectView }.first
+      XCTAssertNotNil(glass)
+      XCTAssertTrue(glass?.effect is UIGlassEffect)
+      XCTAssertNil(button.scheme?.styles?.visualEffect, "the old blur must not be added on top of the glass")
+    }
+    let plain = W3WCloseButton()
+    plain.layoutIfNeeded()
+    XCTAssertEqual(plain.image(for: .normal)?.renderingMode, .alwaysTemplate, "glass glyph must be tintable")
+    XCTAssertEqual(Self.resolved(plain.tintColor, .light), W3WCoreColor.black.uiColor)
+    XCTAssertEqual(Self.resolved(plain.tintColor, .dark), W3WCoreColor.white.uiColor)
   }
 
   func testGenericIconItemSharesTheLook() {
@@ -52,7 +82,8 @@ final class W3WBarButtonItemTests: XCTestCase {
     XCTAssertNil(item.control)
     XCTAssertEqual(item.style, .plain)
     XCTAssertEqual(item.accessibilityIdentifier, "edit")
-    XCTAssertEqual(item.tintColor, W3WTheme.what3words.labelsPrimaryBlackInverse?.uiColor)
+    XCTAssertEqual(Self.resolved(item.tintColor, .light), W3WCoreColor.black.uiColor)
+    XCTAssertEqual(Self.resolved(item.tintColor, .dark), W3WCoreColor.white.uiColor)
   }
 
   func testGlyphTintIsBlackInLightAndWhiteInDark() {
